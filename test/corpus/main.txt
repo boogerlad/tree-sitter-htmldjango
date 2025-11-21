@@ -13,7 +13,7 @@ Tags
         (tag_name)))))
 
 ===================================
-Tags with attributes
+Void tag with attributes and stray end
 ===================================
 <input value=yes class="a" data-test></input>
 ---
@@ -34,6 +34,28 @@ Tags with attributes
   (element
     (erroneous_end_tag
       (erroneous_end_tag_name))))
+
+===================================
+Tags with attributes
+===================================
+<div value=yes class="a" data-💩></div>
+---
+
+(document
+  (element
+    (normal_element
+      (tag_name)
+      (attribute
+        (attribute_name)
+        (attribute_value))
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value)))
+      (attribute
+        (attribute_name))
+      (end_tag
+        (tag_name)))))
 
 ===================================
 Nested tags
@@ -114,6 +136,20 @@ Void tags at EOF
         (attribute_name)
         (quoted_attribute_value
           (attribute_value))))))
+
+==================================
+Void end tag is erroneous
+==================================
+<br></br>
+---
+
+(document
+  (element
+    (void_element
+      (tag_name)))
+  (element
+    (erroneous_end_tag
+      (erroneous_end_tag_name))))
 
 ==================================
 Custom tags
@@ -559,6 +595,21 @@ RCDATA textarea
         (tag_name)))))
 
 ==================================
+RCDATA entities
+==================================
+<title>1 < 2 &amp; 3</title>
+---
+
+(document
+  (element
+    (rcdata_element
+      (start_tag
+        (tag_name))
+      (rcdata_text)
+      (end_tag
+        (tag_name)))))
+
+==================================
 Plaintext
 ==================================
 <plaintext><b>
@@ -570,6 +621,30 @@ Plaintext
       (start_tag
         (tag_name))
       (plaintext_text))))
+
+==================================
+Plaintext with closing tag
+==================================
+<plaintext><b></plaintext>
+---
+
+(document
+  (element
+    (plaintext_element
+      (start_tag
+        (tag_name))
+      (plaintext_text))))
+
+==================================
+Slash-terminated HTML tag
+==================================
+<div/>
+---
+
+(document
+  (element
+    (normal_element
+      (tag_name))))
 
 ==================================
 HTML slash terminator
@@ -611,6 +686,27 @@ Foreign case-sensitive names
   (element
     (foreign_element
       (tag_name)
+      (element
+        (foreign_element
+          (tag_name)
+          (end_tag
+            (tag_name))))
+      (end_tag
+        (tag_name)))))
+
+==================================
+Foreign content
+==================================
+<svg><path/><linearGradient></linearGradient></svg>
+---
+
+(document
+  (element
+    (foreign_element
+      (tag_name)
+      (element
+        (foreign_element
+          (tag_name)))
       (element
         (foreign_element
           (tag_name)

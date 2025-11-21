@@ -26,8 +26,6 @@ typedef struct {
     Array(Tag) tags;
 } Scanner;
 
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
-
 static inline void advance(TSLexer *lexer) { lexer->advance(lexer, false); }
 
 static inline void skip(TSLexer *lexer) { lexer->advance(lexer, true); }
@@ -251,11 +249,14 @@ static void pop_tag(Scanner *scanner) {
 }
 
 static bool scan_implicit_end_tag(Scanner *scanner, TSLexer *lexer) {
-    if (in_foreign_content(scanner) && !lexer->eof(lexer)) {
-        return false;
-    }
-
+    bool foreign = in_foreign_content(scanner);
     Tag *parent = scanner->tags.size == 0 ? NULL : array_back(&scanner->tags);
+
+    if (!foreign && parent && lexer->eof(lexer)) {
+        pop_tag(scanner);
+        lexer->result_symbol = IMPLICIT_END_TAG;
+        return true;
+    }
 
     bool is_closing_tag = false;
     if (lexer->lookahead == '/') {
@@ -269,7 +270,8 @@ static bool scan_implicit_end_tag(Scanner *scanner, TSLexer *lexer) {
         }
     }
 
-    String tag_name = scan_tag_name(lexer, true);
+    bool uppercase = !foreign || (parent && parent->type != CUSTOM);
+    String tag_name = scan_tag_name(lexer, uppercase);
     if (tag_name.size == 0 && !lexer->eof(lexer)) {
         array_delete(&tag_name);
         return false;
@@ -287,7 +289,7 @@ static bool scan_implicit_end_tag(Scanner *scanner, TSLexer *lexer) {
         // Otherwise, dig deeper and queue implicit end tags (to be nice in
         // the case of malformed HTML)
         for (unsigned i = scanner->tags.size; i > 0; i--) {
-            if (scanner->tags.contents[i - 1].type == next_tag.type) {
+            if (tag_eq(&scanner->tags.contents[i - 1], &next_tag)) {
                 pop_tag(scanner);
                 lexer->result_symbol = IMPLICIT_END_TAG;
                 tag_free(&next_tag);
@@ -296,6 +298,7 @@ static bool scan_implicit_end_tag(Scanner *scanner, TSLexer *lexer) {
         }
     } else if (
         parent &&
+        !foreign &&
         (
             !tag_can_contain(parent, &next_tag) ||
             ((parent->type == HTML || parent->type == HEAD || parent->type == BODY) && lexer->eof(lexer))

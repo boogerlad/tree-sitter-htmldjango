@@ -119,12 +119,12 @@ typedef enum {
     TD,
     TEMPLATE,
     TEXTAREA,
-    PLAINTEXT,
     TFOOT,
     TH,
     THEAD,
     TIME,
     TITLE,
+    PLAINTEXT,
     TR,
     U,
     UL,
@@ -148,7 +148,7 @@ typedef struct {
     String custom_tag_name;
 } Tag;
 
-static const TagMapEntry TAG_TYPES_BY_TAG_NAME[127] = {
+static const TagMapEntry TAG_TYPES_BY_TAG_NAME[] = {
     {"AREA",       AREA      },
     {"BASE",       BASE      },
     {"BASEFONT",   BASEFONT  },
@@ -263,12 +263,12 @@ static const TagMapEntry TAG_TYPES_BY_TAG_NAME[127] = {
     {"TD",         TD        },
     {"TEMPLATE",   TEMPLATE  },
     {"TEXTAREA",   TEXTAREA  },
-    {"PLAINTEXT",  PLAINTEXT },
     {"TFOOT",      TFOOT     },
     {"TH",         TH        },
     {"THEAD",      THEAD     },
     {"TIME",       TIME      },
     {"TITLE",      TITLE     },
+    {"PLAINTEXT",  PLAINTEXT },
     {"TR",         TR        },
     {"U",          U         },
     {"UL",         UL        },
@@ -285,7 +285,8 @@ static const TagType TAG_TYPES_NOT_ALLOWED_IN_PARAGRAPHS[] = {
 };
 
 static TagType tag_type_for_name(const String *tag_name) {
-    for (int i = 0; i < 127; i++) {
+    const size_t tag_count = sizeof(TAG_TYPES_BY_TAG_NAME) / sizeof(TagMapEntry);
+    for (size_t i = 0; i < tag_count; i++) {
         const TagMapEntry *entry = &TAG_TYPES_BY_TAG_NAME[i];
         if (
             strlen(entry->tag_name) == tag_name->size &&
@@ -392,7 +393,7 @@ static bool tag_can_contain(Tag *self, const Tag *other) {
             return child != THEAD && child != TBODY && child != TFOOT;
 
         case CAPTION:
-            return child != CAPTION && child != THEAD && child != TBODY && child != TFOOT;
+            return child != CAPTION && child != COLGROUP && child != THEAD && child != TBODY && child != TFOOT && child != TR;
 
         default:
             return true;
