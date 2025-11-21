@@ -119,6 +119,7 @@ typedef enum {
     TD,
     TEMPLATE,
     TEXTAREA,
+    PLAINTEXT,
     TFOOT,
     TH,
     THEAD,
@@ -147,7 +148,7 @@ typedef struct {
     String custom_tag_name;
 } Tag;
 
-static const TagMapEntry TAG_TYPES_BY_TAG_NAME[126] = {
+static const TagMapEntry TAG_TYPES_BY_TAG_NAME[127] = {
     {"AREA",       AREA      },
     {"BASE",       BASE      },
     {"BASEFONT",   BASEFONT  },
@@ -262,6 +263,7 @@ static const TagMapEntry TAG_TYPES_BY_TAG_NAME[126] = {
     {"TD",         TD        },
     {"TEMPLATE",   TEMPLATE  },
     {"TEXTAREA",   TEXTAREA  },
+    {"PLAINTEXT",  PLAINTEXT },
     {"TFOOT",      TFOOT     },
     {"TH",         TH        },
     {"THEAD",      THEAD     },
@@ -283,7 +285,7 @@ static const TagType TAG_TYPES_NOT_ALLOWED_IN_PARAGRAPHS[] = {
 };
 
 static TagType tag_type_for_name(const String *tag_name) {
-    for (int i = 0; i < 126; i++) {
+    for (int i = 0; i < 127; i++) {
         const TagMapEntry *entry = &TAG_TYPES_BY_TAG_NAME[i];
         if (
             strlen(entry->tag_name) == tag_name->size &&
@@ -365,17 +367,32 @@ static bool tag_can_contain(Tag *self, const Tag *other) {
         case RB:
         case RT:
         case RP:
-            return child != RB && child != RT && child != RP;
+        case RTC:
+            return child != RB && child != RT && child != RP && child != RTC;
 
         case OPTGROUP:
             return child != OPTGROUP;
 
+        case OPTION:
+            return child != OPTION && child != OPTGROUP;
+
+        case SELECT:
+            return child == OPTION || child == OPTGROUP || child == SCRIPT || child == TEMPLATE;
+
         case TR:
-            return child != TR;
+            return child != TR && child != THEAD && child != TBODY && child != TFOOT;
 
         case TD:
         case TH:
             return child != TD && child != TH && child != TR;
+
+        case THEAD:
+        case TBODY:
+        case TFOOT:
+            return child != THEAD && child != TBODY && child != TFOOT;
+
+        case CAPTION:
+            return child != CAPTION && child != THEAD && child != TBODY && child != TFOOT;
 
         default:
             return true;

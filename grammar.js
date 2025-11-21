@@ -17,14 +17,21 @@ module.exports = grammar({
   ],
 
   externals: $ => [
-    $._start_tag_name,
+    $._html_start_tag_name,
+    $._void_start_tag_name,
+    $._foreign_start_tag_name,
     $._script_start_tag_name,
     $._style_start_tag_name,
+    $._title_start_tag_name,
+    $._textarea_start_tag_name,
+    $._plaintext_start_tag_name,
     $._end_tag_name,
     $.erroneous_end_tag_name,
     '/>',
     $._implicit_end_tag,
     $.raw_text,
+    $.rcdata_text,
+    $.plaintext_text,
     $.comment,
   ],
 
@@ -45,18 +52,33 @@ module.exports = grammar({
       $.entity,
       $.text,
       $.element,
-      $.script_element,
-      $.style_element,
-      $.erroneous_end_tag,
     ),
 
     element: $ => choice(
-      seq(
-        $.start_tag,
-        repeat($._node),
-        choice($.end_tag, $._implicit_end_tag),
-      ),
-      $.self_closing_tag,
+      $.void_element,
+      $.normal_element,
+      $.script_element,
+      $.style_element,
+      $.rcdata_element,
+      $.plaintext_element,
+      $.foreign_element,
+      $.erroneous_end_tag,
+    ),
+
+    void_element: $ => seq(
+      '<',
+      alias($._void_start_tag_name, $.tag_name),
+      repeat($.attribute),
+      choice('>', '/>'),
+    ),
+
+    normal_element: $ => seq(
+      '<',
+      alias($._html_start_tag_name, $.tag_name),
+      repeat($.attribute),
+      choice('>', '/>'),
+      repeat($._node),
+      choice($.end_tag, $._implicit_end_tag),
     ),
 
     script_element: $ => seq(
@@ -71,32 +93,86 @@ module.exports = grammar({
       $.end_tag,
     ),
 
+    rcdata_element: $ => choice(
+      seq(
+        alias($.title_start_tag, $.start_tag),
+        optional($.rcdata_text),
+        $.end_tag,
+      ),
+      seq(
+        alias($.textarea_start_tag, $.start_tag),
+        optional($.rcdata_text),
+        $.end_tag,
+      ),
+    ),
+
+    plaintext_element: $ => seq(
+      alias($.plaintext_start_tag, $.start_tag),
+      optional($.plaintext_text),
+    ),
+
+    foreign_element: $ => seq(
+      '<',
+      alias($._foreign_start_tag_name, $.tag_name),
+      repeat($.attribute),
+      choice(
+        seq('>', repeat($._node), choice($.end_tag, $._implicit_end_tag)),
+        '/>',
+      ),
+    ),
+
     start_tag: $ => seq(
       '<',
-      alias($._start_tag_name, $.tag_name),
+      alias(
+        choice(
+          $._html_start_tag_name,
+          $._void_start_tag_name,
+          $._foreign_start_tag_name,
+          $._script_start_tag_name,
+          $._style_start_tag_name,
+          $._title_start_tag_name,
+          $._textarea_start_tag_name,
+          $._plaintext_start_tag_name,
+        ),
+        $.tag_name,
+      ),
       repeat($.attribute),
-      '>',
+      choice('>', '/>'),
     ),
 
     script_start_tag: $ => seq(
       '<',
       alias($._script_start_tag_name, $.tag_name),
       repeat($.attribute),
-      '>',
+      choice('>', '/>'),
     ),
 
     style_start_tag: $ => seq(
       '<',
       alias($._style_start_tag_name, $.tag_name),
       repeat($.attribute),
-      '>',
+      choice('>', '/>'),
     ),
 
-    self_closing_tag: $ => seq(
+    title_start_tag: $ => seq(
       '<',
-      alias($._start_tag_name, $.tag_name),
+      alias($._title_start_tag_name, $.tag_name),
       repeat($.attribute),
-      '/>',
+      choice('>', '/>'),
+    ),
+
+    textarea_start_tag: $ => seq(
+      '<',
+      alias($._textarea_start_tag_name, $.tag_name),
+      repeat($.attribute),
+      choice('>', '/>'),
+    ),
+
+    plaintext_start_tag: $ => seq(
+      '<',
+      alias($._plaintext_start_tag_name, $.tag_name),
+      repeat($.attribute),
+      choice('>', '/>'),
     ),
 
     end_tag: $ => seq(
