@@ -49,7 +49,6 @@ module.exports = grammar({
 
     _node: $ => choice(
       $.doctype,
-      $.entity,
       $.text,
       $.element,
     ),
@@ -202,16 +201,23 @@ module.exports = grammar({
 
     attribute_value: _ => /[^<>"'=\s]+/,
 
-    // An entity can be named, numeric (decimal), or numeric (hexacecimal). The
-    // longest entity name is 29 characters long, and the HTML spec says that
-    // no more will ever be added.
-    entity: _ => /&(#([xX][0-9a-fA-F]{1,6}|[0-9]{1,5})|[A-Za-z]{1,30});?/,
+    // 13.1.4 Character references – authoring syntax
+    // &name;  or  &#123;  or  &#x1F600;
+    entity: _ => /&(#x[0-9A-Fa-f]{1,6}|#[0-9]{1,7}|[A-Za-z][A-Za-z0-9]{1,31});/,
+
+    text: $ => prec.right(repeat1(choice(
+      $.entity,
+      token(/[^<&\s]([^<&]*[^<&\s])?/),
+    ))),
+
+    attribute_value: $ => repeat1(choice(
+      $.entity,
+      token(/[^<>"'=&\s]+/),
+    )),
 
     quoted_attribute_value: $ => choice(
-      seq('\'', optional(alias(/[^']+/, $.attribute_value)), '\''),
-      seq('"', optional(alias(/[^"]+/, $.attribute_value)), '"'),
+      seq('\'', repeat(choice($.entity, alias(/[^&']+/, $.attribute_value))), '\''),
+      seq('"', repeat(choice($.entity, alias(/[^&"]+/, $.attribute_value))), '"'),
     ),
-
-    text: _ => /[^<>&\s]([^<>&]*[^<>&\s])?/,
   },
 });

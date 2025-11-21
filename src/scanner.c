@@ -22,6 +22,19 @@ enum TokenType {
     COMMENT,
 };
 
+typedef enum {
+    HTML_COMMENT_START,
+    HTML_COMMENT_START_DASH,
+    HTML_COMMENT,
+    HTML_COMMENT_LT,
+    HTML_COMMENT_LT_BANG,
+    HTML_COMMENT_LT_BANG_DASH,
+    HTML_COMMENT_LT_BANG_DASH_DASH,
+    HTML_COMMENT_END_DASH,
+    HTML_COMMENT_END,
+    HTML_COMMENT_END_BANG,
+} HtmlCommentState;
+
 typedef struct {
     Array(Tag) tags;
 } Scanner;
@@ -126,34 +139,143 @@ static String scan_tag_name(TSLexer *lexer, bool uppercase) {
 }
 
 static bool scan_comment(TSLexer *lexer) {
-    if (lexer->lookahead != '-') {
-        return false;
-    }
+    // Called immediately after "<!"
+    if (lexer->lookahead != '-') return false;
     advance(lexer);
-    if (lexer->lookahead != '-') {
-        return false;
-    }
+    if (lexer->lookahead != '-') return false;
     advance(lexer);
 
-    unsigned dashes = 0;
-    while (lexer->lookahead) {
-        switch (lexer->lookahead) {
-            case '-':
-                ++dashes;
-                break;
-            case '>':
-                if (dashes >= 2) {
-                    lexer->result_symbol = COMMENT;
+    HtmlCommentState state = HTML_COMMENT_START;
+
+    for (;;) {
+        int32_t c = lexer->lookahead;
+
+        if (c == 0) {
+            lexer->result_symbol = COMMENT;
+            lexer->mark_end(lexer);
+            return true;
+        }
+
+        switch (state) {
+            case HTML_COMMENT_START:
+                if (c == '-') {
+                    state = HTML_COMMENT_START_DASH;
                     advance(lexer);
+                } else if (c == '>') {
+                    advance(lexer);
+                    lexer->result_symbol = COMMENT;
                     lexer->mark_end(lexer);
                     return true;
+                } else {
+                    state = HTML_COMMENT;
+                    advance(lexer);
                 }
-            default:
-                dashes = 0;
+                break;
+
+            case HTML_COMMENT_START_DASH:
+                if (c == '-') {
+                    state = HTML_COMMENT_END;
+                    advance(lexer);
+                } else if (c == '>') {
+                    advance(lexer);
+                    lexer->result_symbol = COMMENT;
+                    lexer->mark_end(lexer);
+                    return true;
+                } else {
+                    state = HTML_COMMENT;
+                    advance(lexer);
+                }
+                break;
+
+            case HTML_COMMENT:
+                if (c == '<') {
+                    state = HTML_COMMENT_LT;
+                    advance(lexer);
+                } else if (c == '-') {
+                    state = HTML_COMMENT_END_DASH;
+                    advance(lexer);
+                } else {
+                    advance(lexer);
+                }
+                break;
+
+            case HTML_COMMENT_LT:
+                if (c == '!') {
+                    state = HTML_COMMENT_LT_BANG;
+                    advance(lexer);
+                } else if (c == '<') {
+                    state = HTML_COMMENT;
+                    advance(lexer);
+                } else {
+                    state = HTML_COMMENT;
+                }
+                break;
+
+            case HTML_COMMENT_LT_BANG:
+                if (c == '-') {
+                    state = HTML_COMMENT_LT_BANG_DASH;
+                    advance(lexer);
+                } else {
+                    state = HTML_COMMENT;
+                }
+                break;
+
+            case HTML_COMMENT_LT_BANG_DASH:
+                if (c == '-') {
+                    state = HTML_COMMENT_LT_BANG_DASH_DASH;
+                    advance(lexer);
+                } else {
+                    state = HTML_COMMENT_END_DASH;
+                }
+                break;
+
+            case HTML_COMMENT_LT_BANG_DASH_DASH:
+                state = HTML_COMMENT_END;
+                break;
+
+            case HTML_COMMENT_END_DASH:
+                if (c == '-') {
+                    state = HTML_COMMENT_END;
+                    advance(lexer);
+                } else {
+                    state = HTML_COMMENT;
+                    advance(lexer);
+                }
+                break;
+
+            case HTML_COMMENT_END:
+                if (c == '>') {
+                    advance(lexer);
+                    lexer->result_symbol = COMMENT;
+                    lexer->mark_end(lexer);
+                    return true;
+                } else if (c == '!') {
+                    state = HTML_COMMENT_END_BANG;
+                    advance(lexer);
+                } else if (c == '-') {
+                    advance(lexer);
+                } else {
+                    state = HTML_COMMENT;
+                    advance(lexer);
+                }
+                break;
+
+            case HTML_COMMENT_END_BANG:
+                if (c == '-') {
+                    state = HTML_COMMENT_END_DASH;
+                    advance(lexer);
+                } else if (c == '>') {
+                    advance(lexer);
+                    lexer->result_symbol = COMMENT;
+                    lexer->mark_end(lexer);
+                    return true;
+                } else {
+                    state = HTML_COMMENT;
+                    advance(lexer);
+                }
+                break;
         }
-        advance(lexer);
     }
-    return false;
 }
 
 static bool scan_raw_text(Scanner *scanner, TSLexer *lexer) {

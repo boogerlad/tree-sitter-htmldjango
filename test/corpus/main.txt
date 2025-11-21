@@ -197,6 +197,22 @@ Comments
         (tag_name)))))
 
 ==================================
+Comment edge cases
+==================================
+<!-->
+<!--->
+<!-- foo --!>
+<!-- <!-- nested --> -->
+---
+
+(document
+  (comment)
+  (comment)
+  (comment)
+  (comment)
+  (text))
+
+==================================
 Raw text elements
 ==================================
 <script>
@@ -499,11 +515,9 @@ Named entities in tag contents
   (element
     (normal_element
       (tag_name)
-      (text)
-      (entity)
-      (text)
-      (entity)
-      (text)
+      (text
+        (entity)
+        (entity))
       (end_tag
         (tag_name)))))
 
@@ -518,11 +532,9 @@ Numeric entities in tag contents
   (element
     (normal_element
       (tag_name)
-      (text)
-      (entity)
-      (text)
-      (entity)
-      (text)
+      (text
+        (entity)
+        (entity))
       (end_tag
         (tag_name)))))
 
@@ -537,13 +549,10 @@ Multiple entities in tag contents
   (element
     (normal_element
       (tag_name)
-      (text)
-      (entity)
-      (text)
-      (entity)
-      (text)
-      (entity)
-      (text)
+      (text
+        (entity)
+        (entity)
+        (entity))
       (end_tag
         (tag_name)))))
 

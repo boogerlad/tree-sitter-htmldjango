@@ -23,6 +23,21 @@
     }
   },
   {
+    "type": "attribute_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "entity",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "doctype",
     "named": true,
     "fields": {}
@@ -42,10 +57,6 @@
         },
         {
           "type": "element",
-          "named": true
-        },
-        {
-          "type": "entity",
           "named": true
         },
         {
@@ -153,10 +164,6 @@
           "named": true
         },
         {
-          "type": "entity",
-          "named": true
-        },
-        {
           "type": "tag_name",
           "named": true
         },
@@ -189,10 +196,6 @@
         },
         {
           "type": "end_tag",
-          "named": true
-        },
-        {
-          "type": "entity",
           "named": true
         },
         {
@@ -230,11 +233,15 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
           "type": "attribute_value",
+          "named": true
+        },
+        {
+          "type": "entity",
           "named": true
         }
       ]
@@ -329,6 +336,21 @@
     }
   },
   {
+    "type": "text",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "entity",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "void_element",
     "named": true,
     "fields": {},
@@ -384,10 +406,6 @@
     "named": true
   },
   {
-    "type": "attribute_value",
-    "named": true
-  },
-  {
     "type": "comment",
     "named": true,
     "extra": true
@@ -418,10 +436,6 @@
   },
   {
     "type": "tag_name",
-    "named": true
-  },
-  {
-    "type": "text",
     "named": true
   }
 ]
