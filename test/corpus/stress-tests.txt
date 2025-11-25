@@ -658,35 +658,6 @@ STRESS TEST: Empty Django tag in attribute
         (tag_name)))))
 
 ================================================================================
-STRESS TEST: Django with trimming whitespace control
-================================================================================
-
-<p>{%- if true -%}trimmed{%- endif -%}</p>
-
---------------------------------------------------------------------------------
-
-(document
-  (element
-    (normal_element
-      (tag_name)
-      (django_statement
-        (django_if_block
-          (django_if_open
-            (test_expression
-              (or_expression
-                (and_expression
-                  (not_expression
-                    (comparison_expression
-                      (filter_expression
-                        (primary_expression
-                          (lookup
-                            (identifier))))))))))
-          (text)
-          (django_endif)))
-      (end_tag
-        (tag_name)))))
-
-================================================================================
 STRESS TEST: Implicit end tag with Django
 ================================================================================
 

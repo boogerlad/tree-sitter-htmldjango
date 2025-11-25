@@ -83,6 +83,7 @@ static void clear_verbatim_suffix(Scanner *scanner) {
 }
 
 // Scan verbatim start: captures suffix after "verbatim" keyword until %}
+// Strict Django DTL - no whitespace trim markers supported
 static bool scan_verbatim_start(Scanner *scanner, TSLexer *lexer) {
     lexer->mark_end(lexer);
     uint32_t length = 0;
@@ -91,38 +92,10 @@ static bool scan_verbatim_start(Scanner *scanner, TSLexer *lexer) {
     for (;;) {
         if (lexer->lookahead == 0 || lexer->lookahead == '\n') return false;
 
-        // Check for whitespace trimming marker
-        if (lexer->lookahead == '-') {
-            advance(lexer);
-            if (lexer->lookahead == '%') {
-                advance(lexer);
-                if (lexer->lookahead == '}') {
-                    // Trim trailing horizontal whitespace
-                    length = last_non_space;
-                    scanner->verbatim_length = length;
-                    advance(lexer); // consume '}'
-                    lexer->mark_end(lexer);
-                    lexer->result_symbol = VERBATIM_START;
-                    return true;
-                }
-                // Not a tag end, treat '-' and '%' as content
-                if (!ensure_verbatim_capacity(scanner, length + 2)) return false;
-                scanner->verbatim_suffix[length++] = '-';
-                scanner->verbatim_suffix[length++] = '%';
-                last_non_space = length;
-                continue;
-            }
-            // Not a tag end, treat '-' as content
-            if (!ensure_verbatim_capacity(scanner, length + 1)) return false;
-            scanner->verbatim_suffix[length++] = '-';
-            last_non_space = length;
-            continue;
-        }
-
         if (lexer->lookahead == '%') {
             advance(lexer);
             if (lexer->lookahead == '}') {
-                // Trim trailing horizontal whitespace
+                // Trim trailing horizontal whitespace from suffix
                 length = last_non_space;
                 scanner->verbatim_length = length;
                 advance(lexer); // consume '}'
@@ -148,6 +121,9 @@ static bool scan_verbatim_start(Scanner *scanner, TSLexer *lexer) {
 }
 
 // Scan verbatim content until {% endverbatim<suffix> %}
+// This scanner consumes everything INCLUDING the {% endverbatim<suffix> %} tag
+// because the suffix is dynamic and matched at runtime by the scanner.
+// Strict Django DTL - no whitespace trim markers supported
 static bool scan_verbatim_content(Scanner *scanner, TSLexer *lexer) {
     for (;;) {
         if (lexer->lookahead == 0) return false;
@@ -158,10 +134,6 @@ static bool scan_verbatim_content(Scanner *scanner, TSLexer *lexer) {
             advance(lexer);
             if (lexer->lookahead == '%') {
                 advance(lexer);
-                // Check for whitespace trim marker before keyword
-                if (lexer->lookahead == '-') {
-                    advance(lexer);
-                }
                 skip_horizontal_space(lexer);
 
                 // Check for "endverbatim"
@@ -180,10 +152,6 @@ static bool scan_verbatim_content(Scanner *scanner, TSLexer *lexer) {
                     }
                     if (i == scanner->verbatim_length) {
                         skip_horizontal_space(lexer);
-                        // Check for whitespace trim marker
-                        if (lexer->lookahead == '-') {
-                            advance(lexer);
-                        }
                         if (lexer->lookahead == '%') {
                             advance(lexer);
                             if (lexer->lookahead == '}') {
@@ -601,6 +569,7 @@ static bool scan_plaintext_text(Scanner *scanner, TSLexer *lexer) {
 // Scan Django block comment content until {% endcomment %}
 // The content excludes the {% endcomment %} tag - we stop right before it
 // so the grammar can match the closing tag explicitly
+// Strict Django DTL - no whitespace trim markers supported
 static bool scan_django_comment_content(TSLexer *lexer) {
     lexer->mark_end(lexer);
 
@@ -616,12 +585,6 @@ static bool scan_django_comment_content(TSLexer *lexer) {
             advance(lexer);
             if (lexer->lookahead == '%') {
                 advance(lexer);
-                // Check for whitespace trim marker
-                bool has_trim = false;
-                if (lexer->lookahead == '-') {
-                    has_trim = true;
-                    advance(lexer);
-                }
                 // Skip whitespace
                 while (lexer->lookahead == ' ' || lexer->lookahead == '\t' ||
                        lexer->lookahead == '\r' || lexer->lookahead == '\n') {
@@ -639,10 +602,6 @@ static bool scan_django_comment_content(TSLexer *lexer) {
                     // Skip whitespace
                     while (lexer->lookahead == ' ' || lexer->lookahead == '\t' ||
                            lexer->lookahead == '\r' || lexer->lookahead == '\n') {
-                        advance(lexer);
-                    }
-                    // Check for whitespace trim marker
-                    if (lexer->lookahead == '-') {
                         advance(lexer);
                     }
                     if (lexer->lookahead == '%') {

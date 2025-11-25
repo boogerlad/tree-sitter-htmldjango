@@ -2150,10 +2150,6 @@
     "named": false
   },
   {
-    "type": "-%}",
-    "named": false
-  },
-  {
     "type": ".",
     "named": false
   },
@@ -2247,12 +2243,12 @@
   },
   {
     "type": "comment",
-    "named": true,
+    "named": false,
     "extra": true
   },
   {
     "type": "comment",
-    "named": false,
+    "named": true,
     "extra": true
   },
   {
@@ -2541,10 +2537,6 @@
   },
   {
     "type": "{%",
-    "named": false
-  },
-  {
-    "type": "{%-",
     "named": false
   },
   {

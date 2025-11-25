@@ -1176,11 +1176,11 @@ module.exports = grammar({
     // Django: Tag delimiters (with optional whitespace trimming)
     // ==========================================================================
 
-    // Django tag open: {% or {%-
-    _django_tag_open: _ => choice('{%', '{%-'),
+    // Django tag open: {% (strict Django DTL - no whitespace trim markers)
+    _django_tag_open: _ => '{%',
 
-    // Django tag close: %} or -%}
-    _django_tag_close: _ => choice('%}', '-%}'),
+    // Django tag close: %} (strict Django DTL - no whitespace trim markers)
+    _django_tag_close: _ => '%}',
 
     // ==========================================================================
     // Django: Whitespace handling
