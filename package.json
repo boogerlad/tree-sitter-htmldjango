@@ -1,36 +1,21 @@
 {
-  "name": "tree-sitter-html",
-  "version": "0.23.2",
-  "description": "HTML grammar for tree-sitter",
-  "repository": "https://github.com/tree-sitter/tree-sitter-html",
+  "name": "tree-sitter-htmldjango",
+  "version": "0.1.0",
+  "description": "HTML + Django template grammar for tree-sitter",
+  "repository": "https://github.com/boogerlad/tree-sitter-htmldjango",
   "license": "MIT",
   "author": {
-    "name": "Max Brunsfeld",
-    "email": "maxbrunsfeld@gmail.com"
+    "name": "boogerlad"
   },
-  "contributors": [
-    {
-      "name": "Ashi Krishnan",
-      "email": "queerviolet@github.com"
-    },
-    {
-      "name": "Amaan Qureshi",
-      "email": "amaanq12@gmail.com"
-    }
-  ],
-  "maintainers": [
-    {
-      "name": "Amaan Qureshi",
-      "email": "amaanq12@gmail.com"
-    }
-  ],
   "main": "bindings/node",
   "types": "bindings/node",
   "keywords": [
     "incremental",
     "parsing",
     "tree-sitter",
-    "html"
+    "html",
+    "django",
+    "template"
   ],
   "files": [
     "grammar.js",

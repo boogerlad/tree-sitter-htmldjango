@@ -1,0 +1,76 @@
+{% if a and b or not c %}
+<!--    ^^^ keyword.operator -->
+{% if a and b or not c %}
+<!--          ^^ keyword.operator -->
+{% if a and b or not c %}
+<!--             ^^^ keyword.operator -->
+
+{% if x == y %}
+<!--    ^^ operator -->
+{% if x >= 10 %}
+<!--    ^^ operator -->
+
+{% with foo=bar baz=qux %}
+<!--^^^^ keyword -->
+{% with foo=bar baz=qux %}
+<!--    ^^^ variable.parameter -->
+
+{% url "view" pk=obj.id as url_var %}
+<!--^^ keyword -->
+{% url "view" pk=obj.id as url_var %}
+<!--          ^^ variable.parameter -->
+{% url "view" pk=obj.id as url_var %}
+<!--                    ^^ keyword -->
+
+{% extends "base.html" %}
+<!--^^^^^^^ keyword -->
+{% extends "base.html" %}
+<!--       ^^^^^^^^^^^ string -->
+
+{% include "partial.html" with x=1 only %}
+<!--^^^^^^^ keyword -->
+{% include "partial.html" with x=1 only %}
+<!--                      ^^^^ keyword -->
+{% include "partial.html" with x=1 only %}
+<!--                               ^^^^ keyword -->
+
+{% autoescape on %}{% endautoescape %}
+<!--^^^^^^^^^^ keyword -->
+{% autoescape on %}{% endautoescape %}
+<!--           ^^ keyword -->
+
+{% csrf_token %}
+<!--^^^^^^^^^^ keyword -->
+
+{% templatetag openblock %}
+<!--^^^^^^^^^^^ keyword -->
+{% templatetag openblock %}
+<!--           ^^^^^^^^^ string.special -->
+
+{% cycle 'a' 'b' as colors silent %}
+<!--^^^^^ keyword -->
+{% cycle 'a' 'b' as colors silent %}
+<!--             ^^ keyword -->
+{% cycle 'a' 'b' as colors silent %}
+<!--                       ^^^^^^ keyword -->
+
+{{ _("translatable") }}
+<!--^^^^^^^^^^^^^^^^ string.special -->
+
+{% regroup items by category as grouped %}
+<!--^^^^^^^ keyword -->
+{% regroup items by category as grouped %}
+<!--             ^^ keyword -->
+{% regroup items by category as grouped %}
+<!--                         ^^ keyword -->
+
+{% static "file.css" %}
+<!--^^^^^^ function.macro -->
+
+{% custom_tag arg1 arg2 %}{% endcustom_tag %}
+<!--^^^^^^^^^^ function.macro -->
+
+{{ obj.attr.0.name }}
+<!--   ^^^^ variable -->
+{{ obj.attr.0.name }}
+<!--        ^ number -->

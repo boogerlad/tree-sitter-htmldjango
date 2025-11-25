@@ -1,0 +1,52 @@
+{{ foo }}
+<!-- <- punctuation.special -->
+{{ foo }}
+<!--   ^^ punctuation.special -->
+{{ foo }}
+<!--^^^ variable -->
+
+{% if condition %}
+<!-- <- tag.delimiter -->
+{% if condition %}
+<!--           ^^ tag.delimiter -->
+{% if condition %}
+<!--^^ keyword.conditional -->
+{% if condition %}
+<!--   ^^^^^^^^^ variable -->
+{% endif %}
+<!--^^^^^ keyword.conditional -->
+
+{% for item in items %}
+<!--^^^ keyword.conditional -->
+{% for item in items %}
+<!--   ^^^^ variable.parameter -->
+{% for item in items %}
+<!--        ^^ keyword -->
+{% for item in items %}
+<!--           ^^^^^ variable -->
+{% endfor %}
+<!--^^^^^^ keyword.conditional -->
+
+{% block content %}{% endblock %}
+<!--^^^^^ keyword -->
+{% block content %}{% endblock %}
+<!--     ^^^^^^^ variable.parameter -->
+
+{{ value|lower }}
+<!--    ^ punctuation.delimiter -->
+{{ value|lower }}
+<!--     ^^^^^ function -->
+
+{{ "hello" }}
+<!--^^^^^^^ string -->
+
+{{ 42 }}
+<!--^^ number -->
+
+{# comment #}
+<!-- <- comment -->
+
+{% load static %}
+<!--^^^^ keyword -->
+{% load static %}
+<!--    ^^^^^^ module -->

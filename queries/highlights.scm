@@ -1,3 +1,7 @@
+; =============================================================================
+; HTML Highlighting
+; =============================================================================
+
 (tag_name) @tag
 (erroneous_end_tag_name) @tag.error
 (doctype) @constant
@@ -11,3 +15,256 @@
   "</"
   "/>"
 ] @punctuation.bracket
+
+"=" @punctuation.delimiter
+
+(entity) @string.special
+
+; =============================================================================
+; Django Delimiters
+; =============================================================================
+
+[
+  "{{"
+  "}}"
+] @punctuation.special
+
+[
+  "{%"
+  "%}"
+] @tag.delimiter
+
+; =============================================================================
+; Django Comments
+; =============================================================================
+
+(django_line_comment) @comment
+(django_block_comment) @comment
+(comment_content) @comment
+(comment_text) @comment
+
+; =============================================================================
+; Django Keywords - Control Flow
+; =============================================================================
+
+[
+  "if"
+  "elif"
+  "else"
+  "endif"
+  "for"
+  "endfor"
+  "empty"
+] @keyword.conditional
+
+[
+  "in"
+  "reversed"
+] @keyword
+
+; =============================================================================
+; Django Keywords - Block Tags
+; =============================================================================
+
+[
+  "block"
+  "endblock"
+  "extends"
+  "include"
+  "with"
+  "endwith"
+  "autoescape"
+  "endautoescape"
+  "filter"
+  "endfilter"
+  "spaceless"
+  "endspaceless"
+  "verbatim"
+  "comment"
+  "endcomment"
+  "ifchanged"
+  "endifchanged"
+  "partialdef"
+  "endpartialdef"
+] @keyword
+
+; =============================================================================
+; Django Keywords - Simple Tags
+; =============================================================================
+
+[
+  "load"
+  "url"
+  "csrf_token"
+  "cycle"
+  "firstof"
+  "now"
+  "regroup"
+  "widthratio"
+  "templatetag"
+  "debug"
+  "lorem"
+  "resetcycle"
+  "querystring"
+  "partial"
+] @keyword
+
+; =============================================================================
+; Django Keywords - Modifiers
+; =============================================================================
+
+[
+  "as"
+  "from"
+  "only"
+  "silent"
+  "by"
+  "on"
+  "off"
+  "and"
+  "random"
+  "inline"
+] @keyword
+
+; =============================================================================
+; Django Keywords - Templatetag Arguments
+; =============================================================================
+
+[
+  "openblock"
+  "closeblock"
+  "openvariable"
+  "closevariable"
+  "openbrace"
+  "closebrace"
+  "opencomment"
+  "closecomment"
+] @string.special
+
+; =============================================================================
+; Django Keywords - Lorem Methods
+; =============================================================================
+
+[
+  "w"
+  "p"
+  "b"
+] @string.special
+
+; =============================================================================
+; Django Boolean Operators
+; =============================================================================
+
+(and_keyword) @keyword.operator
+(or_keyword) @keyword.operator
+
+[
+  "not"
+  "is"
+] @keyword.operator
+
+; =============================================================================
+; Django Comparison Operators
+; =============================================================================
+
+(comparison_operator) @operator
+
+; =============================================================================
+; Django Identifiers and Variables
+; =============================================================================
+
+; Block names
+(django_block_open
+  (identifier) @variable.parameter)
+
+(django_endblock
+  (identifier) @variable.parameter)
+
+; Loop variables
+(loop_variables
+  (identifier) @variable.parameter)
+
+; Generic identifiers (variables)
+(lookup
+  (identifier) @variable)
+
+(lookup
+  (numeric_index) @number)
+
+; Assignment targets
+(assignment
+  (identifier) @variable.parameter)
+
+; Named arguments
+(named_argument
+  (identifier) @variable.parameter)
+
+; With legacy alias
+(with_legacy
+  (identifier) @variable.parameter)
+
+; As alias target
+(as_alias
+  (identifier) @variable.parameter)
+
+; Cycle name
+(django_cycle_tag
+  (identifier) @variable.parameter)
+
+; Resetcycle name
+(django_resetcycle_tag
+  (identifier) @variable.parameter)
+
+; Partialdef/partial names
+(django_partialdef_block
+  (identifier) @variable.parameter)
+
+(django_partial_tag
+  (identifier) @variable.parameter)
+
+; Regroup target
+(django_regroup_tag
+  (identifier) @variable.parameter)
+
+; =============================================================================
+; Django Filters
+; =============================================================================
+
+(filter_call
+  (filter_name) @function)
+
+(filter_chain
+  (filter_call
+    (filter_name) @function))
+
+; =============================================================================
+; Django Library Names (load tag)
+; =============================================================================
+
+(library_name) @module
+
+; =============================================================================
+; Django Generic Tag Names
+; =============================================================================
+
+(generic_tag_name
+  (identifier) @function.macro)
+
+(end_tag_name) @function.macro
+
+; =============================================================================
+; Django Literals
+; =============================================================================
+
+(string) @string
+(number) @number
+(i18n_string) @string.special
+
+; =============================================================================
+; Django Punctuation
+; =============================================================================
+
+"|" @punctuation.delimiter
+":" @punctuation.delimiter
+"." @punctuation.delimiter
+"," @punctuation.delimiter
