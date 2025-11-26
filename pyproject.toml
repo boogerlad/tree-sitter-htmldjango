@@ -9,7 +9,6 @@ version = "0.1.0"
 keywords = ["incremental", "parsing", "tree-sitter", "html", "django", "template"]
 classifiers = [
   "Intended Audience :: Developers",
-  "License :: OSI Approved :: MIT License",
   "Topic :: Software Development :: Compilers",
   "Topic :: Text Processing :: Linguistic",
   "Typing :: Typed",
@@ -17,16 +16,14 @@ classifiers = [
 authors = [
   { name = "boogerlad" },
 ]
-requires-python = ">=3.9"
-license.text = "MIT"
+requires-python = ">=3.13"
+license = "MIT"
 readme = "README.md"
+dependencies = ["tree-sitter~=0.25.2"]
 
 [project.urls]
 Homepage = "https://github.com/boogerlad/tree-sitter-htmldjango"
 
-[project.optional-dependencies]
-core = ["tree-sitter~=0.22"]
-
 [tool.cibuildwheel]
-build = "cp39-*"
+build = "cp313-*"
 build-frontend = "build"
