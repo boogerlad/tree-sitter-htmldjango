@@ -1860,3 +1860,161 @@ inner
     (django_generic_tag
       (generic_tag_name
         (identifier)))))
+================================================================================
+Django number with leading decimal
+================================================================================
+
+{{ .5 }}
+
+--------------------------------------------------------------------------------
+
+(document
+  (django_interpolation
+    (filter_expression
+      (primary_expression
+        (literal
+          (number))))))
+
+================================================================================
+Django number scientific notation
+================================================================================
+
+{{ 1e10 }}
+
+--------------------------------------------------------------------------------
+
+(document
+  (django_interpolation
+    (filter_expression
+      (primary_expression
+        (literal
+          (number))))))
+
+================================================================================
+Django number scientific with decimal
+================================================================================
+
+{{ 1.5e-3 }}
+
+--------------------------------------------------------------------------------
+
+(document
+  (django_interpolation
+    (filter_expression
+      (primary_expression
+        (literal
+          (number))))))
+
+================================================================================
+Django negative number
+================================================================================
+
+{{ -123 }}
+
+--------------------------------------------------------------------------------
+
+(document
+  (django_interpolation
+    (filter_expression
+      (primary_expression
+        (literal
+          (number))))))
+
+================================================================================
+Django positive number with sign
+================================================================================
+
+{{ +456 }}
+
+--------------------------------------------------------------------------------
+
+(document
+  (django_interpolation
+    (filter_expression
+      (primary_expression
+        (literal
+          (number))))))
+
+================================================================================
+Django string escaped quote
+================================================================================
+
+{{ 'it\'s' }}
+
+--------------------------------------------------------------------------------
+
+(document
+  (django_interpolation
+    (filter_expression
+      (primary_expression
+        (literal
+          (string))))))
+
+================================================================================
+Django string escape sequence
+================================================================================
+
+{{ "line\nbreak" }}
+
+--------------------------------------------------------------------------------
+
+(document
+  (django_interpolation
+    (filter_expression
+      (primary_expression
+        (literal
+          (string))))))
+
+================================================================================
+Django chained comparison operators
+================================================================================
+
+{% if a == b != c < d <= e > f >= g %}yes{% endif %}
+
+--------------------------------------------------------------------------------
+
+(document
+  (django_statement
+    (django_if_block
+      (django_if_open
+        (test_expression
+          (or_expression
+            (and_expression
+              (not_expression
+                (comparison_expression
+                  (filter_expression
+                    (primary_expression
+                      (lookup
+                        (identifier))))
+                  (comparison_operator)
+                  (filter_expression
+                    (primary_expression
+                      (lookup
+                        (identifier))))
+                  (comparison_operator)
+                  (filter_expression
+                    (primary_expression
+                      (lookup
+                        (identifier))))
+                  (comparison_operator)
+                  (filter_expression
+                    (primary_expression
+                      (lookup
+                        (identifier))))
+                  (comparison_operator)
+                  (filter_expression
+                    (primary_expression
+                      (lookup
+                        (identifier))))
+                  (comparison_operator)
+                  (filter_expression
+                    (primary_expression
+                      (lookup
+                        (identifier))))
+                  (comparison_operator)
+                  (filter_expression
+                    (primary_expression
+                      (lookup
+                        (identifier))))))))))
+      (text)
+      (django_endif))))
