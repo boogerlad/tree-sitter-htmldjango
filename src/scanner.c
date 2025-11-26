@@ -52,12 +52,6 @@ static inline void advance(TSLexer *lexer) { lexer->advance(lexer, false); }
 static inline void skip(TSLexer *lexer) { lexer->advance(lexer, true); }
 static void pop_tag(Scanner *scanner);
 
-// Check if current position starts a Django delimiter
-static inline bool is_django_delimiter(TSLexer *lexer) {
-    if (lexer->lookahead != '{') return false;
-    return true;  // Will check second char in caller
-}
-
 // Verbatim suffix helpers
 static inline bool is_horizontal_space(int32_t c) {
     return c == ' ' || c == '\t' || c == '\r';
