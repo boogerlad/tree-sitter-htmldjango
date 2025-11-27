@@ -253,7 +253,7 @@ static bool scan_validate_generic_tag(TSLexer *lexer, const bool *valid_symbols)
         // Build the end tag to look for: "end" + tagname
         char end_tag[264];
         strcpy(end_tag, "end");
-        strcat(end_tag, tag_name);
+        strncat(end_tag, tag_name, sizeof(end_tag) - 4);
 
         // Scan ahead looking for {% end<tagname> %}
         while (lexer->lookahead != 0) {
