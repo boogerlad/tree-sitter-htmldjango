@@ -1325,11 +1325,9 @@ Django with assignment spaces invalid (ERROR)
       (primary_expression
         (lookup
           (identifier))))
-    (numeric_index))
-  (django_statement
-    (django_generic_tag
-      (generic_tag_name
-        (identifier)))))
+    (numeric_index)
+    (end_tag_name)
+    (UNEXPECTED '\0')))
 
 ================================================================================
 Django url named args spacing invalid (ERROR)
@@ -1571,15 +1569,10 @@ Django verbatim mismatched suffix (suffix enforced)
   (django_statement
     (django_verbatim_block))
   (text)
-  (django_statement
-    (django_generic_tag
-      (generic_tag_name
-        (identifier))
-      (tag_argument
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier))))))))
+  (ERROR
+    (identifier)
+    (identifier)
+    (UNEXPECTED '\0')))
 
 ================================================================================
 Django if comparison after and
@@ -1856,10 +1849,10 @@ inner
 (document
   (django_block_comment
     (comment_content))
-  (django_statement
-    (django_generic_tag
-      (generic_tag_name
-        (identifier)))))
+  (ERROR
+    (identifier)
+    (UNEXPECTED '\0')))
+
 ================================================================================
 Django number with leading decimal
 ================================================================================
@@ -2018,3 +2011,45 @@ Django chained comparison operators
                         (identifier))))))))))
       (text)
       (django_endif))))
+
+================================================================================
+Sequential built-in simple tags
+================================================================================
+
+{% csrf_token %}
+{% debug %}
+{% csrf_token %}
+
+--------------------------------------------------------------------------------
+
+(document
+  (django_statement
+    (django_csrf_token_tag))
+  (django_statement
+    (django_debug_tag))
+  (django_statement
+    (django_csrf_token_tag)))
+
+================================================================================
+Sequential generic tags
+================================================================================
+
+{% custom_tag arg %}
+{% another_tag %}
+
+--------------------------------------------------------------------------------
+
+(document
+  (django_statement
+    (django_generic_tag
+      (generic_tag_name
+        (identifier))
+      (tag_argument
+        (filter_expression
+          (primary_expression
+            (lookup
+              (identifier)))))))
+  (django_statement
+    (django_generic_tag
+      (generic_tag_name
+        (identifier)))))

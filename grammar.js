@@ -38,6 +38,8 @@ module.exports = grammar({
     $._django_comment_content,
     $._verbatim_start,
     $._verbatim_block_content,
+    $._validate_generic_block,
+    $._validate_generic_simple,
   ],
 
   conflicts: $ => [
@@ -1015,6 +1017,7 @@ module.exports = grammar({
     django_generic_block: $ => prec.dynamic(-1, seq(
       $._django_tag_open,
       optional($._django_inner_ws),
+      $._validate_generic_block,
       field('name', $.generic_tag_name),
       repeat(seq($._django_inner_ws, $.tag_argument)),
       optional($._django_inner_ws),
@@ -1030,6 +1033,7 @@ module.exports = grammar({
     django_generic_tag: $ => prec(-1, seq(
       $._django_tag_open,
       optional($._django_inner_ws),
+      $._validate_generic_simple,
       $.generic_tag_name,
       repeat(seq($._django_inner_ws, $.tag_argument)),
       optional($._django_inner_ws),

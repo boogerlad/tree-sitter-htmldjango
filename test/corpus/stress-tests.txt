@@ -671,29 +671,35 @@ STRESS TEST: Implicit end tag with Django
 
 --------------------------------------------------------------------------------
 
-(ERROR
-  (text)
-  (tag_name)
-  (tag_name)
-  (django_for_open
-    (loop_variables
-      (identifier))
-    (filter_expression
-      (primary_expression
-        (lookup
-          (identifier)))))
-  (django_interpolation
-    (filter_expression
-      (primary_expression
-        (lookup
-          (identifier)))))
-  (tag_name)
-  (generic_tag_name
-    (identifier))
+(document
   (text)
   (element
-    (erroneous_end_tag
-      (erroneous_end_tag_name))))
+    (normal_element
+      (tag_name)
+      (element
+        (normal_element
+          (tag_name)
+          (django_statement
+            (django_for_block
+              (django_for_open
+                (loop_variables
+                  (identifier))
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier)))))
+              (django_interpolation
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier)))))
+              (unpaired_start_tag
+                (tag_name))
+              (django_endfor)))
+          (text)))))
+  (ERROR
+    (tag_name)
+    (UNEXPECTED '\0')))
 
 ================================================================================
 STRESS TEST: Foreign element with Django

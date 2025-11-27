@@ -4469,6 +4469,10 @@
             ]
           },
           {
+            "type": "SYMBOL",
+            "name": "_validate_generic_block"
+          },
+          {
             "type": "FIELD",
             "name": "name",
             "content": {
@@ -4596,6 +4600,10 @@
                 "type": "BLANK"
               }
             ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_validate_generic_simple"
           },
           {
             "type": "SYMBOL",
@@ -5674,6 +5682,14 @@
     {
       "type": "SYMBOL",
       "name": "_verbatim_block_content"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_validate_generic_block"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_validate_generic_simple"
     }
   ],
   "inline": [],

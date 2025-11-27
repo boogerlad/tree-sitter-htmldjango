@@ -24,6 +24,8 @@ enum TokenType {
     DJANGO_COMMENT_CONTENT,
     VERBATIM_START,
     VERBATIM_BLOCK_CONTENT,
+    VALIDATE_GENERIC_BLOCK,
+    VALIDATE_GENERIC_SIMPLE,
 };
 
 typedef enum {
@@ -163,6 +165,138 @@ static bool scan_verbatim_content(Scanner *scanner, TSLexer *lexer) {
 
         advance(lexer);
     }
+}
+
+// List of built-in Django tag names that have their own grammar rules
+// These should NOT be matched by the generic block scanner
+static const char *BUILTIN_DJANGO_TAGS[] = {
+    "if", "elif", "else", "endif",
+    "for", "empty", "endfor",
+    "with", "endwith",
+    "block", "endblock",
+    "extends",
+    "include",
+    "load",
+    "url",
+    "csrf_token",
+    "autoescape", "endautoescape",
+    "filter", "endfilter",
+    "spaceless", "endspaceless",
+    "verbatim", "endverbatim",
+    "cycle",
+    "firstof",
+    "now",
+    "regroup",
+    "ifchanged", "endifchanged",
+    "widthratio",
+    "templatetag",
+    "debug",
+    "lorem",
+    "resetcycle",
+    "querystring",
+    "partialdef", "endpartialdef",
+    "partial",
+    "comment", "endcomment",
+    NULL
+};
+
+static bool is_builtin_django_tag(const char *tag_name) {
+    for (const char **p = BUILTIN_DJANGO_TAGS; *p != NULL; p++) {
+        if (strcmp(tag_name, *p) == 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Zero-width validation scanner for generic tags.
+// This produces a zero-width token that validates whether a generic tag is valid.
+// For blocks, it looks ahead to verify a matching end tag exists.
+// The actual tag name is parsed by the grammar's identifier rule after this validates.
+static bool scan_validate_generic_tag(TSLexer *lexer, const bool *valid_symbols) {
+    // Mark end immediately - this creates a zero-width token
+    // Tree-sitter will reset the lexer to this position after we return
+    lexer->mark_end(lexer);
+
+    // Check if we're at a valid tag name start (identifier start char)
+    if (!iswalpha(lexer->lookahead) && lexer->lookahead != '_') {
+        return false;
+    }
+
+    // Scan the tag name (lookahead only - doesn't affect token position)
+    char tag_name[256];
+    int tag_len = 0;
+
+    while ((iswalnum(lexer->lookahead) || lexer->lookahead == '_') && tag_len < 255) {
+        tag_name[tag_len++] = (char)lexer->lookahead;
+        advance(lexer);
+    }
+    tag_name[tag_len] = '\0';
+
+    if (tag_len == 0) {
+        return false;
+    }
+
+    // Check if this is a built-in Django tag - if so, let the grammar handle it
+    if (is_builtin_django_tag(tag_name)) {
+        return false;
+    }
+
+    // Reject tag names starting with "end" - these are closing tags for block structures
+    // and should be handled by the grammar's end tag rules, not as generic tags
+    if (tag_len >= 3 && tag_name[0] == 'e' && tag_name[1] == 'n' && tag_name[2] == 'd') {
+        return false;
+    }
+
+    // If block validation is requested, look for matching end tag
+    if (valid_symbols[VALIDATE_GENERIC_BLOCK]) {
+        // Build the end tag to look for: "end" + tagname
+        char end_tag[264];
+        strcpy(end_tag, "end");
+        strcat(end_tag, tag_name);
+
+        // Scan ahead looking for {% end<tagname> %}
+        while (lexer->lookahead != 0) {
+            if (lexer->lookahead == '{') {
+                advance(lexer);
+                if (lexer->lookahead == '%') {
+                    advance(lexer);
+                    // Skip whitespace
+                    while (lexer->lookahead == ' ' || lexer->lookahead == '\t' ||
+                           lexer->lookahead == '\r' || lexer->lookahead == '\n') {
+                        advance(lexer);
+                    }
+                    // Try to match end tag
+                    const char *p = end_tag;
+                    while (*p && lexer->lookahead == *p) {
+                        advance(lexer);
+                        p++;
+                    }
+                    if (*p == '\0') {
+                        // Matched "end<tagname>", check it's followed by whitespace or %}
+                        if (lexer->lookahead == ' ' || lexer->lookahead == '\t' ||
+                            lexer->lookahead == '\r' || lexer->lookahead == '\n' ||
+                            lexer->lookahead == '%') {
+                            // Found the end tag - this is a valid block
+                            lexer->result_symbol = VALIDATE_GENERIC_BLOCK;
+                            return true;
+                        }
+                    }
+                }
+            } else {
+                advance(lexer);
+            }
+        }
+    }
+
+    // No end tag found (or block validation not requested)
+    // If simple tag validation is valid, return that
+    if (valid_symbols[VALIDATE_GENERIC_SIMPLE]) {
+        lexer->result_symbol = VALIDATE_GENERIC_SIMPLE;
+        return true;
+    }
+
+    return false;
 }
 
 static unsigned serialize(Scanner *scanner, char *buffer) {
@@ -799,6 +933,12 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid_symbols) {
     // Handle verbatim block content
     if (valid_symbols[VERBATIM_BLOCK_CONTENT]) {
         return scan_verbatim_content(scanner, lexer);
+    }
+
+    // Handle generic tag validation (zero-width lookahead tokens)
+    // These validate whether a generic tag/block is appropriate before the grammar parses the tag name
+    if (valid_symbols[VALIDATE_GENERIC_BLOCK] || valid_symbols[VALIDATE_GENERIC_SIMPLE]) {
+        return scan_validate_generic_tag(lexer, valid_symbols);
     }
 
     bool valid_start_tag =
