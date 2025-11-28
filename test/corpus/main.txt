@@ -91,6 +91,30 @@ Nested tags
         (tag_name)))))
 
 ==================================
+Nested same-type elements
+==================================
+<span><span><span>inner</span></span></span>
+---
+
+(document
+  (element
+    (normal_element
+      (tag_name)
+      (element
+        (normal_element
+          (tag_name)
+          (element
+            (normal_element
+              (tag_name)
+              (text)
+              (end_tag
+                (tag_name))))
+          (end_tag
+            (tag_name))))
+      (end_tag
+        (tag_name)))))
+
+==================================
 Void tags
 ==================================
 <form><img src="something.png"><br><input type=submit value=Ok /></form>

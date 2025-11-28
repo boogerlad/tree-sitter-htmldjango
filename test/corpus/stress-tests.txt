@@ -502,15 +502,12 @@ STRESS TEST: Unbalanced tags in if-else branches
                     (primary_expression
                       (lookup
                         (identifier))))))))))
-      (element
-        (erroneous_end_tag
-          (erroneous_end_tag_name)))
-      (element
-        (erroneous_end_tag
-          (erroneous_end_tag_name)))
-      (element
-        (erroneous_end_tag
-          (erroneous_end_tag_name)))
+      (unpaired_end_tag
+        (tag_name))
+      (unpaired_end_tag
+        (tag_name))
+      (unpaired_end_tag
+        (tag_name))
       (django_else_branch
         (django_else)
         (unpaired_end_tag
@@ -660,10 +657,6 @@ STRESS TEST: Empty Django tag in attribute
 ================================================================================
 STRESS TEST: Implicit end tag with Django
 ================================================================================
-
-; This test represents malformed Django template code where a for block
-; spans implicit HTML end tag boundaries. Producing an ERROR is correct.
-
 <ul>
   <li>{% for x in items %}{{ x }}
   <li>{% endfor %}static
@@ -671,8 +664,39 @@ STRESS TEST: Implicit end tag with Django
 
 --------------------------------------------------------------------------------
 
+; IDEAL parse tree (requires tree-sitter ABI changes to properly propagate
+; reduce_action state across GLR stacks):
+;
+; (document
+;   (element
+;     (normal_element
+;       (tag_name)
+;       (element
+;         (normal_element
+;           (tag_name)
+;           (django_statement
+;             (django_for_block
+;               (django_for_open
+;                 (loop_variables
+;                   (identifier))
+;                 (filter_expression
+;                   (primary_expression
+;                     (lookup
+;                       (identifier)))))
+;               (django_interpolation
+;                 (filter_expression
+;                   (primary_expression
+;                     (lookup
+;                       (identifier)))))
+;               (unpaired_start_tag
+;                 (tag_name))
+;               (django_endfor)))
+;           (text)))
+;       (end_tag
+;         (tag_name)))))
+
+; CURRENT behavior - scanner/grammar desync causes ERROR for closing tag:
 (document
-  (text)
   (element
     (normal_element
       (tag_name)
@@ -700,6 +724,36 @@ STRESS TEST: Implicit end tag with Django
   (ERROR
     (tag_name)
     (UNEXPECTED '\0')))
+
+================================================================================
+STRESS TEST: Nested same-type elements with ancestor close
+NOTE: This test ensures that deeply nested same-type elements followed by an
+ancestor's closing tag parse correctly (without the spurious tag popping heuristic).
+================================================================================
+
+<ul>
+  <div>
+    <div>
+      <div>
+</ul>
+
+--------------------------------------------------------------------------------
+
+(document
+  (element
+    (normal_element
+      (tag_name)
+      (element
+        (normal_element
+          (tag_name)
+          (element
+            (normal_element
+              (tag_name)
+              (element
+                (normal_element
+                  (tag_name)))))))
+      (end_tag
+        (tag_name)))))
 
 ================================================================================
 STRESS TEST: Foreign element with Django
@@ -808,7 +862,6 @@ STRESS TEST: JSON-like content with Django in attribute
       (attribute
         (attribute_name)
         (quoted_attribute_value
-          (attribute_value)
           (attribute_value)
           (django_interpolation
             (filter_expression
@@ -926,5 +979,114 @@ STRESS TEST: Select element with Django loop and conditionals
               (end_tag
                 (tag_name))))
           (django_endfor)))
+      (end_tag
+        (tag_name)))))
+
+================================================================================
+EDGE CASE: Lone brace at end of double-quoted attribute
+================================================================================
+<div data="test{"></div>
+
+--------------------------------------------------------------------------------
+
+(document
+  (element
+    (normal_element
+      (tag_name)
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value)
+          (attribute_value)))
+      (end_tag
+        (tag_name)))))
+
+================================================================================
+EDGE CASE: Lone brace at end of single-quoted attribute
+================================================================================
+<div data='test{'></div>
+
+--------------------------------------------------------------------------------
+
+(document
+  (element
+    (normal_element
+      (tag_name)
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value)
+          (attribute_value)))
+      (end_tag
+        (tag_name)))))
+
+================================================================================
+EDGE CASE: Lone brace as entire attribute value
+================================================================================
+<div data="{"></div>
+
+--------------------------------------------------------------------------------
+
+(document
+  (element
+    (normal_element
+      (tag_name)
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value)))
+      (end_tag
+        (tag_name)))))
+
+================================================================================
+EDGE CASE: Brace followed by space at end of attribute
+================================================================================
+<div data="test{ "></div>
+
+--------------------------------------------------------------------------------
+
+(document
+  (element
+    (normal_element
+      (tag_name)
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value)
+          (attribute_value)))
+      (end_tag
+        (tag_name)))))
+
+================================================================================
+EDGE CASE: Incomplete Django interpolation at end of attribute
+:error
+================================================================================
+<div data="test{{"></div>
+
+--------------------------------------------------------------------------------
+
+(document
+  (ERROR
+    (tag_name)
+    (attribute_name)
+    (attribute_value)))
+
+================================================================================
+EDGE CASE: Incomplete Django tag at end of attribute
+:error
+================================================================================
+<div data="test{%"></div>
+
+--------------------------------------------------------------------------------
+
+(document
+  (element
+    (normal_element
+      (tag_name)
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value)
+          (ERROR)))
       (end_tag
         (tag_name)))))

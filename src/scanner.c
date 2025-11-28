@@ -899,7 +899,23 @@ static bool scan_end_tag_name(Scanner *scanner, TSLexer *lexer) {
         pop_tag(scanner);
         lexer->result_symbol = END_TAG_NAME;
     } else {
-        lexer->result_symbol = ERRONEOUS_END_TAG_NAME;
+        // The end tag doesn't match the top of stack.
+        // Check if it matches something deeper in the stack.
+        // If found, return END_TAG_NAME but DON'T pop - this allows the
+        // grammar to parse it as unpaired_end_tag while preserving the
+        // stack for Django conditional branches (where both if/else
+        // branches may have unbalanced tags).
+        bool found_match = false;
+        for (unsigned i = scanner->tags.size; i > 0; i--) {
+            if (tag_eq(&scanner->tags.contents[i - 1], &tag)) {
+                lexer->result_symbol = END_TAG_NAME;
+                found_match = true;
+                break;
+            }
+        }
+        if (!found_match) {
+            lexer->result_symbol = ERRONEOUS_END_TAG_NAME;
+        }
     }
 
     tag_free(&tag);

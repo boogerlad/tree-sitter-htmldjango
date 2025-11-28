@@ -298,8 +298,9 @@ module.exports = grammar({
         repeat(choice(
           $.entity,
           alias(/[^'&\{%]+/, $.attribute_value),
-          // Single { that's not start of Django (followed by non-Django char)
-          alias(token(prec(-1, /\{[^{%#]/)), $.attribute_value),
+          // { not starting Django: optionally followed by non-Django, non-quote char and more text
+          // The optional group allows lone { at end of attribute (before closing quote)
+          alias(token(prec(-1, /\{([^{%#'][^'&\{%]*)?/)), $.attribute_value),
           $.django_interpolation,
           $.django_statement,
         )),
@@ -310,8 +311,9 @@ module.exports = grammar({
         repeat(choice(
           $.entity,
           alias(/[^"&\{%]+/, $.attribute_value),
-          // Single { that's not start of Django (followed by non-Django char)
-          alias(token(prec(-1, /\{[^{%#]/)), $.attribute_value),
+          // { not starting Django: optionally followed by non-Django, non-quote char and more text
+          // The optional group allows lone { at end of attribute (before closing quote)
+          alias(token(prec(-1, /\{([^{%#"][^"&\{%]*)?/)), $.attribute_value),
           $.django_interpolation,
           $.django_statement,
         )),
