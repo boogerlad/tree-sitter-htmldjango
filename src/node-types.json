@@ -241,39 +241,53 @@
   {
     "type": "as_alias",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "filter_expression",
-          "named": true
-        },
-        {
-          "type": "variable_name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "variable_name",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "filter_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "assignment",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "filter_expression",
-          "named": true
-        },
-        {
-          "type": "variable_name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "variable_name",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "filter_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -464,16 +478,17 @@
   {
     "type": "django_block_open",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "block_name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "block_name",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -484,25 +499,38 @@
   {
     "type": "django_cycle_tag",
     "named": true,
-    "fields": {},
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "variable_name",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "cycle_name",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
-        {
-          "type": "cycle_name",
-          "named": true
-        },
         {
           "type": "cycle_value",
           "named": true
         },
         {
           "type": "silent",
-          "named": true
-        },
-        {
-          "type": "variable_name",
           "named": true
         }
       ]
@@ -516,16 +544,17 @@
   {
     "type": "django_elif",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "test_expression",
-          "named": true
-        }
-      ]
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "test_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -694,16 +723,17 @@
   {
     "type": "django_endblock",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "block_name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "block_name",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -724,25 +754,37 @@
   {
     "type": "django_extends_tag",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "filter_expression",
-          "named": true
-        }
-      ]
+    "fields": {
+      "template": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "filter_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "django_filter_block",
     "named": true,
-    "fields": {},
+    "fields": {
+      "filters": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "filter_chain",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "django_block_comment",
@@ -769,10 +811,6 @@
           "named": true
         },
         {
-          "type": "filter_chain",
-          "named": true
-        },
-        {
           "type": "text",
           "named": true
         }
@@ -782,17 +820,24 @@
   {
     "type": "django_firstof_tag",
     "named": true,
-    "fields": {},
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "variable_name",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
       "types": [
         {
           "type": "filter_expression",
-          "named": true
-        },
-        {
-          "type": "variable_name",
           "named": true
         }
       ]
@@ -860,19 +905,32 @@
   {
     "type": "django_for_open",
     "named": true,
-    "fields": {},
+    "fields": {
+      "iterable": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "filter_expression",
+            "named": true
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "loop_variables",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
-        {
-          "type": "filter_expression",
-          "named": true
-        },
-        {
-          "type": "loop_variables",
-          "named": true
-        },
         {
           "type": "reversed",
           "named": true
@@ -947,15 +1005,22 @@
   {
     "type": "django_generic_tag",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "generic_tag_name",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
-        {
-          "type": "generic_tag_name",
-          "named": true
-        },
         {
           "type": "tag_argument",
           "named": true
@@ -1029,16 +1094,17 @@
   {
     "type": "django_if_open",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "test_expression",
-          "named": true
-        }
-      ]
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "test_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1087,17 +1153,24 @@
   {
     "type": "django_include_tag",
     "named": true,
-    "fields": {},
+    "fields": {
+      "template": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "filter_expression",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "assignment",
-          "named": true
-        },
-        {
-          "type": "filter_expression",
           "named": true
         },
         {
@@ -1140,15 +1213,22 @@
   {
     "type": "django_lorem_tag",
     "named": true,
-    "fields": {},
+    "fields": {
+      "count": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "filter_expression",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
       "types": [
-        {
-          "type": "filter_expression",
-          "named": true
-        },
         {
           "type": "method",
           "named": true
@@ -1163,44 +1243,73 @@
   {
     "type": "django_now_tag",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "string",
-          "named": true
-        },
-        {
-          "type": "variable_name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "variable_name",
+            "named": true
+          }
+        ]
+      },
+      "format": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "django_partial_tag",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "partial_name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "partial_name",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "django_partialdef_block",
     "named": true,
-    "fields": {},
+    "fields": {
+      "end_name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "partial_name",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "partial_name",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "django_block_comment",
@@ -1228,10 +1337,6 @@
         },
         {
           "type": "inline",
-          "named": true
-        },
-        {
-          "type": "partial_name",
           "named": true
         },
         {
@@ -1263,39 +1368,53 @@
   {
     "type": "django_regroup_tag",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "filter_expression",
-          "named": true
-        },
-        {
-          "type": "lookup",
-          "named": true
-        },
-        {
-          "type": "variable_name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "variable_name",
+            "named": true
+          }
+        ]
+      },
+      "grouper": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "lookup",
+            "named": true
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "filter_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "django_resetcycle_tag",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "cycle_name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "cycle_name",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1345,10 +1464,31 @@
   {
     "type": "django_url_tag",
     "named": true,
-    "fields": {},
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "variable_name",
+            "named": true
+          }
+        ]
+      },
+      "url_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "filter_expression",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "filter_expression",
@@ -1356,10 +1496,6 @@
         },
         {
           "type": "named_argument",
-          "named": true
-        },
-        {
-          "type": "variable_name",
           "named": true
         }
       ]
@@ -1373,20 +1509,47 @@
   {
     "type": "django_widthratio_tag",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "filter_expression",
-          "named": true
-        },
-        {
-          "type": "variable_name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "variable_name",
+            "named": true
+          }
+        ]
+      },
+      "max_value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "filter_expression",
+            "named": true
+          }
+        ]
+      },
+      "max_width": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "filter_expression",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "filter_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1552,20 +1715,27 @@
   {
     "type": "filter_call",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "filter_argument",
-          "named": true
-        },
-        {
-          "type": "filter_name",
-          "named": true
-        }
-      ]
+    "fields": {
+      "argument": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "filter_argument",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "filter_name",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1690,20 +1860,27 @@
   {
     "type": "named_argument",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "argument_name",
-          "named": true
-        },
-        {
-          "type": "filter_expression",
-          "named": true
-        }
-      ]
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "argument_name",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "filter_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {

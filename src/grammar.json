@@ -1480,8 +1480,12 @@
           "name": "_django_inner_ws"
         },
         {
-          "type": "SYMBOL",
-          "name": "test_expression"
+          "type": "FIELD",
+          "name": "condition",
+          "content": {
+            "type": "SYMBOL",
+            "name": "test_expression"
+          }
         },
         {
           "type": "CHOICE",
@@ -1568,8 +1572,12 @@
           "name": "_django_inner_ws"
         },
         {
-          "type": "SYMBOL",
-          "name": "test_expression"
+          "type": "FIELD",
+          "name": "condition",
+          "content": {
+            "type": "SYMBOL",
+            "name": "test_expression"
+          }
         },
         {
           "type": "CHOICE",
@@ -1769,8 +1777,12 @@
           "name": "_django_inner_ws"
         },
         {
-          "type": "SYMBOL",
-          "name": "loop_variables"
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "SYMBOL",
+            "name": "loop_variables"
+          }
         },
         {
           "type": "SYMBOL",
@@ -1785,8 +1797,12 @@
           "name": "_django_inner_ws"
         },
         {
-          "type": "SYMBOL",
-          "name": "filter_expression"
+          "type": "FIELD",
+          "name": "iterable",
+          "content": {
+            "type": "SYMBOL",
+            "name": "filter_expression"
+          }
         },
         {
           "type": "CHOICE",
@@ -2298,13 +2314,17 @@
           "name": "_django_inner_ws"
         },
         {
-          "type": "ALIAS",
+          "type": "FIELD",
+          "name": "name",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          },
-          "named": true,
-          "value": "block_name"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "block_name"
+          }
         },
         {
           "type": "CHOICE",
@@ -2358,13 +2378,17 @@
                   "name": "_django_inner_ws"
                 },
                 {
-                  "type": "ALIAS",
+                  "type": "FIELD",
+                  "name": "name",
                   "content": {
-                    "type": "SYMBOL",
-                    "name": "identifier"
-                  },
-                  "named": true,
-                  "value": "block_name"
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    },
+                    "named": true,
+                    "value": "block_name"
+                  }
                 }
               ]
             },
@@ -2419,8 +2443,12 @@
           "name": "_django_inner_ws"
         },
         {
-          "type": "SYMBOL",
-          "name": "filter_expression"
+          "type": "FIELD",
+          "name": "template",
+          "content": {
+            "type": "SYMBOL",
+            "name": "filter_expression"
+          }
         },
         {
           "type": "CHOICE",
@@ -2468,8 +2496,12 @@
           "name": "_django_inner_ws"
         },
         {
-          "type": "SYMBOL",
-          "name": "filter_expression"
+          "type": "FIELD",
+          "name": "template",
+          "content": {
+            "type": "SYMBOL",
+            "name": "filter_expression"
+          }
         },
         {
           "type": "CHOICE",
@@ -2742,8 +2774,12 @@
           "name": "_django_inner_ws"
         },
         {
-          "type": "SYMBOL",
-          "name": "filter_expression"
+          "type": "FIELD",
+          "name": "url_name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "filter_expression"
+          }
         },
         {
           "type": "REPEAT",
@@ -2789,13 +2825,17 @@
                   "name": "_django_inner_ws"
                 },
                 {
-                  "type": "ALIAS",
+                  "type": "FIELD",
+                  "name": "alias",
                   "content": {
-                    "type": "SYMBOL",
-                    "name": "identifier"
-                  },
-                  "named": true,
-                  "value": "variable_name"
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    },
+                    "named": true,
+                    "value": "variable_name"
+                  }
                 }
               ]
             },
@@ -2829,21 +2869,29 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "ALIAS",
+            "type": "FIELD",
+            "name": "name",
             "content": {
-              "type": "SYMBOL",
-              "name": "identifier"
-            },
-            "named": true,
-            "value": "argument_name"
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              "named": true,
+              "value": "argument_name"
+            }
           },
           {
             "type": "STRING",
             "value": "="
           },
           {
-            "type": "SYMBOL",
-            "name": "filter_expression"
+            "type": "FIELD",
+            "name": "value",
+            "content": {
+              "type": "SYMBOL",
+              "name": "filter_expression"
+            }
           }
         ]
       }
@@ -3018,8 +3066,12 @@
           "name": "_django_inner_ws"
         },
         {
-          "type": "SYMBOL",
-          "name": "filter_chain"
+          "type": "FIELD",
+          "name": "filters",
+          "content": {
+            "type": "SYMBOL",
+            "name": "filter_chain"
+          }
         },
         {
           "type": "CHOICE",
@@ -3272,13 +3324,17 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "ALIAS",
+              "type": "FIELD",
+              "name": "name",
               "content": {
-                "type": "SYMBOL",
-                "name": "identifier"
-              },
-              "named": true,
-              "value": "cycle_name"
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                },
+                "named": true,
+                "value": "cycle_name"
+              }
             },
             {
               "type": "SEQ",
@@ -3322,13 +3378,17 @@
                           "name": "_django_inner_ws"
                         },
                         {
-                          "type": "ALIAS",
+                          "type": "FIELD",
+                          "name": "alias",
                           "content": {
-                            "type": "SYMBOL",
-                            "name": "identifier"
-                          },
-                          "named": true,
-                          "value": "variable_name"
+                            "type": "ALIAS",
+                            "content": {
+                              "type": "SYMBOL",
+                              "name": "identifier"
+                            },
+                            "named": true,
+                            "value": "variable_name"
+                          }
                         },
                         {
                           "type": "CHOICE",
@@ -3456,13 +3516,17 @@
                   "name": "_django_inner_ws"
                 },
                 {
-                  "type": "ALIAS",
+                  "type": "FIELD",
+                  "name": "alias",
                   "content": {
-                    "type": "SYMBOL",
-                    "name": "identifier"
-                  },
-                  "named": true,
-                  "value": "variable_name"
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    },
+                    "named": true,
+                    "value": "variable_name"
+                  }
                 }
               ]
             },
@@ -3517,8 +3581,12 @@
           "name": "_django_inner_ws"
         },
         {
-          "type": "SYMBOL",
-          "name": "string"
+          "type": "FIELD",
+          "name": "format",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          }
         },
         {
           "type": "CHOICE",
@@ -3539,13 +3607,17 @@
                   "name": "_django_inner_ws"
                 },
                 {
-                  "type": "ALIAS",
+                  "type": "FIELD",
+                  "name": "alias",
                   "content": {
-                    "type": "SYMBOL",
-                    "name": "identifier"
-                  },
-                  "named": true,
-                  "value": "variable_name"
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    },
+                    "named": true,
+                    "value": "variable_name"
+                  }
                 }
               ]
             },
@@ -3600,8 +3672,12 @@
           "name": "_django_inner_ws"
         },
         {
-          "type": "SYMBOL",
-          "name": "filter_expression"
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "filter_expression"
+          }
         },
         {
           "type": "SYMBOL",
@@ -3616,8 +3692,12 @@
           "name": "_django_inner_ws"
         },
         {
-          "type": "SYMBOL",
-          "name": "lookup"
+          "type": "FIELD",
+          "name": "grouper",
+          "content": {
+            "type": "SYMBOL",
+            "name": "lookup"
+          }
         },
         {
           "type": "SYMBOL",
@@ -3632,13 +3712,17 @@
           "name": "_django_inner_ws"
         },
         {
-          "type": "ALIAS",
+          "type": "FIELD",
+          "name": "alias",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          },
-          "named": true,
-          "value": "variable_name"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "variable_name"
+          }
         },
         {
           "type": "CHOICE",
@@ -3850,24 +3934,36 @@
           "name": "_django_inner_ws"
         },
         {
-          "type": "SYMBOL",
-          "name": "filter_expression"
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "filter_expression"
+          }
         },
         {
           "type": "SYMBOL",
           "name": "_django_inner_ws"
         },
         {
-          "type": "SYMBOL",
-          "name": "filter_expression"
+          "type": "FIELD",
+          "name": "max_value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "filter_expression"
+          }
         },
         {
           "type": "SYMBOL",
           "name": "_django_inner_ws"
         },
         {
-          "type": "SYMBOL",
-          "name": "filter_expression"
+          "type": "FIELD",
+          "name": "max_width",
+          "content": {
+            "type": "SYMBOL",
+            "name": "filter_expression"
+          }
         },
         {
           "type": "CHOICE",
@@ -3888,13 +3984,17 @@
                   "name": "_django_inner_ws"
                 },
                 {
-                  "type": "ALIAS",
+                  "type": "FIELD",
+                  "name": "alias",
                   "content": {
-                    "type": "SYMBOL",
-                    "name": "identifier"
-                  },
-                  "named": true,
-                  "value": "variable_name"
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    },
+                    "named": true,
+                    "value": "variable_name"
+                  }
                 }
               ]
             },
@@ -4078,8 +4178,12 @@
                   "name": "_django_inner_ws"
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "filter_expression"
+                  "type": "FIELD",
+                  "name": "count",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "filter_expression"
+                  }
                 }
               ]
             },
@@ -4205,13 +4309,17 @@
                   "name": "_django_inner_ws"
                 },
                 {
-                  "type": "ALIAS",
+                  "type": "FIELD",
+                  "name": "name",
                   "content": {
-                    "type": "SYMBOL",
-                    "name": "identifier"
-                  },
-                  "named": true,
-                  "value": "cycle_name"
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    },
+                    "named": true,
+                    "value": "cycle_name"
+                  }
                 }
               ]
             },
@@ -4332,13 +4440,17 @@
           "name": "_django_inner_ws"
         },
         {
-          "type": "ALIAS",
+          "type": "FIELD",
+          "name": "name",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          },
-          "named": true,
-          "value": "partial_name"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "partial_name"
+          }
         },
         {
           "type": "CHOICE",
@@ -4420,13 +4532,17 @@
                   "name": "_django_inner_ws"
                 },
                 {
-                  "type": "ALIAS",
+                  "type": "FIELD",
+                  "name": "end_name",
                   "content": {
-                    "type": "SYMBOL",
-                    "name": "identifier"
-                  },
-                  "named": true,
-                  "value": "partial_name"
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    },
+                    "named": true,
+                    "value": "partial_name"
+                  }
                 }
               ]
             },
@@ -4481,13 +4597,17 @@
           "name": "_django_inner_ws"
         },
         {
-          "type": "ALIAS",
+          "type": "FIELD",
+          "name": "name",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          },
-          "named": true,
-          "value": "partial_name"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "partial_name"
+          }
         },
         {
           "type": "CHOICE",
@@ -4672,13 +4792,17 @@
             "name": "_validate_generic_simple"
           },
           {
-            "type": "ALIAS",
+            "type": "FIELD",
+            "name": "name",
             "content": {
-              "type": "SYMBOL",
-              "name": "identifier"
-            },
-            "named": true,
-            "value": "generic_tag_name"
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              "named": true,
+              "value": "generic_tag_name"
+            }
           },
           {
             "type": "REPEAT",
@@ -4736,8 +4860,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "filter_expression"
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "filter_expression"
+          }
         },
         {
           "type": "SYMBOL",
@@ -4752,13 +4880,17 @@
           "name": "_django_inner_ws"
         },
         {
-          "type": "ALIAS",
+          "type": "FIELD",
+          "name": "alias",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          },
-          "named": true,
-          "value": "variable_name"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "variable_name"
+          }
         }
       ]
     },
@@ -4878,13 +5010,17 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "ALIAS",
+            "type": "FIELD",
+            "name": "name",
             "content": {
-              "type": "SYMBOL",
-              "name": "identifier"
-            },
-            "named": true,
-            "value": "filter_name"
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              "named": true,
+              "value": "filter_name"
+            }
           },
           {
             "type": "CHOICE",
@@ -4902,8 +5038,12 @@
                     "value": ":"
                   },
                   {
-                    "type": "SYMBOL",
-                    "name": "filter_argument"
+                    "type": "FIELD",
+                    "name": "argument",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "filter_argument"
+                    }
                   }
                 ]
               },
@@ -4932,21 +5072,29 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "ALIAS",
+          "type": "FIELD",
+          "name": "name",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          },
-          "named": true,
-          "value": "variable_name"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "variable_name"
+          }
         },
         {
           "type": "STRING",
           "value": "="
         },
         {
-          "type": "SYMBOL",
-          "name": "filter_expression"
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "filter_expression"
+          }
         }
       ]
     },
