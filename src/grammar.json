@@ -5092,7 +5092,7 @@
               "members": [
                 {
                   "type": "SYMBOL",
-                  "name": "_comparison_operator"
+                  "name": "comparison_operator"
                 },
                 {
                   "type": "SYMBOL",
@@ -5104,7 +5104,7 @@
         ]
       }
     },
-    "_comparison_operator": {
+    "comparison_operator": {
       "type": "CHOICE",
       "members": [
         {
@@ -5815,6 +5815,8 @@
     }
   ],
   "inline": [],
-  "supertypes": [],
+  "supertypes": [
+    "comparison_operator"
+  ],
   "reserved": {}
 }

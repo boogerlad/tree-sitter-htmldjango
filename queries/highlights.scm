@@ -166,18 +166,7 @@
 ; Django Comparison Operators
 ; =============================================================================
 
-[
-  (op_eq)
-  (op_ne)
-  (op_gt)
-  (op_gte)
-  (op_lt)
-  (op_lte)
-  (op_in)
-  (op_not_in)
-  (op_is)
-  (op_is_not)
-] @operator
+(comparison_operator) @operator
 
 ; =============================================================================
 ; Django Identifiers and Variables

@@ -62,6 +62,10 @@ module.exports = grammar({
     [$.tag_argument, $.as_alias],
   ],
 
+  supertypes: $ => [
+    $.comparison_operator,
+  ],
+
   rules: {
     document: $ => repeat($._node),
 
@@ -1131,13 +1135,13 @@ module.exports = grammar({
     comparison_expression: $ => prec.left(4, seq(
       $.filter_expression,
       repeat(seq(
-        $._comparison_operator,
+        $.comparison_operator,
         $.filter_expression,
       )),
     )),
 
-    // Hidden choice rule - individual operators appear directly in tree
-    _comparison_operator: $ => choice(
+    // Supertype for comparison operators - allows queries like (comparison_operator)
+    comparison_operator: $ => choice(
       $.op_not_in,
       $.op_is_not,
       $.op_in,

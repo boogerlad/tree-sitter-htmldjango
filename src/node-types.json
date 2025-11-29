@@ -1,5 +1,51 @@
 [
   {
+    "type": "comparison_operator",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "op_eq",
+        "named": true
+      },
+      {
+        "type": "op_gt",
+        "named": true
+      },
+      {
+        "type": "op_gte",
+        "named": true
+      },
+      {
+        "type": "op_in",
+        "named": true
+      },
+      {
+        "type": "op_is",
+        "named": true
+      },
+      {
+        "type": "op_is_not",
+        "named": true
+      },
+      {
+        "type": "op_lt",
+        "named": true
+      },
+      {
+        "type": "op_lte",
+        "named": true
+      },
+      {
+        "type": "op_ne",
+        "named": true
+      },
+      {
+        "type": "op_not_in",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "and_expression",
     "named": true,
     "fields": {},
@@ -107,47 +153,11 @@
       "required": true,
       "types": [
         {
+          "type": "comparison_operator",
+          "named": true
+        },
+        {
           "type": "filter_expression",
-          "named": true
-        },
-        {
-          "type": "op_eq",
-          "named": true
-        },
-        {
-          "type": "op_gt",
-          "named": true
-        },
-        {
-          "type": "op_gte",
-          "named": true
-        },
-        {
-          "type": "op_in",
-          "named": true
-        },
-        {
-          "type": "op_is",
-          "named": true
-        },
-        {
-          "type": "op_is_not",
-          "named": true
-        },
-        {
-          "type": "op_lt",
-          "named": true
-        },
-        {
-          "type": "op_lte",
-          "named": true
-        },
-        {
-          "type": "op_ne",
-          "named": true
-        },
-        {
-          "type": "op_not_in",
           "named": true
         }
       ]
@@ -2275,12 +2285,12 @@
   },
   {
     "type": "comment",
-    "named": true,
+    "named": false,
     "extra": true
   },
   {
     "type": "comment",
-    "named": false,
+    "named": true,
     "extra": true
   },
   {
