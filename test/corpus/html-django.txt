@@ -1012,3 +1012,94 @@ Deeply nested Django in HTML
       (django_endif))
     (end_tag
       (tag_name))))
+
+================================================================================
+Django in RCDATA elements (title/textarea)
+================================================================================
+
+<title>{{ page_title }} - {% block title %}Default{% endblock %}</title>
+
+--------------------------------------------------------------------------------
+
+(document
+  (rcdata_element
+    (start_tag
+      (tag_name))
+    (django_interpolation
+      (filter_expression
+        (primary_expression
+          (lookup
+            (identifier)))))
+    (rcdata_text)
+    (django_block_block
+      (django_block_open
+        (block_name))
+      (text)
+      (django_endblock))
+    (end_tag
+      (tag_name))))
+
+================================================================================
+Django block comment hiding unbalanced HTML
+================================================================================
+
+{% comment %}
+<div>
+{% endcomment %}
+<span>visible</span>
+{% comment %}
+</div>
+{% endcomment %}
+
+--------------------------------------------------------------------------------
+
+(document
+  (django_block_comment
+    (comment_content))
+  (normal_element
+    (tag_name)
+    (text)
+    (end_tag
+      (tag_name)))
+  (django_block_comment
+    (comment_content)))
+
+================================================================================
+Multiple Django tags in single attribute
+================================================================================
+
+<div class="{{ base_class }} {{ modifier_class }} {% if active %}active{% endif %}">
+
+--------------------------------------------------------------------------------
+
+(document
+  (normal_element
+    (tag_name)
+    (attribute
+      (attribute_name)
+      (quoted_attribute_value
+        (django_interpolation
+          (filter_expression
+            (primary_expression
+              (lookup
+                (identifier)))))
+        (attribute_value)
+        (django_interpolation
+          (filter_expression
+            (primary_expression
+              (lookup
+                (identifier)))))
+        (attribute_value)
+        (django_if_block
+          (django_if_open
+            (test_expression
+              (or_expression
+                (and_expression
+                  (not_expression
+                    (comparison_expression
+                      (filter_expression
+                        (primary_expression
+                          (lookup
+                            (identifier))))))))))
+          (text)
+          (django_endif))))))
