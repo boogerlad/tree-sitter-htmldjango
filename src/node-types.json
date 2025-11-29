@@ -915,11 +915,15 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
           "type": "filter_expression",
+          "named": true
+        },
+        {
+          "type": "method",
           "named": true
         }
       ]
@@ -2207,10 +2211,6 @@
     "named": false
   },
   {
-    "type": "b",
-    "named": false
-  },
-  {
     "type": "block",
     "named": false
   },
@@ -2240,12 +2240,12 @@
   },
   {
     "type": "comment",
-    "named": false,
+    "named": true,
     "extra": true
   },
   {
     "type": "comment",
-    "named": true,
+    "named": false,
     "extra": true
   },
   {
@@ -2417,6 +2417,10 @@
     "named": false
   },
   {
+    "type": "method",
+    "named": true
+  },
+  {
     "type": "not",
     "named": false
   },
@@ -2463,10 +2467,6 @@
   {
     "type": "or_keyword",
     "named": true
-  },
-  {
-    "type": "p",
-    "named": false
   },
   {
     "type": "partial",
@@ -2534,10 +2534,6 @@
   },
   {
     "type": "verbatim",
-    "named": false
-  },
-  {
-    "type": "w",
     "named": false
   },
   {

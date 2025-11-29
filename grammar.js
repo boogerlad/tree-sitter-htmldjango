@@ -943,7 +943,7 @@ module.exports = grammar({
       optional($._django_inner_ws),
       'lorem',
       optional(seq($._django_inner_ws, $.filter_expression)),
-      optional(seq($._django_inner_ws, choice('w', 'p', 'b'))),
+      optional(seq($._django_inner_ws, alias(choice('w', 'p', 'b'), $.method))),
       optional(seq($._django_inner_ws, 'random')),
       optional($._django_inner_ws),
       $._django_tag_close,

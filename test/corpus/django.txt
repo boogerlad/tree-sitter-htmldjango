@@ -498,7 +498,8 @@ Django lorem tag with count and method
       (filter_expression
         (primary_expression
           (literal
-            (number)))))))
+            (number))))
+      (method))))
 
 ================================================================================
 Django lorem tag with variable and random

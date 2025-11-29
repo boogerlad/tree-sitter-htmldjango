@@ -4082,21 +4082,26 @@
                   "name": "_django_inner_ws"
                 },
                 {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "STRING",
-                      "value": "w"
-                    },
-                    {
-                      "type": "STRING",
-                      "value": "p"
-                    },
-                    {
-                      "type": "STRING",
-                      "value": "b"
-                    }
-                  ]
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": "w"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "p"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "b"
+                      }
+                    ]
+                  },
+                  "named": true,
+                  "value": "method"
                 }
               ]
             },
