@@ -40,6 +40,7 @@ module.exports = grammar({
     $._verbatim_block_content,
     $._validate_generic_block,
     $._validate_generic_simple,
+    $._filter_colon,
   ],
 
   conflicts: $ => [
@@ -742,7 +743,7 @@ module.exports = grammar({
 
     filter_chain: $ => prec.left(seq(
       $.filter_call,
-      repeat(seq(optional($._django_inner_ws), '|', optional($._django_inner_ws), $.filter_call)),
+      repeat(seq(alias($._filter_pipe, '|'), $.filter_call)),
     )),
 
     // ==========================================================================
@@ -1088,8 +1089,7 @@ module.exports = grammar({
     filter_call: $ => prec.left(seq(
       alias($.identifier, $.filter_name),
       optional(seq(
-        ':',
-        optional($._django_inner_ws),
+        alias($._filter_colon, ':'),
         $.filter_argument,
       )),
     )),

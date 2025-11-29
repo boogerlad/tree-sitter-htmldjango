@@ -3046,32 +3046,13 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "_django_inner_ws"
-                    },
-                    {
-                      "type": "BLANK"
-                    }
-                  ]
-                },
-                {
-                  "type": "STRING",
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_filter_pipe"
+                  },
+                  "named": false,
                   "value": "|"
-                },
-                {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "_django_inner_ws"
-                    },
-                    {
-                      "type": "BLANK"
-                    }
-                  ]
                 },
                 {
                   "type": "SYMBOL",
@@ -4779,20 +4760,13 @@
                 "type": "SEQ",
                 "members": [
                   {
-                    "type": "STRING",
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_filter_colon"
+                    },
+                    "named": false,
                     "value": ":"
-                  },
-                  {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "_django_inner_ws"
-                      },
-                      {
-                        "type": "BLANK"
-                      }
-                    ]
                   },
                   {
                     "type": "SYMBOL",
@@ -5648,6 +5622,10 @@
     {
       "type": "SYMBOL",
       "name": "_validate_generic_simple"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_filter_colon"
     }
   ],
   "inline": [],

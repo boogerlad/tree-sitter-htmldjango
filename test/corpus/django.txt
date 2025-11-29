@@ -874,6 +874,119 @@ Django filter block with chain
       (text))))
 
 ================================================================================
+Django filter block chain with spaces
+================================================================================
+
+{% filter upper | lower %}text{% endfilter %}
+
+--------------------------------------------------------------------------------
+
+(document
+  (django_statement
+    (django_filter_block
+      (filter_chain
+        (filter_call
+          (filter_name))
+        (filter_call
+          (filter_name)))
+      (text))))
+
+================================================================================
+Django filter block space before pipe only
+================================================================================
+
+{% filter upper |lower %}text{% endfilter %}
+
+--------------------------------------------------------------------------------
+
+(document
+  (django_statement
+    (django_filter_block
+      (filter_chain
+        (filter_call
+          (filter_name))
+        (filter_call
+          (filter_name)))
+      (text))))
+
+================================================================================
+Django filter block space after pipe only
+================================================================================
+
+{% filter upper| lower %}text{% endfilter %}
+
+--------------------------------------------------------------------------------
+
+(document
+  (django_statement
+    (django_filter_block
+      (filter_chain
+        (filter_call
+          (filter_name))
+        (filter_call
+          (filter_name)))
+      (text))))
+
+================================================================================
+Django filter block multiple spaces around pipe
+================================================================================
+
+{% filter upper  |  lower %}text{% endfilter %}
+
+--------------------------------------------------------------------------------
+
+(document
+  (django_statement
+    (django_filter_block
+      (filter_chain
+        (filter_call
+          (filter_name))
+        (filter_call
+          (filter_name)))
+      (text))))
+
+================================================================================
+Django filter block with arg then spaced pipe
+================================================================================
+
+{% filter add:"!" | lower %}text{% endfilter %}
+
+--------------------------------------------------------------------------------
+
+(document
+  (django_statement
+    (django_filter_block
+      (filter_chain
+        (filter_call
+          (filter_name)
+          (filter_argument
+            (literal
+              (string))))
+        (filter_call
+          (filter_name)))
+      (text))))
+
+================================================================================
+Django filter block three filters spaced
+================================================================================
+
+{% filter upper | lower | title %}text{% endfilter %}
+
+--------------------------------------------------------------------------------
+
+(document
+  (django_statement
+    (django_filter_block
+      (filter_chain
+        (filter_call
+          (filter_name))
+        (filter_call
+          (filter_name))
+        (filter_call
+          (filter_name)))
+      (text))))
+
+================================================================================
 Django include with context
 ================================================================================
 
@@ -1382,6 +1495,51 @@ Django url named args spacing invalid (ERROR)
           (lookup
             (identifier)
             (identifier)))))))
+
+================================================================================
+Django filter colon space after invalid (ERROR)
+================================================================================
+
+{{ x|default: "y" }}
+
+--------------------------------------------------------------------------------
+
+; Django does not allow whitespace after the colon in filter arguments
+(document
+  (django_interpolation
+    (filter_expression
+      (primary_expression
+        (lookup
+          (identifier)))
+      (filter_call
+        (filter_name)))
+    (ERROR
+      (UNEXPECTED ':')
+      (identifier))))
+
+================================================================================
+Django filter colon space before invalid (ERROR)
+================================================================================
+
+{{ x|default :"y" }}
+
+--------------------------------------------------------------------------------
+
+; Django does not allow whitespace before the colon in filter arguments
+(document
+  (django_interpolation
+    (ERROR
+      (filter_expression
+        (primary_expression
+          (lookup
+            (identifier)))
+        (filter_call
+          (filter_name)))
+      (UNEXPECTED ':'))
+    (filter_expression
+      (primary_expression
+        (literal
+          (string))))))
 
 ================================================================================
 Django block comment with note

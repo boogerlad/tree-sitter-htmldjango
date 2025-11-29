@@ -26,6 +26,7 @@ enum TokenType {
     VERBATIM_BLOCK_CONTENT,
     VALIDATE_GENERIC_BLOCK,
     VALIDATE_GENERIC_SIMPLE,
+    FILTER_COLON,
 };
 
 typedef enum {
@@ -955,6 +956,32 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid_symbols) {
     // These validate whether a generic tag/block is appropriate before the grammar parses the tag name
     if (valid_symbols[VALIDATE_GENERIC_BLOCK] || valid_symbols[VALIDATE_GENERIC_SIMPLE]) {
         return scan_validate_generic_tag(lexer, valid_symbols);
+    }
+
+    // Handle filter colon - only match ':' if immediately followed by valid argument char
+    // Django does not allow whitespace after the colon in filter arguments
+    if (valid_symbols[FILTER_COLON] && lexer->lookahead == ':') {
+        lexer->mark_end(lexer);
+        advance(lexer);
+        // Check if next char is valid start of filter argument:
+        // - Quote chars for strings: " '
+        // - Digits for numbers: 0-9
+        // - Sign for numbers: + -
+        // - Decimal point for numbers: .
+        // - Letters/underscore for identifiers and i18n strings: a-z A-Z _
+        int32_t next = lexer->lookahead;
+        if (next == '"' || next == '\'' ||
+            (next >= '0' && next <= '9') ||
+            next == '+' || next == '-' || next == '.' ||
+            (next >= 'a' && next <= 'z') ||
+            (next >= 'A' && next <= 'Z') ||
+            next == '_') {
+            lexer->mark_end(lexer);
+            lexer->result_symbol = FILTER_COLON;
+            return true;
+        }
+        // Not followed by valid argument char - don't match
+        return false;
     }
 
     bool valid_start_tag =
