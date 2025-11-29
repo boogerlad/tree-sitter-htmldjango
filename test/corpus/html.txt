@@ -268,7 +268,8 @@ All-caps doctype
 ---
 
 (document
-  (doctype))
+  (doctype
+    (doctype_keyword)))
 
 ==================================
 Lowercase doctype
@@ -277,7 +278,8 @@ Lowercase doctype
 ---
 
 (document
-  (doctype))
+  (doctype
+    (doctype_keyword)))
 
 ==================================
 LI elements without close tags
@@ -533,7 +535,8 @@ Omitted end tags for html and head
 ---
 
 (document
-  (doctype)
+  (doctype
+    (doctype_keyword))
   (normal_element
     (tag_name)
     (normal_element

@@ -71,11 +71,11 @@
         {
           "type": "ALIAS",
           "content": {
-            "type": "SYMBOL",
-            "name": "_doctype"
+            "type": "PATTERN",
+            "value": "[Dd][Oo][Cc][Tt][Yy][Pp][Ee]"
           },
-          "named": false,
-          "value": "doctype"
+          "named": true,
+          "value": "doctype_keyword"
         },
         {
           "type": "PATTERN",
@@ -86,10 +86,6 @@
           "value": ">"
         }
       ]
-    },
-    "_doctype": {
-      "type": "PATTERN",
-      "value": "[Dd][Oo][Cc][Tt][Yy][Pp][Ee]"
     },
     "element": {
       "type": "CHOICE",
@@ -2965,17 +2961,22 @@
           "name": "_django_inner_ws"
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "on"
-            },
-            {
-              "type": "STRING",
-              "value": "off"
-            }
-          ]
+          "type": "ALIAS",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "on"
+              },
+              {
+                "type": "STRING",
+                "value": "off"
+              }
+            ]
+          },
+          "named": true,
+          "value": "autoescape_value"
         },
         {
           "type": "CHOICE",
@@ -4049,41 +4050,46 @@
           "name": "_django_inner_ws"
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "openblock"
-            },
-            {
-              "type": "STRING",
-              "value": "closeblock"
-            },
-            {
-              "type": "STRING",
-              "value": "openvariable"
-            },
-            {
-              "type": "STRING",
-              "value": "closevariable"
-            },
-            {
-              "type": "STRING",
-              "value": "openbrace"
-            },
-            {
-              "type": "STRING",
-              "value": "closebrace"
-            },
-            {
-              "type": "STRING",
-              "value": "opencomment"
-            },
-            {
-              "type": "STRING",
-              "value": "closecomment"
-            }
-          ]
+          "type": "ALIAS",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "openblock"
+              },
+              {
+                "type": "STRING",
+                "value": "closeblock"
+              },
+              {
+                "type": "STRING",
+                "value": "openvariable"
+              },
+              {
+                "type": "STRING",
+                "value": "closevariable"
+              },
+              {
+                "type": "STRING",
+                "value": "openbrace"
+              },
+              {
+                "type": "STRING",
+                "value": "closebrace"
+              },
+              {
+                "type": "STRING",
+                "value": "opencomment"
+              },
+              {
+                "type": "STRING",
+                "value": "closecomment"
+              }
+            ]
+          },
+          "named": true,
+          "value": "templatetag_argument"
         },
         {
           "type": "CHOICE",

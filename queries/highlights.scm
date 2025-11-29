@@ -5,6 +5,7 @@
 (tag_name) @tag
 (erroneous_end_tag_name) @tag.error
 (doctype) @constant
+(doctype_keyword) @keyword
 (attribute_name) @attribute
 (attribute_value) @string
 (comment) @comment
@@ -125,25 +126,16 @@
   "as"
   "from"
   "by"
-  "on"
-  "off"
   "and"
 ] @keyword
+
+(autoescape_value) @keyword
 
 ; =============================================================================
 ; Django Keywords - Templatetag Arguments
 ; =============================================================================
 
-[
-  "openblock"
-  "closeblock"
-  "openvariable"
-  "closevariable"
-  "openbrace"
-  "closebrace"
-  "opencomment"
-  "closecomment"
-] @string.special
+(templatetag_argument) @string.special
 
 ; =============================================================================
 ; Django Keywords - Lorem Methods

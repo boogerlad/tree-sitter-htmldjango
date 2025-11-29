@@ -370,6 +370,7 @@ Django autoescape block
 
 (document
   (django_autoescape_block
+    (autoescape_value)
     (django_interpolation
       (filter_expression
         (primary_expression
@@ -1319,8 +1320,10 @@ Django templatetag braces
 --------------------------------------------------------------------------------
 
 (document
-  (django_templatetag_tag)
-  (django_templatetag_tag))
+  (django_templatetag_tag
+    (templatetag_argument))
+  (django_templatetag_tag
+    (templatetag_argument)))
 
 ================================================================================
 Django generic tag with as

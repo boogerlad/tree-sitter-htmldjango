@@ -100,12 +100,10 @@ module.exports = grammar({
 
     doctype: $ => seq(
       '<!',
-      alias($._doctype, 'doctype'),
+      alias(/[Dd][Oo][Cc][Tt][Yy][Pp][Ee]/, $.doctype_keyword),
       /[^>]+/,
       '>',
     ),
-
-    _doctype: _ => /[Dd][Oo][Cc][Tt][Yy][Pp][Ee]/,
 
     // ==========================================================================
     // HTML: Elements
@@ -719,7 +717,7 @@ module.exports = grammar({
       optional($._django_inner_ws),
       'autoescape',
       $._django_inner_ws,
-      choice('on', 'off'),
+      alias(choice('on', 'off'), $.autoescape_value),
       optional($._django_inner_ws),
       $._django_tag_close,
       repeat($._node),
@@ -917,7 +915,7 @@ module.exports = grammar({
       optional($._django_inner_ws),
       'templatetag',
       $._django_inner_ws,
-      choice(
+      alias(choice(
         'openblock',
         'closeblock',
         'openvariable',
@@ -926,7 +924,7 @@ module.exports = grammar({
         'closebrace',
         'opencomment',
         'closecomment',
-      ),
+      ), $.templatetag_argument),
       optional($._django_inner_ws),
       $._django_tag_close,
     ),

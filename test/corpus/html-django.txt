@@ -82,7 +82,8 @@ Real World Template (ported from htmljinja2)
 --------------------------------------------------------------------------------
 
 (document
-  (doctype)
+  (doctype
+    (doctype_keyword))
   (normal_element
     (tag_name)
     (attribute
