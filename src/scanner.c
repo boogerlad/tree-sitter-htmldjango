@@ -562,6 +562,17 @@ static bool scan_comment(TSLexer *lexer) {
     }
 }
 
+// Check if character is a valid script/style end tag terminator per HTML5 spec.
+// Per https://html.spec.whatwg.org/multipage/syntax.html#restrictions-for-contents-of-script-elements
+// the text must not contain "</script" (case-insensitive) followed by
+// space, tab, LF, FF, CR, '/', or '>'
+static inline bool is_script_end_tag_terminator(int32_t c) {
+    return c == '>' || c == '/' ||
+           c == ' ' || c == '\t' ||
+           c == '\n' || c == '\r' ||
+           c == '\f';
+}
+
 // Modified to break on Django delimiters
 static bool scan_raw_text(Scanner *scanner, TSLexer *lexer) {
     if (scanner->tags.size == 0) {
@@ -585,9 +596,21 @@ static bool scan_raw_text(Scanner *scanner, TSLexer *lexer) {
         if (towupper(lexer->lookahead) == end_delimiter[delimiter_index]) {
             delimiter_index++;
             if (delimiter_index == strlen(end_delimiter)) {
-                break;
+                // We've matched "</SCRIPT" or "</STYLE" but need to verify
+                // it's followed by a valid end tag terminator per HTML5 spec
+                advance(lexer);
+                if (is_script_end_tag_terminator(lexer->lookahead)) {
+                    // This is a real end tag
+                    break;
+                }
+                // Not a real end tag (e.g., "</script" in a string literal)
+                // Continue scanning - the matched chars are part of content
+                delimiter_index = 0;
+                has_content = true;
+                lexer->mark_end(lexer);
+            } else {
+                advance(lexer);
             }
-            advance(lexer);
         }
         // Check for Django delimiters: {{ or {% or {#
         else if (lexer->lookahead == '{') {
@@ -646,9 +669,20 @@ static bool scan_rcdata_text(Scanner *scanner, TSLexer *lexer) {
         if (towupper(lexer->lookahead) == end_delimiter[delimiter_index]) {
             delimiter_index++;
             if (delimiter_index == strlen(end_delimiter)) {
-                break;
+                // We've matched the end tag name but need to verify
+                // it's followed by a valid end tag terminator per HTML5 spec
+                advance(lexer);
+                if (is_script_end_tag_terminator(lexer->lookahead)) {
+                    // This is a real end tag
+                    break;
+                }
+                // Not a real end tag, continue scanning
+                delimiter_index = 0;
+                has_content = true;
+                lexer->mark_end(lexer);
+            } else {
+                advance(lexer);
             }
-            advance(lexer);
         }
         // Check for Django delimiters: {{ or {% or {#
         else if (lexer->lookahead == '{') {

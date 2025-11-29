@@ -678,3 +678,173 @@ Foreign content
         (tag_name)))
     (end_tag
       (tag_name))))
+
+==================================
+OPTGROUP and OPTION implicit closes
+==================================
+<select>
+  <optgroup label="A">
+    <option>1
+    <option>2
+  <optgroup label="B">
+    <option>3
+</select>
+---
+
+(document
+  (normal_element
+    (tag_name)
+    (normal_element
+      (tag_name)
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value)))
+      (normal_element
+        (tag_name)
+        (text))
+      (normal_element
+        (tag_name)
+        (text)))
+    (normal_element
+      (tag_name)
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value)))
+      (normal_element
+        (tag_name)
+        (text)))
+    (end_tag
+      (tag_name))))
+
+==================================
+Table elements implicit closes
+==================================
+<table>
+  <tbody>
+    <tr><td>1<td>2
+    <tr><td>3<td>4
+</table>
+---
+
+(document
+  (normal_element
+    (tag_name)
+    (normal_element
+      (tag_name)
+      (normal_element
+        (tag_name)
+        (normal_element
+          (tag_name)
+          (text))
+        (normal_element
+          (tag_name)
+          (text)))
+      (normal_element
+        (tag_name)
+        (normal_element
+          (tag_name)
+          (text))
+        (normal_element
+          (tag_name)
+          (text))))
+    (end_tag
+      (tag_name))))
+
+==================================
+Content after head without body tag
+==================================
+<!DOCTYPE html>
+<html>
+<head></head>
+<div>Content
+</html>
+---
+
+(document
+  (doctype
+    (doctype_keyword))
+  (normal_element
+    (tag_name)
+    (normal_element
+      (tag_name)
+      (end_tag
+        (tag_name)))
+    (normal_element
+      (tag_name)
+      (text))
+    (end_tag
+      (tag_name))))
+
+==================================
+MathML foreign content
+==================================
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mrow><mi>x</mi></mrow>
+</math>
+---
+
+(document
+  (foreign_element
+    (tag_name)
+    (attribute
+      (attribute_name)
+      (quoted_attribute_value
+        (attribute_value)))
+    (foreign_element
+      (tag_name)
+      (foreign_element
+        (tag_name)
+        (text)
+        (end_tag
+          (tag_name)))
+      (end_tag
+        (tag_name)))
+    (end_tag
+      (tag_name))))
+
+==================================
+Script with almost-closing sequences
+==================================
+<script>var s = "</script";</script>
+---
+
+(document
+  (script_element
+    (start_tag
+      (tag_name))
+    (raw_text
+      (raw_text))
+    (end_tag
+      (tag_name))))
+
+==================================
+Script end tag with whitespace before >
+==================================
+<script>x</script >
+---
+
+(document
+  (script_element
+    (start_tag
+      (tag_name))
+    (raw_text
+      (raw_text))
+    (end_tag
+      (tag_name))))
+
+==================================
+Script with multiple almost-closes
+==================================
+<script>a</scriptb</scriptc</script>
+---
+
+(document
+  (script_element
+    (start_tag
+      (tag_name))
+    (raw_text
+      (raw_text))
+    (end_tag
+      (tag_name))))
