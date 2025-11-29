@@ -314,6 +314,11 @@
     }
   },
   {
+    "type": "attribute_fragment",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "attribute_value",
     "named": true,
     "fields": {},
@@ -365,6 +370,216 @@
         },
         {
           "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "django_attribute_elif_branch",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "attribute_fragment",
+            "named": true
+          },
+          {
+            "type": "django_for_block",
+            "named": true
+          },
+          {
+            "type": "django_if_block",
+            "named": true
+          },
+          {
+            "type": "django_interpolation",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "django_elif",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "django_attribute_else_branch",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "attribute_fragment",
+            "named": true
+          },
+          {
+            "type": "django_for_block",
+            "named": true
+          },
+          {
+            "type": "django_if_block",
+            "named": true
+          },
+          {
+            "type": "django_interpolation",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "django_else",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "django_attribute_empty_branch",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "attribute_fragment",
+            "named": true
+          },
+          {
+            "type": "django_for_block",
+            "named": true
+          },
+          {
+            "type": "django_if_block",
+            "named": true
+          },
+          {
+            "type": "django_interpolation",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "django_empty",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "django_attribute_for_block",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "attribute_fragment",
+            "named": true
+          },
+          {
+            "type": "django_for_block",
+            "named": true
+          },
+          {
+            "type": "django_if_block",
+            "named": true
+          },
+          {
+            "type": "django_interpolation",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "django_attribute_empty_branch",
+          "named": true
+        },
+        {
+          "type": "django_endfor",
+          "named": true
+        },
+        {
+          "type": "django_for_open",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "django_attribute_if_block",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "attribute_fragment",
+            "named": true
+          },
+          {
+            "type": "django_for_block",
+            "named": true
+          },
+          {
+            "type": "django_if_block",
+            "named": true
+          },
+          {
+            "type": "django_interpolation",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "django_attribute_elif_branch",
+          "named": true
+        },
+        {
+          "type": "django_attribute_else_branch",
+          "named": true
+        },
+        {
+          "type": "django_endif",
+          "named": true
+        },
+        {
+          "type": "django_if_open",
           "named": true
         }
       ]
@@ -850,11 +1065,38 @@
   {
     "type": "django_for_block",
     "named": true,
-    "fields": {},
+    "fields": {
+      "body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "attribute_fragment",
+            "named": true
+          },
+          {
+            "type": "django_for_block",
+            "named": true
+          },
+          {
+            "type": "django_if_block",
+            "named": true
+          },
+          {
+            "type": "django_interpolation",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "django_attribute_empty_branch",
+          "named": true
+        },
         {
           "type": "django_block_comment",
           "named": true
@@ -1035,11 +1277,42 @@
   {
     "type": "django_if_block",
     "named": true,
-    "fields": {},
+    "fields": {
+      "body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "attribute_fragment",
+            "named": true
+          },
+          {
+            "type": "django_for_block",
+            "named": true
+          },
+          {
+            "type": "django_if_block",
+            "named": true
+          },
+          {
+            "type": "django_interpolation",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "django_attribute_elif_branch",
+          "named": true
+        },
+        {
+          "type": "django_attribute_else_branch",
+          "named": true
+        },
         {
           "type": "django_block_comment",
           "named": true
@@ -1822,6 +2095,14 @@
           "named": true
         },
         {
+          "type": "django_attribute_for_block",
+          "named": true
+        },
+        {
+          "type": "django_attribute_if_block",
+          "named": true
+        },
+        {
           "type": "django_block_comment",
           "named": true
         },
@@ -1937,6 +2218,14 @@
       "types": [
         {
           "type": "attribute",
+          "named": true
+        },
+        {
+          "type": "django_attribute_for_block",
+          "named": true
+        },
+        {
+          "type": "django_attribute_if_block",
           "named": true
         },
         {
@@ -2186,6 +2475,26 @@
           "named": true
         },
         {
+          "type": "django_attribute_for_block",
+          "named": true
+        },
+        {
+          "type": "django_attribute_if_block",
+          "named": true
+        },
+        {
+          "type": "django_csrf_token_tag",
+          "named": true
+        },
+        {
+          "type": "django_cycle_tag",
+          "named": true
+        },
+        {
+          "type": "django_include_tag",
+          "named": true
+        },
+        {
           "type": "django_interpolation",
           "named": true
         },
@@ -2194,7 +2503,11 @@
           "named": true
         },
         {
-          "type": "django_statement",
+          "type": "django_now_tag",
+          "named": true
+        },
+        {
+          "type": "django_url_tag",
           "named": true
         }
       ]
@@ -2321,6 +2634,26 @@
           "named": true
         },
         {
+          "type": "django_attribute_for_block",
+          "named": true
+        },
+        {
+          "type": "django_attribute_if_block",
+          "named": true
+        },
+        {
+          "type": "django_csrf_token_tag",
+          "named": true
+        },
+        {
+          "type": "django_cycle_tag",
+          "named": true
+        },
+        {
+          "type": "django_include_tag",
+          "named": true
+        },
+        {
           "type": "django_interpolation",
           "named": true
         },
@@ -2329,7 +2662,11 @@
           "named": true
         },
         {
-          "type": "django_statement",
+          "type": "django_now_tag",
+          "named": true
+        },
+        {
+          "type": "django_url_tag",
           "named": true
         }
       ]
@@ -2359,6 +2696,26 @@
           "named": true
         },
         {
+          "type": "django_attribute_for_block",
+          "named": true
+        },
+        {
+          "type": "django_attribute_if_block",
+          "named": true
+        },
+        {
+          "type": "django_csrf_token_tag",
+          "named": true
+        },
+        {
+          "type": "django_cycle_tag",
+          "named": true
+        },
+        {
+          "type": "django_include_tag",
+          "named": true
+        },
+        {
           "type": "django_interpolation",
           "named": true
         },
@@ -2367,7 +2724,11 @@
           "named": true
         },
         {
-          "type": "django_statement",
+          "type": "django_now_tag",
+          "named": true
+        },
+        {
+          "type": "django_url_tag",
           "named": true
         }
       ]
@@ -2497,12 +2858,12 @@
   },
   {
     "type": "comment",
-    "named": true,
+    "named": false,
     "extra": true
   },
   {
     "type": "comment",
-    "named": false,
+    "named": true,
     "extra": true
   },
   {

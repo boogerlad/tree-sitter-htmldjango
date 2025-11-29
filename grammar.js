@@ -48,6 +48,12 @@ module.exports = grammar({
     [$.django_elif_branch],
     [$.django_else_branch],
     [$.django_empty_branch],
+    // Attribute-context Django block conflicts
+    [$.django_attribute_elif_branch],
+    [$.django_attribute_else_branch],
+    [$.django_attribute_empty_branch],
+    // attribute_fragment can look like an attribute
+    [$.attribute, $.attribute_fragment],
     // With legacy syntax: could continue with 'and' or end
     [$.with_legacy],
     // With assignments: ambiguity in repeat with optional whitespace
@@ -275,8 +281,22 @@ module.exports = grammar({
     _attribute_node: $ => choice(
       $.attribute,
       $.django_interpolation,
-      $.django_statement,
+      $._django_attribute_statement,  // Only attribute-context blocks here
       $.django_line_comment,
+    ),
+
+    // Django statements in attribute context - uses attribute_fragment instead of text
+    // For if/for blocks, use attribute-specific versions
+    // For other Django statements (url, csrf_token, etc.), allow the regular versions
+    _django_attribute_statement: $ => choice(
+      $.django_attribute_if_block,
+      $.django_attribute_for_block,
+      // Other Django statements that don't have block content can be used as-is
+      $.django_url_tag,
+      $.django_csrf_token_tag,
+      $.django_include_tag,
+      $.django_cycle_tag,
+      $.django_now_tag,
     ),
 
     attribute: $ => seq(
@@ -471,6 +491,59 @@ module.exports = grammar({
       optional($._django_inner_ws),
       'endif',
       $._django_tag_close,
+    ),
+
+    // ==========================================================================
+    // Django: Attribute-Context If Block
+    // ==========================================================================
+
+    // If block for attribute context - parses content as attribute_fragment instead of text
+    // Higher dynamic precedence to prefer this over regular django_if_block in attribute context
+    django_attribute_if_block: $ => prec.dynamic(10, seq(
+      $.django_if_open,
+      field('body', repeat($._attribute_body_content)),
+      repeat($.django_attribute_elif_branch),
+      optional($.django_attribute_else_branch),
+      $.django_endif,
+    )),
+
+    _attribute_body_content: $ => choice(
+      $.django_interpolation,  // Allow {{ var }} in attribute context
+      alias($.django_attribute_if_block, $.django_if_block),  // Nested if blocks
+      alias($.django_attribute_for_block, $.django_for_block),  // Nested for blocks
+      $.attribute_fragment,  // Attribute-like text (e.g., "disabled")
+    ),
+
+    // Attribute fragment: matches attribute-like tokens
+    // Each word/token in attribute context gets its own fragment
+    attribute_fragment: $ => prec.right(choice(
+      seq(/[a-zA-Z_][a-zA-Z0-9_-]*/, optional(seq('=', choice(/"[^"]*"/, /'[^']*'/, /[^\s<>"'\{%]+/)))),
+    )),
+
+    django_attribute_elif_branch: $ => seq(
+      $.django_elif,
+      field('body', repeat($._attribute_body_content)),
+    ),
+
+    django_attribute_else_branch: $ => seq(
+      $.django_else,
+      field('body', repeat($._attribute_body_content)),
+    ),
+
+    // ==========================================================================
+    // Django: Attribute-Context For Block
+    // ==========================================================================
+
+    django_attribute_for_block: $ => prec.dynamic(10, seq(
+      $.django_for_open,
+      field('body', repeat($._attribute_body_content)),
+      optional($.django_attribute_empty_branch),
+      $.django_endfor,
+    )),
+
+    django_attribute_empty_branch: $ => seq(
+      $.django_empty,
+      field('body', repeat($._attribute_body_content)),
     ),
 
     // ==========================================================================

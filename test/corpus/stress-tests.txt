@@ -114,7 +114,7 @@ STRESS TEST: Conditional attribute with Django
 (document
   (normal_element
     (tag_name)
-    (django_if_block
+    (django_attribute_if_block
       (django_if_open
         (test_expression
           (or_expression
@@ -125,7 +125,7 @@ STRESS TEST: Conditional attribute with Django
                     (primary_expression
                       (lookup
                         (identifier))))))))))
-      (text)
+      (attribute_fragment)
       (django_endif))
     (attribute
       (attribute_name)
@@ -789,7 +789,7 @@ STRESS TEST: Django conditional producing boolean attribute
 (document
   (void_element
     (tag_name)
-    (django_if_block
+    (django_attribute_if_block
       (django_if_open
         (test_expression
           (or_expression
@@ -800,7 +800,7 @@ STRESS TEST: Django conditional producing boolean attribute
                     (primary_expression
                       (lookup
                         (identifier))))))))))
-      (text)
+      (attribute_fragment)
       (django_endif))))
 
 ================================================================================
@@ -902,7 +902,7 @@ STRESS TEST: Select element with Django loop and conditionals
                   (lookup
                     (identifier)
                     (identifier)))))))
-        (django_if_block
+        (django_attribute_if_block
           (django_if_open
             (test_expression
               (or_expression
@@ -914,7 +914,7 @@ STRESS TEST: Select element with Django loop and conditionals
                           (lookup
                             (identifier)
                             (identifier))))))))))
-          (text)
+          (attribute_fragment)
           (django_endif))
         (django_interpolation
           (filter_expression

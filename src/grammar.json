@@ -891,11 +891,44 @@
         },
         {
           "type": "SYMBOL",
-          "name": "django_statement"
+          "name": "_django_attribute_statement"
         },
         {
           "type": "SYMBOL",
           "name": "django_line_comment"
+        }
+      ]
+    },
+    "_django_attribute_statement": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "django_attribute_if_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_attribute_for_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_url_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_csrf_token_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_include_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_cycle_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_now_tag"
         }
       ]
     },
@@ -1735,6 +1768,236 @@
         {
           "type": "SYMBOL",
           "name": "_django_tag_close"
+        }
+      ]
+    },
+    "django_attribute_if_block": {
+      "type": "PREC_DYNAMIC",
+      "value": 10,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "django_if_open"
+          },
+          {
+            "type": "FIELD",
+            "name": "body",
+            "content": {
+              "type": "REPEAT",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_attribute_body_content"
+              }
+            }
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SYMBOL",
+              "name": "django_attribute_elif_branch"
+            }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "django_attribute_else_branch"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "django_endif"
+          }
+        ]
+      }
+    },
+    "_attribute_body_content": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "django_interpolation"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "django_attribute_if_block"
+          },
+          "named": true,
+          "value": "django_if_block"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "django_attribute_for_block"
+          },
+          "named": true,
+          "value": "django_for_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "attribute_fragment"
+        }
+      ]
+    },
+    "attribute_fragment": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "[a-zA-Z_][a-zA-Z0-9_-]*"
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": "="
+                      },
+                      {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "PATTERN",
+                            "value": "\"[^\"]*\""
+                          },
+                          {
+                            "type": "PATTERN",
+                            "value": "'[^']*'"
+                          },
+                          {
+                            "type": "PATTERN",
+                            "value": "[^\\s<>\"'\\{%]+"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "django_attribute_elif_branch": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "django_elif"
+        },
+        {
+          "type": "FIELD",
+          "name": "body",
+          "content": {
+            "type": "REPEAT",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_attribute_body_content"
+            }
+          }
+        }
+      ]
+    },
+    "django_attribute_else_branch": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "django_else"
+        },
+        {
+          "type": "FIELD",
+          "name": "body",
+          "content": {
+            "type": "REPEAT",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_attribute_body_content"
+            }
+          }
+        }
+      ]
+    },
+    "django_attribute_for_block": {
+      "type": "PREC_DYNAMIC",
+      "value": 10,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "django_for_open"
+          },
+          {
+            "type": "FIELD",
+            "name": "body",
+            "content": {
+              "type": "REPEAT",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_attribute_body_content"
+              }
+            }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "django_attribute_empty_branch"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "django_endfor"
+          }
+        ]
+      }
+    },
+    "django_attribute_empty_branch": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "django_empty"
+        },
+        {
+          "type": "FIELD",
+          "name": "body",
+          "content": {
+            "type": "REPEAT",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_attribute_body_content"
+            }
+          }
         }
       ]
     },
@@ -5893,6 +6156,19 @@
     ],
     [
       "django_empty_branch"
+    ],
+    [
+      "django_attribute_elif_branch"
+    ],
+    [
+      "django_attribute_else_branch"
+    ],
+    [
+      "django_attribute_empty_branch"
+    ],
+    [
+      "attribute",
+      "attribute_fragment"
     ],
     [
       "with_legacy"
