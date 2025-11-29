@@ -1090,3 +1090,99 @@ EDGE CASE: Incomplete Django tag at end of attribute
           (ERROR)))
       (end_tag
         (tag_name)))))
+
+================================================================================
+EDGE CASE: Percent sign in double-quoted attribute value
+================================================================================
+<div data="100%"></div>
+
+--------------------------------------------------------------------------------
+
+(document
+  (element
+    (normal_element
+      (tag_name)
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value)))
+      (end_tag
+        (tag_name)))))
+
+================================================================================
+EDGE CASE: Percent sign in single-quoted attribute value
+================================================================================
+<div style='width: 100%'></div>
+
+--------------------------------------------------------------------------------
+
+(document
+  (element
+    (normal_element
+      (tag_name)
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value)))
+      (end_tag
+        (tag_name)))))
+
+================================================================================
+EDGE CASE: Multiple percent signs in attribute value
+================================================================================
+<div data="50% + 50% = 100%"></div>
+
+--------------------------------------------------------------------------------
+
+(document
+  (element
+    (normal_element
+      (tag_name)
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value)))
+      (end_tag
+        (tag_name)))))
+
+================================================================================
+EDGE CASE: Django variable followed by percent sign
+================================================================================
+<div style="width: {{ width }}%"></div>
+
+--------------------------------------------------------------------------------
+
+(document
+  (element
+    (normal_element
+      (tag_name)
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value)
+          (django_interpolation
+            (filter_expression
+              (primary_expression
+                (lookup
+                  (identifier)))))
+          (attribute_value)))
+      (end_tag
+        (tag_name)))))
+
+================================================================================
+EDGE CASE: Percent sign inside curly braces (not Django)
+================================================================================
+<div data="{50%}"></div>
+
+--------------------------------------------------------------------------------
+
+(document
+  (element
+    (normal_element
+      (tag_name)
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value)))
+      (end_tag
+        (tag_name)))))
