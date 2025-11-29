@@ -727,8 +727,6 @@ STRESS TEST: Implicit end tag with Django
 
 ================================================================================
 STRESS TEST: Nested same-type elements with ancestor close
-NOTE: This test ensures that deeply nested same-type elements followed by an
-ancestor's closing tag parse correctly (without the spurious tag popping heuristic).
 ================================================================================
 
 <ul>
@@ -738,6 +736,9 @@ ancestor's closing tag parse correctly (without the spurious tag popping heurist
 </ul>
 
 --------------------------------------------------------------------------------
+
+; This test ensures that deeply nested same-type elements followed by an ancestor's
+; closing tag parse correctly (without the spurious tag popping heuristic).
 
 (document
   (element
