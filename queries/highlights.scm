@@ -160,14 +160,24 @@
 
 [
   "not"
-  "is"
 ] @keyword.operator
 
 ; =============================================================================
 ; Django Comparison Operators
 ; =============================================================================
 
-(comparison_operator) @operator
+[
+  (op_eq)
+  (op_ne)
+  (op_gt)
+  (op_gte)
+  (op_lt)
+  (op_lte)
+  (op_in)
+  (op_not_in)
+  (op_is)
+  (op_is_not)
+] @operator
 
 ; =============================================================================
 ; Django Identifiers and Variables

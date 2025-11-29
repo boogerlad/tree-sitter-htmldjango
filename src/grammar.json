@@ -5092,7 +5092,7 @@
               "members": [
                 {
                   "type": "SYMBOL",
-                  "name": "comparison_operator"
+                  "name": "_comparison_operator"
                 },
                 {
                   "type": "SYMBOL",
@@ -5104,146 +5104,186 @@
         ]
       }
     },
-    "comparison_operator": {
+    "_comparison_operator": {
       "type": "CHOICE",
       "members": [
         {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 10,
-            "content": {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "not"
-                },
-                {
-                  "type": "PATTERN",
-                  "value": "[ \\t\\r\\n]+"
-                },
-                {
-                  "type": "STRING",
-                  "value": "in"
-                }
-              ]
-            }
-          }
+          "type": "SYMBOL",
+          "name": "op_not_in"
         },
         {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 10,
-            "content": {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "is"
-                },
-                {
-                  "type": "PATTERN",
-                  "value": "[ \\t\\r\\n]+"
-                },
-                {
-                  "type": "STRING",
-                  "value": "not"
-                }
-              ]
-            }
-          }
+          "type": "SYMBOL",
+          "name": "op_is_not"
         },
         {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 10,
-            "content": {
+          "type": "SYMBOL",
+          "name": "op_in"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "op_is"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "op_eq"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "op_ne"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "op_gte"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "op_gt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "op_lte"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "op_lt"
+        }
+      ]
+    },
+    "op_not_in": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "not"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[ \\t\\r\\n]+"
+            },
+            {
               "type": "STRING",
               "value": "in"
             }
-          }
-        },
-        {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 10,
-            "content": {
+          ]
+        }
+      }
+    },
+    "op_is_not": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "SEQ",
+          "members": [
+            {
               "type": "STRING",
               "value": "is"
-            }
-          }
-        },
-        {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 10,
-            "content": {
+            },
+            {
+              "type": "PATTERN",
+              "value": "[ \\t\\r\\n]+"
+            },
+            {
               "type": "STRING",
-              "value": "=="
+              "value": "not"
             }
-          }
-        },
-        {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 10,
-            "content": {
-              "type": "STRING",
-              "value": "!="
-            }
-          }
-        },
-        {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 10,
-            "content": {
-              "type": "STRING",
-              "value": ">="
-            }
-          }
-        },
-        {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 10,
-            "content": {
-              "type": "STRING",
-              "value": ">"
-            }
-          }
-        },
-        {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 10,
-            "content": {
-              "type": "STRING",
-              "value": "<="
-            }
-          }
-        },
-        {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 10,
-            "content": {
-              "type": "STRING",
-              "value": "<"
-            }
-          }
+          ]
         }
-      ]
+      }
+    },
+    "op_in": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "STRING",
+          "value": "in"
+        }
+      }
+    },
+    "op_is": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "STRING",
+          "value": "is"
+        }
+      }
+    },
+    "op_eq": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "STRING",
+          "value": "=="
+        }
+      }
+    },
+    "op_ne": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "STRING",
+          "value": "!="
+        }
+      }
+    },
+    "op_gte": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "STRING",
+          "value": ">="
+        }
+      }
+    },
+    "op_gt": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "STRING",
+          "value": ">"
+        }
+      }
+    },
+    "op_lte": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "STRING",
+          "value": "<="
+        }
+      }
+    },
+    "op_lt": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "STRING",
+          "value": "<"
+        }
+      }
     },
     "identifier": {
       "type": "TOKEN",

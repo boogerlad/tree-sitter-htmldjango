@@ -1131,23 +1131,36 @@ module.exports = grammar({
     comparison_expression: $ => prec.left(4, seq(
       $.filter_expression,
       repeat(seq(
-        $.comparison_operator,
+        $._comparison_operator,
         $.filter_expression,
       )),
     )),
 
-    comparison_operator: _ => choice(
-      token(prec(10, seq('not', /[ \t\r\n]+/, 'in'))),
-      token(prec(10, seq('is', /[ \t\r\n]+/, 'not'))),
-      token(prec(10, 'in')),
-      token(prec(10, 'is')),
-      token(prec(10, '==')),
-      token(prec(10, '!=')),
-      token(prec(10, '>=')),
-      token(prec(10, '>')),
-      token(prec(10, '<=')),
-      token(prec(10, '<')),
+    // Hidden choice rule - individual operators appear directly in tree
+    _comparison_operator: $ => choice(
+      $.op_not_in,
+      $.op_is_not,
+      $.op_in,
+      $.op_is,
+      $.op_eq,
+      $.op_ne,
+      $.op_gte,
+      $.op_gt,
+      $.op_lte,
+      $.op_lt,
     ),
+
+    // Individual comparison operators as named nodes
+    op_not_in: _ => token(prec(10, seq('not', /[ \t\r\n]+/, 'in'))),
+    op_is_not: _ => token(prec(10, seq('is', /[ \t\r\n]+/, 'not'))),
+    op_in: _ => token(prec(10, 'in')),
+    op_is: _ => token(prec(10, 'is')),
+    op_eq: _ => token(prec(10, '==')),
+    op_ne: _ => token(prec(10, '!=')),
+    op_gte: _ => token(prec(10, '>=')),
+    op_gt: _ => token(prec(10, '>')),
+    op_lte: _ => token(prec(10, '<=')),
+    op_lt: _ => token(prec(10, '<')),
 
     // ==========================================================================
     // Django: Tokens

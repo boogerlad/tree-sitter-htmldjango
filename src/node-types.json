@@ -107,20 +107,51 @@
       "required": true,
       "types": [
         {
-          "type": "comparison_operator",
+          "type": "filter_expression",
           "named": true
         },
         {
-          "type": "filter_expression",
+          "type": "op_eq",
+          "named": true
+        },
+        {
+          "type": "op_gt",
+          "named": true
+        },
+        {
+          "type": "op_gte",
+          "named": true
+        },
+        {
+          "type": "op_in",
+          "named": true
+        },
+        {
+          "type": "op_is",
+          "named": true
+        },
+        {
+          "type": "op_is_not",
+          "named": true
+        },
+        {
+          "type": "op_lt",
+          "named": true
+        },
+        {
+          "type": "op_lte",
+          "named": true
+        },
+        {
+          "type": "op_ne",
+          "named": true
+        },
+        {
+          "type": "op_not_in",
           "named": true
         }
       ]
     }
-  },
-  {
-    "type": "comparison_operator",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "cycle_value",
@@ -2143,10 +2174,6 @@
     }
   },
   {
-    "type": "!=",
-    "named": false
-  },
-  {
     "type": "\"",
     "named": false
   },
@@ -2187,23 +2214,11 @@
     "named": false
   },
   {
-    "type": "<=",
-    "named": false
-  },
-  {
     "type": "=",
     "named": false
   },
   {
-    "type": "==",
-    "named": false
-  },
-  {
     "type": ">",
-    "named": false
-  },
-  {
-    "type": ">=",
     "named": false
   },
   {
@@ -2260,12 +2275,12 @@
   },
   {
     "type": "comment",
-    "named": false,
+    "named": true,
     "extra": true
   },
   {
     "type": "comment",
-    "named": true,
+    "named": false,
     "extra": true
   },
   {
@@ -2421,10 +2436,6 @@
     "named": true
   },
   {
-    "type": "is",
-    "named": false
-  },
-  {
     "type": "library_name",
     "named": true
   },
@@ -2466,6 +2477,46 @@
   },
   {
     "type": "only",
+    "named": true
+  },
+  {
+    "type": "op_eq",
+    "named": true
+  },
+  {
+    "type": "op_gt",
+    "named": true
+  },
+  {
+    "type": "op_gte",
+    "named": true
+  },
+  {
+    "type": "op_in",
+    "named": true
+  },
+  {
+    "type": "op_is",
+    "named": true
+  },
+  {
+    "type": "op_is_not",
+    "named": true
+  },
+  {
+    "type": "op_lt",
+    "named": true
+  },
+  {
+    "type": "op_lte",
+    "named": true
+  },
+  {
+    "type": "op_ne",
+    "named": true
+  },
+  {
+    "type": "op_not_in",
     "named": true
   },
   {

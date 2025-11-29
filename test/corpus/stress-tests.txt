@@ -563,7 +563,7 @@ STRESS TEST: Complex boolean expression in if
                         (primary_expression
                           (lookup
                             (identifier))))
-                      (comparison_operator)
+                      (op_eq)
                       (filter_expression
                         (primary_expression
                           (lookup
@@ -723,6 +723,7 @@ STRESS TEST: Implicit end tag with Django
           (text)))))
   (ERROR
     (tag_name)
+    (op_gt)
     (UNEXPECTED '\0')))
 
 ================================================================================

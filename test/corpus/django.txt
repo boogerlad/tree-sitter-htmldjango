@@ -1061,7 +1061,7 @@ Django if with comparison operators
                     (primary_expression
                       (lookup
                         (identifier))))
-                  (comparison_operator)
+                  (op_eq)
                   (filter_expression
                     (primary_expression
                       (lookup
@@ -1073,7 +1073,7 @@ Django if with comparison operators
                     (primary_expression
                       (lookup
                         (identifier))))
-                  (comparison_operator)
+                  (op_ne)
                   (filter_expression
                     (primary_expression
                       (lookup
@@ -1102,7 +1102,7 @@ Django if with is not comparison
                     (primary_expression
                       (lookup
                         (identifier))))
-                  (comparison_operator)
+                  (op_is_not)
                   (filter_expression
                     (primary_expression
                       (lookup
@@ -1131,7 +1131,7 @@ Django if with not in comparison
                     (primary_expression
                       (lookup
                         (identifier))))
-                  (comparison_operator)
+                  (op_not_in)
                   (filter_expression
                     (primary_expression
                       (lookup
@@ -1784,7 +1784,7 @@ Django if comparison after and
                     (primary_expression
                       (lookup
                         (identifier))))
-                  (comparison_operator)
+                  (op_eq)
                   (filter_expression
                     (primary_expression
                       (lookup
@@ -1796,7 +1796,7 @@ Django if comparison after and
                     (primary_expression
                       (lookup
                         (identifier))))
-                  (comparison_operator)
+                  (op_ne)
                   (filter_expression
                     (primary_expression
                       (lookup
@@ -1825,7 +1825,7 @@ Django if comparison after or
                     (primary_expression
                       (lookup
                         (identifier))))
-                  (comparison_operator)
+                  (op_eq)
                   (filter_expression
                     (primary_expression
                       (lookup
@@ -1838,7 +1838,7 @@ Django if comparison after or
                     (primary_expression
                       (lookup
                         (identifier))))
-                  (comparison_operator)
+                  (op_ne)
                   (filter_expression
                     (primary_expression
                       (lookup
@@ -1867,7 +1867,7 @@ Django if mixed comparisons with and or
                     (primary_expression
                       (lookup
                         (identifier))))
-                  (comparison_operator)
+                  (op_eq)
                   (filter_expression
                     (primary_expression
                       (lookup
@@ -1879,7 +1879,7 @@ Django if mixed comparisons with and or
                     (primary_expression
                       (lookup
                         (identifier))))
-                  (comparison_operator)
+                  (op_ne)
                   (filter_expression
                     (primary_expression
                       (lookup
@@ -1892,7 +1892,7 @@ Django if mixed comparisons with and or
                     (primary_expression
                       (lookup
                         (identifier))))
-                  (comparison_operator)
+                  (op_gte)
                   (filter_expression
                     (primary_expression
                       (lookup
@@ -2168,32 +2168,32 @@ Django chained comparison operators
                     (primary_expression
                       (lookup
                         (identifier))))
-                  (comparison_operator)
+                  (op_eq)
                   (filter_expression
                     (primary_expression
                       (lookup
                         (identifier))))
-                  (comparison_operator)
+                  (op_ne)
                   (filter_expression
                     (primary_expression
                       (lookup
                         (identifier))))
-                  (comparison_operator)
+                  (op_lt)
                   (filter_expression
                     (primary_expression
                       (lookup
                         (identifier))))
-                  (comparison_operator)
+                  (op_lte)
                   (filter_expression
                     (primary_expression
                       (lookup
                         (identifier))))
-                  (comparison_operator)
+                  (op_gt)
                   (filter_expression
                     (primary_expression
                       (lookup
                         (identifier))))
-                  (comparison_operator)
+                  (op_gte)
                   (filter_expression
                     (primary_expression
                       (lookup
