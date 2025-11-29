@@ -31,13 +31,11 @@ Django filter pipelines
       (filter_call
         (filter_name)
         (filter_argument
-          (literal
-            (string))))
+          (string)))
       (filter_call
         (filter_name)
         (filter_argument
-          (literal
-            (number)))))))
+          (number))))))
 
 ================================================================================
 Django line comment
@@ -73,20 +71,19 @@ Django if statement
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_if_block
-      (django_if_open
-        (test_expression
-          (or_expression
-            (and_expression
-              (not_expression
-                (comparison_expression
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))))))))
-      (text)
-      (django_endif))))
+  (django_if_block
+    (django_if_open
+      (test_expression
+        (or_expression
+          (and_expression
+            (not_expression
+              (comparison_expression
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))))))))
+    (text)
+    (django_endif)))
 
 ================================================================================
 Django if-elif-else
@@ -97,9 +94,20 @@ Django if-elif-else
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_if_block
-      (django_if_open
+  (django_if_block
+    (django_if_open
+      (test_expression
+        (or_expression
+          (and_expression
+            (not_expression
+              (comparison_expression
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))))))))
+    (text)
+    (django_elif_branch
+      (django_elif
         (test_expression
           (or_expression
             (and_expression
@@ -109,23 +117,11 @@ Django if-elif-else
                     (primary_expression
                       (lookup
                         (identifier))))))))))
-      (text)
-      (django_elif_branch
-        (django_elif
-          (test_expression
-            (or_expression
-              (and_expression
-                (not_expression
-                  (comparison_expression
-                    (filter_expression
-                      (primary_expression
-                        (lookup
-                          (identifier))))))))))
-        (text))
-      (django_else_branch
-        (django_else)
-        (text))
-      (django_endif))))
+      (text))
+    (django_else_branch
+      (django_else)
+      (text))
+    (django_endif)))
 
 ================================================================================
 Django for loop
@@ -136,21 +132,20 @@ Django for loop
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_for_block
-      (django_for_open
-        (loop_variables
-          (variable_name))
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier)))))
-      (django_interpolation
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier)))))
-      (django_endfor))))
+  (django_for_block
+    (django_for_open
+      (loop_variables
+        (variable_name))
+      (filter_expression
+        (primary_expression
+          (lookup
+            (identifier)))))
+    (django_interpolation
+      (filter_expression
+        (primary_expression
+          (lookup
+            (identifier)))))
+    (django_endfor)))
 
 ================================================================================
 Django for loop with empty
@@ -161,24 +156,23 @@ Django for loop with empty
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_for_block
-      (django_for_open
-        (loop_variables
-          (variable_name))
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier)))))
-      (django_interpolation
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier)))))
-      (django_empty_branch
-        (django_empty)
-        (text))
-      (django_endfor))))
+  (django_for_block
+    (django_for_open
+      (loop_variables
+        (variable_name))
+      (filter_expression
+        (primary_expression
+          (lookup
+            (identifier)))))
+    (django_interpolation
+      (filter_expression
+        (primary_expression
+          (lookup
+            (identifier)))))
+    (django_empty_branch
+      (django_empty)
+      (text))
+    (django_endfor)))
 
 ================================================================================
 Django with block
@@ -189,22 +183,21 @@ Django with block
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_with_block
-      (django_with_open
-        (with_assignments
-          (assignment
-            (variable_name)
-            (filter_expression
-              (primary_expression
-                (lookup
-                  (identifier)))))))
-      (django_interpolation
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier)))))
-      (django_endwith))))
+  (django_with_block
+    (django_with_open
+      (with_assignments
+        (assignment
+          (variable_name)
+          (filter_expression
+            (primary_expression
+              (lookup
+                (identifier)))))))
+    (django_interpolation
+      (filter_expression
+        (primary_expression
+          (lookup
+            (identifier)))))
+    (django_endwith)))
 
 ================================================================================
 Django with multiple assignments
@@ -215,24 +208,23 @@ Django with multiple assignments
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_with_block
-      (django_with_open
-        (with_assignments
-          (assignment
-            (variable_name)
-            (filter_expression
-              (primary_expression
-                (lookup
-                  (identifier)))))
-          (assignment
-            (variable_name)
-            (filter_expression
-              (primary_expression
-                (lookup
-                  (identifier)))))))
-      (text)
-      (django_endwith))))
+  (django_with_block
+    (django_with_open
+      (with_assignments
+        (assignment
+          (variable_name)
+          (filter_expression
+            (primary_expression
+              (lookup
+                (identifier)))))
+        (assignment
+          (variable_name)
+          (filter_expression
+            (primary_expression
+              (lookup
+                (identifier)))))))
+    (text)
+    (django_endwith)))
 
 ================================================================================
 Django filter with spaces around pipe
@@ -279,12 +271,10 @@ Django extends tag
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_extends_tag
-      (filter_expression
-        (primary_expression
-          (literal
-            (string)))))))
+  (django_extends_tag
+    (filter_expression
+      (primary_expression
+        (string)))))
 
 ================================================================================
 Django block tag
@@ -295,12 +285,11 @@ Django block tag
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_block_block
-      (django_block_open
-        (block_name))
-      (text)
-      (django_endblock))))
+  (django_block_block
+    (django_block_open
+      (block_name))
+    (text)
+    (django_endblock)))
 
 ================================================================================
 Django include tag
@@ -311,12 +300,10 @@ Django include tag
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_include_tag
-      (filter_expression
-        (primary_expression
-          (literal
-            (string)))))))
+  (django_include_tag
+    (filter_expression
+      (primary_expression
+        (string)))))
 
 ================================================================================
 Django load tag
@@ -327,9 +314,8 @@ Django load tag
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_load_tag
-      (library_name))))
+  (django_load_tag
+    (library_name)))
 
 ================================================================================
 Django url tag
@@ -340,19 +326,17 @@ Django url tag
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_url_tag
+  (django_url_tag
+    (filter_expression
+      (primary_expression
+        (string)))
+    (named_argument
+      (argument_name)
       (filter_expression
         (primary_expression
-          (literal
-            (string))))
-      (named_argument
-        (argument_name)
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier)
-              (identifier))))))))
+          (lookup
+            (identifier)
+            (identifier)))))))
 
 ================================================================================
 Django csrf token
@@ -363,8 +347,7 @@ Django csrf token
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_csrf_token_tag)))
+  (django_csrf_token_tag))
 
 ================================================================================
 Django verbatim block
@@ -375,8 +358,7 @@ Django verbatim block
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_verbatim_block)))
+  (django_verbatim_block))
 
 ================================================================================
 Django autoescape block
@@ -387,13 +369,12 @@ Django autoescape block
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_autoescape_block
-      (django_interpolation
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier))))))))
+  (django_autoescape_block
+    (django_interpolation
+      (filter_expression
+        (primary_expression
+          (lookup
+            (identifier)))))))
 
 ================================================================================
 Django filter block
@@ -404,12 +385,11 @@ Django filter block
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_filter_block
-      (filter_chain
-        (filter_call
-          (filter_name)))
-      (text))))
+  (django_filter_block
+    (filter_chain
+      (filter_call
+        (filter_name)))
+    (text)))
 
 ================================================================================
 Django spaceless block
@@ -420,14 +400,12 @@ Django spaceless block
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_spaceless_block
-      (element
-        (normal_element
-          (tag_name)
-          (text)
-          (end_tag
-            (tag_name)))))))
+  (django_spaceless_block
+    (normal_element
+      (tag_name)
+      (text)
+      (end_tag
+        (tag_name)))))
 
 ================================================================================
 Django generic tag
@@ -438,14 +416,12 @@ Django generic tag
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_generic_tag
-      (generic_tag_name)
-      (tag_argument
-        (filter_expression
-          (primary_expression
-            (literal
-              (string))))))))
+  (django_generic_tag
+    (generic_tag_name)
+    (tag_argument
+      (filter_expression
+        (primary_expression
+          (string))))))
 
 ================================================================================
 Django generic block
@@ -456,21 +432,19 @@ Django generic block
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_generic_block
-      (generic_tag_name)
-      (tag_argument
-        (filter_expression
-          (primary_expression
-            (literal
-              (number)))))
-      (tag_argument
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier)))))
-      (text)
-      (end_tag_name))))
+  (django_generic_block
+    (generic_tag_name)
+    (tag_argument
+      (filter_expression
+        (primary_expression
+          (number))))
+    (tag_argument
+      (filter_expression
+        (primary_expression
+          (lookup
+            (identifier)))))
+    (text)
+    (end_tag_name)))
 
 ================================================================================
 Django lorem tag
@@ -481,8 +455,7 @@ Django lorem tag
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_lorem_tag)))
+  (django_lorem_tag))
 
 ================================================================================
 Django lorem tag with count and method
@@ -493,13 +466,11 @@ Django lorem tag with count and method
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_lorem_tag
-      (filter_expression
-        (primary_expression
-          (literal
-            (number))))
-      (method))))
+  (django_lorem_tag
+    (filter_expression
+      (primary_expression
+        (number)))
+    (method)))
 
 ================================================================================
 Django lorem tag with variable and random
@@ -510,13 +481,12 @@ Django lorem tag with variable and random
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_lorem_tag
-      (filter_expression
-        (primary_expression
-          (lookup
-            (identifier))))
-      (random))))
+  (django_lorem_tag
+    (filter_expression
+      (primary_expression
+        (lookup
+          (identifier))))
+    (random)))
 
 ================================================================================
 Django resetcycle tag
@@ -527,8 +497,7 @@ Django resetcycle tag
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_resetcycle_tag)))
+  (django_resetcycle_tag))
 
 ================================================================================
 Django resetcycle tag with name
@@ -539,9 +508,8 @@ Django resetcycle tag with name
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_resetcycle_tag
-      (cycle_name))))
+  (django_resetcycle_tag
+    (cycle_name)))
 
 ================================================================================
 Django querystring tag with named args
@@ -552,20 +520,18 @@ Django querystring tag with named args
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_querystring_tag
-      (named_argument
-        (argument_name)
-        (filter_expression
-          (primary_expression
-            (literal
-              (number)))))
-      (named_argument
-        (argument_name)
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier))))))))
+  (django_querystring_tag
+    (named_argument
+      (argument_name)
+      (filter_expression
+        (primary_expression
+          (number))))
+    (named_argument
+      (argument_name)
+      (filter_expression
+        (primary_expression
+          (lookup
+            (identifier)))))))
 
 ================================================================================
 Django querystring tag with positional and named
@@ -576,19 +542,18 @@ Django querystring tag with positional and named
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_querystring_tag
+  (django_querystring_tag
+    (filter_expression
+      (primary_expression
+        (lookup
+          (identifier)
+          (identifier))))
+    (named_argument
+      (argument_name)
       (filter_expression
         (primary_expression
           (lookup
-            (identifier)
-            (identifier))))
-      (named_argument
-        (argument_name)
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier))))))))
+            (identifier)))))))
 
 ================================================================================
 Django partialdef block
@@ -599,10 +564,9 @@ Django partialdef block
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_partialdef_block
-      (partial_name)
-      (text))))
+  (django_partialdef_block
+    (partial_name)
+    (text)))
 
 ================================================================================
 Django partialdef block with inline and end name
@@ -613,12 +577,11 @@ Django partialdef block with inline and end name
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_partialdef_block
-      (partial_name)
-      (inline)
-      (text)
-      (partial_name))))
+  (django_partialdef_block
+    (partial_name)
+    (inline)
+    (text)
+    (partial_name)))
 
 ================================================================================
 Django partial tag
@@ -629,9 +592,8 @@ Django partial tag
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_partial_tag
-      (partial_name))))
+  (django_partial_tag
+    (partial_name)))
 
 ================================================================================
 Django verbatim with multi-word suffix
@@ -642,8 +604,7 @@ Django verbatim with multi-word suffix
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_verbatim_block)))
+  (django_verbatim_block))
 
 ================================================================================
 Django i18n string in interpolation
@@ -657,8 +618,7 @@ Django i18n string in interpolation
   (django_interpolation
     (filter_expression
       (primary_expression
-        (literal
-          (i18n_string))))))
+        (i18n_string)))))
 
 ================================================================================
 Django i18n string with filter
@@ -672,8 +632,7 @@ Django i18n string with filter
   (django_interpolation
     (filter_expression
       (primary_expression
-        (literal
-          (i18n_string)))
+        (i18n_string))
       (filter_call
         (filter_name)))))
 
@@ -694,8 +653,7 @@ Django filter with i18n string argument
       (filter_call
         (filter_name)
         (filter_argument
-          (literal
-            (i18n_string)))))))
+          (i18n_string))))))
 
 ================================================================================
 Django numeric lookup
@@ -739,23 +697,22 @@ Django with legacy aliases
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_with_block
-      (django_with_open
-        (with_legacy
-          (filter_expression
-            (primary_expression
-              (lookup
-                (identifier))))
-          (variable_name)
-          (filter_expression
-            (primary_expression
-              (lookup
-                (identifier)
-                (identifier))))
-          (variable_name)))
-      (text)
-      (django_endwith))))
+  (django_with_block
+    (django_with_open
+      (with_legacy
+        (filter_expression
+          (primary_expression
+            (lookup
+              (identifier))))
+        (variable_name)
+        (filter_expression
+          (primary_expression
+            (lookup
+              (identifier)
+              (identifier))))
+        (variable_name)))
+    (text)
+    (django_endwith)))
 
 ================================================================================
 Django for with tuple unpacking
@@ -766,22 +723,21 @@ Django for with tuple unpacking
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_for_block
-      (django_for_open
-        (loop_variables
-          (variable_name)
-          (variable_name))
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier)))))
-      (django_interpolation
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier)))))
-      (django_endfor))))
+  (django_for_block
+    (django_for_open
+      (loop_variables
+        (variable_name)
+        (variable_name))
+      (filter_expression
+        (primary_expression
+          (lookup
+            (identifier)))))
+    (django_interpolation
+      (filter_expression
+        (primary_expression
+          (lookup
+            (identifier)))))
+    (django_endfor)))
 
 ================================================================================
 Django for with reversed
@@ -792,22 +748,21 @@ Django for with reversed
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_for_block
-      (django_for_open
-        (loop_variables
-          (variable_name))
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier))))
-        (reversed))
-      (django_interpolation
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier)))))
-      (django_endfor))))
+  (django_for_block
+    (django_for_open
+      (loop_variables
+        (variable_name))
+      (filter_expression
+        (primary_expression
+          (lookup
+            (identifier))))
+      (reversed))
+    (django_interpolation
+      (filter_expression
+        (primary_expression
+          (lookup
+            (identifier)))))
+    (django_endfor)))
 
 ================================================================================
 Django cycle with as and silent
@@ -818,14 +773,13 @@ Django cycle with as and silent
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_cycle_tag
-      (cycle_value
-        (string))
-      (cycle_value
-        (string))
-      (variable_name)
-      (silent))))
+  (django_cycle_tag
+    (cycle_value
+      (string))
+    (cycle_value
+      (string))
+    (variable_name)
+    (silent)))
 
 ================================================================================
 Django cycle named reference
@@ -836,9 +790,8 @@ Django cycle named reference
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_cycle_tag
-      (cycle_name))))
+  (django_cycle_tag
+    (cycle_name)))
 
 ================================================================================
 Django load from library
@@ -849,11 +802,10 @@ Django load from library
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_load_tag
-      (library_name)
-      (library_name)
-      (library_name))))
+  (django_load_tag
+    (library_name)
+    (library_name)
+    (library_name)))
 
 ================================================================================
 Django filter block with chain
@@ -864,17 +816,15 @@ Django filter block with chain
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_filter_block
-      (filter_chain
-        (filter_call
-          (filter_name))
-        (filter_call
-          (filter_name)
-          (filter_argument
-            (literal
-              (string)))))
-      (text))))
+  (django_filter_block
+    (filter_chain
+      (filter_call
+        (filter_name))
+      (filter_call
+        (filter_name)
+        (filter_argument
+          (string))))
+    (text)))
 
 ================================================================================
 Django filter block chain with spaces
@@ -885,14 +835,13 @@ Django filter block chain with spaces
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_filter_block
-      (filter_chain
-        (filter_call
-          (filter_name))
-        (filter_call
-          (filter_name)))
-      (text))))
+  (django_filter_block
+    (filter_chain
+      (filter_call
+        (filter_name))
+      (filter_call
+        (filter_name)))
+    (text)))
 
 ================================================================================
 Django filter block space before pipe only
@@ -903,14 +852,13 @@ Django filter block space before pipe only
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_filter_block
-      (filter_chain
-        (filter_call
-          (filter_name))
-        (filter_call
-          (filter_name)))
-      (text))))
+  (django_filter_block
+    (filter_chain
+      (filter_call
+        (filter_name))
+      (filter_call
+        (filter_name)))
+    (text)))
 
 ================================================================================
 Django filter block space after pipe only
@@ -921,14 +869,13 @@ Django filter block space after pipe only
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_filter_block
-      (filter_chain
-        (filter_call
-          (filter_name))
-        (filter_call
-          (filter_name)))
-      (text))))
+  (django_filter_block
+    (filter_chain
+      (filter_call
+        (filter_name))
+      (filter_call
+        (filter_name)))
+    (text)))
 
 ================================================================================
 Django filter block multiple spaces around pipe
@@ -939,14 +886,13 @@ Django filter block multiple spaces around pipe
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_filter_block
-      (filter_chain
-        (filter_call
-          (filter_name))
-        (filter_call
-          (filter_name)))
-      (text))))
+  (django_filter_block
+    (filter_chain
+      (filter_call
+        (filter_name))
+      (filter_call
+        (filter_name)))
+    (text)))
 
 ================================================================================
 Django filter block with arg then spaced pipe
@@ -957,17 +903,15 @@ Django filter block with arg then spaced pipe
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_filter_block
-      (filter_chain
-        (filter_call
-          (filter_name)
-          (filter_argument
-            (literal
-              (string))))
-        (filter_call
-          (filter_name)))
-      (text))))
+  (django_filter_block
+    (filter_chain
+      (filter_call
+        (filter_name)
+        (filter_argument
+          (string)))
+      (filter_call
+        (filter_name)))
+    (text)))
 
 ================================================================================
 Django filter block three filters spaced
@@ -978,16 +922,15 @@ Django filter block three filters spaced
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_filter_block
-      (filter_chain
-        (filter_call
-          (filter_name))
-        (filter_call
-          (filter_name))
-        (filter_call
-          (filter_name)))
-      (text))))
+  (django_filter_block
+    (filter_chain
+      (filter_call
+        (filter_name))
+      (filter_call
+        (filter_name))
+      (filter_call
+        (filter_name)))
+    (text)))
 
 ================================================================================
 Django include with context
@@ -998,19 +941,16 @@ Django include with context
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_include_tag
+  (django_include_tag
+    (filter_expression
+      (primary_expression
+        (string)))
+    (assignment
+      (variable_name)
       (filter_expression
         (primary_expression
-          (literal
-            (string))))
-      (assignment
-        (variable_name)
-        (filter_expression
-          (primary_expression
-            (literal
-              (string)))))
-      (only))))
+          (string))))
+    (only)))
 
 ================================================================================
 Django include with multiple assignments
@@ -1021,24 +961,20 @@ Django include with multiple assignments
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_include_tag
+  (django_include_tag
+    (filter_expression
+      (primary_expression
+        (string)))
+    (assignment
+      (variable_name)
       (filter_expression
         (primary_expression
-          (literal
-            (string))))
-      (assignment
-        (variable_name)
-        (filter_expression
-          (primary_expression
-            (literal
-              (string)))))
-      (assignment
-        (variable_name)
-        (filter_expression
-          (primary_expression
-            (literal
-              (string))))))))
+          (string))))
+    (assignment
+      (variable_name)
+      (filter_expression
+        (primary_expression
+          (string))))))
 
 ================================================================================
 Django if with comparison operators
@@ -1049,37 +985,36 @@ Django if with comparison operators
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_if_block
-      (django_if_open
-        (test_expression
-          (or_expression
-            (and_expression
-              (not_expression
-                (comparison_expression
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))
-                  (op_eq)
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))))
-              (and_keyword)
-              (not_expression
-                (comparison_expression
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))
-                  (op_ne)
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))))))))
-      (text)
-      (django_endif))))
+  (django_if_block
+    (django_if_open
+      (test_expression
+        (or_expression
+          (and_expression
+            (not_expression
+              (comparison_expression
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))
+                (op_eq)
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))))
+            (and_keyword)
+            (not_expression
+              (comparison_expression
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))
+                (op_ne)
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))))))))
+    (text)
+    (django_endif)))
 
 ================================================================================
 Django if with is not comparison
@@ -1090,25 +1025,24 @@ Django if with is not comparison
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_if_block
-      (django_if_open
-        (test_expression
-          (or_expression
-            (and_expression
-              (not_expression
-                (comparison_expression
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))
-                  (op_is_not)
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))))))))
-      (text)
-      (django_endif))))
+  (django_if_block
+    (django_if_open
+      (test_expression
+        (or_expression
+          (and_expression
+            (not_expression
+              (comparison_expression
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))
+                (op_is_not)
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))))))))
+    (text)
+    (django_endif)))
 
 ================================================================================
 Django if with not in comparison
@@ -1119,25 +1053,24 @@ Django if with not in comparison
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_if_block
-      (django_if_open
-        (test_expression
-          (or_expression
-            (and_expression
-              (not_expression
-                (comparison_expression
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))
-                  (op_not_in)
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))))))))
-      (text)
-      (django_endif))))
+  (django_if_block
+    (django_if_open
+      (test_expression
+        (or_expression
+          (and_expression
+            (not_expression
+              (comparison_expression
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))
+                (op_not_in)
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))))))))
+    (text)
+    (django_endif)))
 
 ================================================================================
 Django plain lookup
@@ -1168,8 +1101,7 @@ Django string literal
   (django_interpolation
     (filter_expression
       (primary_expression
-        (literal
-          (string))))))
+        (string)))))
 
 ================================================================================
 Django filter arg lookup
@@ -1203,13 +1135,11 @@ Django literal with punctuation arg
   (django_interpolation
     (filter_expression
       (primary_expression
-        (literal
-          (string)))
+        (string))
       (filter_call
         (filter_name)
         (filter_argument
-          (literal
-            (string)))))))
+          (string))))))
 
 ================================================================================
 Django line comment with braces
@@ -1270,22 +1200,21 @@ Django if unary not
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_if_block
-      (django_if_open
-        (test_expression
-          (or_expression
-            (and_expression
+  (django_if_block
+    (django_if_open
+      (test_expression
+        (or_expression
+          (and_expression
+            (not_expression
               (not_expression
-                (not_expression
-                  (comparison_expression
-                    (filter_expression
-                      (primary_expression
-                        (lookup
-                          (identifier)
-                          (identifier)))))))))))
-      (text)
-      (django_endif))))
+                (comparison_expression
+                  (filter_expression
+                    (primary_expression
+                      (lookup
+                        (identifier)
+                        (identifier)))))))))))
+    (text)
+    (django_endif)))
 
 ================================================================================
 Django firstof with as
@@ -1296,21 +1225,19 @@ Django firstof with as
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_firstof_tag
-      (filter_expression
-        (primary_expression
-          (lookup
-            (identifier))))
-      (filter_expression
-        (primary_expression
-          (lookup
-            (identifier))))
-      (filter_expression
-        (primary_expression
-          (literal
-            (string))))
-      (variable_name))))
+  (django_firstof_tag
+    (filter_expression
+      (primary_expression
+        (lookup
+          (identifier))))
+    (filter_expression
+      (primary_expression
+        (lookup
+          (identifier))))
+    (filter_expression
+      (primary_expression
+        (string)))
+    (variable_name)))
 
 ================================================================================
 Django ifchanged with else
@@ -1321,14 +1248,13 @@ Django ifchanged with else
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_ifchanged_block
-      (filter_expression
-        (primary_expression
-          (lookup
-            (identifier))))
-      (text)
-      (text))))
+  (django_ifchanged_block
+    (filter_expression
+      (primary_expression
+        (lookup
+          (identifier))))
+    (text)
+    (text)))
 
 ================================================================================
 Django regroup tag
@@ -1339,15 +1265,14 @@ Django regroup tag
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_regroup_tag
-      (filter_expression
-        (primary_expression
-          (lookup
-            (identifier))))
-      (lookup
-        (identifier))
-      (variable_name))))
+  (django_regroup_tag
+    (filter_expression
+      (primary_expression
+        (lookup
+          (identifier))))
+    (lookup
+      (identifier))
+    (variable_name)))
 
 ================================================================================
 Django widthratio with as
@@ -1358,21 +1283,19 @@ Django widthratio with as
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_widthratio_tag
-      (filter_expression
-        (primary_expression
-          (lookup
-            (identifier))))
-      (filter_expression
-        (primary_expression
-          (lookup
-            (identifier))))
-      (filter_expression
-        (primary_expression
-          (literal
-            (number))))
-      (variable_name))))
+  (django_widthratio_tag
+    (filter_expression
+      (primary_expression
+        (lookup
+          (identifier))))
+    (filter_expression
+      (primary_expression
+        (lookup
+          (identifier))))
+    (filter_expression
+      (primary_expression
+        (number)))
+    (variable_name)))
 
 ================================================================================
 Django now tag with as
@@ -1383,10 +1306,9 @@ Django now tag with as
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_now_tag
-      (string)
-      (variable_name))))
+  (django_now_tag
+    (string)
+    (variable_name)))
 
 ================================================================================
 Django templatetag braces
@@ -1397,10 +1319,8 @@ Django templatetag braces
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_templatetag_tag))
-  (django_statement
-    (django_templatetag_tag)))
+  (django_templatetag_tag)
+  (django_templatetag_tag))
 
 ================================================================================
 Django generic tag with as
@@ -1411,16 +1331,14 @@ Django generic tag with as
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_generic_tag
-      (generic_tag_name)
-      (tag_argument
-        (as_alias
-          (filter_expression
-            (primary_expression
-              (literal
-                (string))))
-          (variable_name))))))
+  (django_generic_tag
+    (generic_tag_name)
+    (tag_argument
+      (as_alias
+        (filter_expression
+          (primary_expression
+            (string)))
+        (variable_name)))))
 
 ================================================================================
 Django debug tag
@@ -1431,8 +1349,7 @@ Django debug tag
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_debug_tag)))
+  (django_debug_tag))
 
 ================================================================================
 Django with underscore alias
@@ -1443,17 +1360,16 @@ Django with underscore alias
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_with_block
-      (django_with_open
-        (with_legacy
-          (filter_expression
-            (primary_expression
-              (lookup
-                (identifier))))
-          (variable_name)))
-      (text)
-      (django_endwith))))
+  (django_with_block
+    (django_with_open
+      (with_legacy
+        (filter_expression
+          (primary_expression
+            (lookup
+              (identifier))))
+        (variable_name)))
+    (text)
+    (django_endwith)))
 
 ================================================================================
 Django with assignment spaces invalid (ERROR)
@@ -1482,22 +1398,20 @@ Django url named args spacing invalid (ERROR)
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_url_tag
-      (filter_expression
-        (primary_expression
-          (literal
-            (string))))
-      (filter_expression
-        (primary_expression
-          (lookup
-            (identifier))))
-      (ERROR)
-      (filter_expression
-        (primary_expression
-          (lookup
-            (identifier)
-            (identifier)))))))
+  (django_url_tag
+    (filter_expression
+      (primary_expression
+        (string)))
+    (filter_expression
+      (primary_expression
+        (lookup
+          (identifier))))
+    (ERROR)
+    (filter_expression
+      (primary_expression
+        (lookup
+          (identifier)
+          (identifier))))))
 
 ================================================================================
 Django filter colon space after invalid (ERROR)
@@ -1541,8 +1455,7 @@ Django filter colon space before invalid (ERROR)
       (UNEXPECTED ':'))
     (filter_expression
       (primary_expression
-        (literal
-          (string))))))
+        (string)))))
 
 ================================================================================
 Django block comment with note
@@ -1566,29 +1479,27 @@ Django generic block with as_alias
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_generic_block
-      (generic_tag_name)
-      (tag_argument
-        (filter_expression
-          (primary_expression
-            (literal
-              (number)))))
-      (tag_argument
+  (django_generic_block
+    (generic_tag_name)
+    (tag_argument
+      (filter_expression
+        (primary_expression
+          (number))))
+    (tag_argument
+      (filter_expression
+        (primary_expression
+          (lookup
+            (identifier)))))
+    (tag_argument
+      (as_alias
         (filter_expression
           (primary_expression
             (lookup
-              (identifier)))))
-      (tag_argument
-        (as_alias
-          (filter_expression
-            (primary_expression
-              (lookup
-                (identifier)
-                (identifier))))
-          (variable_name)))
-      (text)
-      (end_tag_name))))
+              (identifier)
+              (identifier))))
+        (variable_name)))
+    (text)
+    (end_tag_name)))
 
 ================================================================================
 Django url with named args and as
@@ -1599,26 +1510,23 @@ Django url with named args and as
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_url_tag
+  (django_url_tag
+    (filter_expression
+      (primary_expression
+        (string)))
+    (named_argument
+      (argument_name)
       (filter_expression
         (primary_expression
-          (literal
-            (string))))
-      (named_argument
-        (argument_name)
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier)
-              (identifier)))))
-      (named_argument
-        (argument_name)
-        (filter_expression
-          (primary_expression
-            (literal
-              (number)))))
-      (variable_name))))
+          (lookup
+            (identifier)
+            (identifier)))))
+    (named_argument
+      (argument_name)
+      (filter_expression
+        (primary_expression
+          (number))))
+    (variable_name)))
 
 ================================================================================
 Django for reversed tuple unpack with empty
@@ -1629,31 +1537,30 @@ Django for reversed tuple unpack with empty
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_for_block
-      (django_for_open
-        (loop_variables
-          (variable_name)
-          (variable_name))
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier))))
-        (reversed))
-      (django_interpolation
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier)))))
-      (django_interpolation
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier)))))
-      (django_empty_branch
-        (django_empty)
-        (text))
-      (django_endfor))))
+  (django_for_block
+    (django_for_open
+      (loop_variables
+        (variable_name)
+        (variable_name))
+      (filter_expression
+        (primary_expression
+          (lookup
+            (identifier))))
+      (reversed))
+    (django_interpolation
+      (filter_expression
+        (primary_expression
+          (lookup
+            (identifier)))))
+    (django_interpolation
+      (filter_expression
+        (primary_expression
+          (lookup
+            (identifier)))))
+    (django_empty_branch
+      (django_empty)
+      (text))
+    (django_endfor)))
 
 ================================================================================
 Django include only with order
@@ -1664,19 +1571,16 @@ Django include only with order
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_include_tag
+  (django_include_tag
+    (filter_expression
+      (primary_expression
+        (string)))
+    (only)
+    (assignment
+      (variable_name)
       (filter_expression
         (primary_expression
-          (literal
-            (string))))
-      (only)
-      (assignment
-        (variable_name)
-        (filter_expression
-          (primary_expression
-            (literal
-              (string))))))))
+          (string))))))
 
 ================================================================================
 Django ifchanged with multiple args
@@ -1687,18 +1591,17 @@ Django ifchanged with multiple args
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_ifchanged_block
-      (filter_expression
-        (primary_expression
-          (lookup
-            (identifier))))
-      (filter_expression
-        (primary_expression
-          (lookup
-            (identifier))))
-      (text)
-      (text))))
+  (django_ifchanged_block
+    (filter_expression
+      (primary_expression
+        (lookup
+          (identifier))))
+    (filter_expression
+      (primary_expression
+        (lookup
+          (identifier))))
+    (text)
+    (text)))
 
 ================================================================================
 Django cycle with i18n values
@@ -1709,19 +1612,16 @@ Django cycle with i18n values
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_cycle_tag
-      (cycle_value
-        (filter_expression
-          (primary_expression
-            (literal
-              (i18n_string)))))
-      (cycle_value
-        (filter_expression
-          (primary_expression
-            (literal
-              (i18n_string)))))
-      (variable_name))))
+  (django_cycle_tag
+    (cycle_value
+      (filter_expression
+        (primary_expression
+          (i18n_string))))
+    (cycle_value
+      (filter_expression
+        (primary_expression
+          (i18n_string))))
+    (variable_name)))
 
 ================================================================================
 Django generic tag with as_alias (trans)
@@ -1732,16 +1632,14 @@ Django generic tag with as_alias (trans)
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_generic_tag
-      (generic_tag_name)
-      (tag_argument
-        (as_alias
-          (filter_expression
-            (primary_expression
-              (literal
-                (string))))
-          (variable_name))))))
+  (django_generic_tag
+    (generic_tag_name)
+    (tag_argument
+      (as_alias
+        (filter_expression
+          (primary_expression
+            (string)))
+        (variable_name)))))
 
 ================================================================================
 Django verbatim mismatched suffix (suffix enforced)
@@ -1753,10 +1651,8 @@ Django verbatim mismatched suffix (suffix enforced)
 
 ; The endverbatim with wrong suffix doesn't close the block, so verbatim
 ; consumes until EOF (empty content), then remaining is parsed separately
-
 (document
-  (django_statement
-    (django_verbatim_block))
+  (django_verbatim_block)
   (text)
   (ERROR
     (identifier)
@@ -1772,37 +1668,36 @@ Django if comparison after and
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_if_block
-      (django_if_open
-        (test_expression
-          (or_expression
-            (and_expression
-              (not_expression
-                (comparison_expression
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))
-                  (op_eq)
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))))
-              (and_keyword)
-              (not_expression
-                (comparison_expression
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))
-                  (op_ne)
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))))))))
-      (text)
-      (django_endif))))
+  (django_if_block
+    (django_if_open
+      (test_expression
+        (or_expression
+          (and_expression
+            (not_expression
+              (comparison_expression
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))
+                (op_eq)
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))))
+            (and_keyword)
+            (not_expression
+              (comparison_expression
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))
+                (op_ne)
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))))))))
+    (text)
+    (django_endif)))
 
 ================================================================================
 Django if comparison after or
@@ -1813,38 +1708,37 @@ Django if comparison after or
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_if_block
-      (django_if_open
-        (test_expression
-          (or_expression
-            (and_expression
-              (not_expression
-                (comparison_expression
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))
-                  (op_eq)
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier)))))))
-            (or_keyword)
-            (and_expression
-              (not_expression
-                (comparison_expression
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))
-                  (op_ne)
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))))))))
-      (text)
-      (django_endif))))
+  (django_if_block
+    (django_if_open
+      (test_expression
+        (or_expression
+          (and_expression
+            (not_expression
+              (comparison_expression
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))
+                (op_eq)
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier)))))))
+          (or_keyword)
+          (and_expression
+            (not_expression
+              (comparison_expression
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))
+                (op_ne)
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))))))))
+    (text)
+    (django_endif)))
 
 ================================================================================
 Django if mixed comparisons with and or
@@ -1855,50 +1749,49 @@ Django if mixed comparisons with and or
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_if_block
-      (django_if_open
-        (test_expression
-          (or_expression
-            (and_expression
-              (not_expression
-                (comparison_expression
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))
-                  (op_eq)
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))))
-              (and_keyword)
-              (not_expression
-                (comparison_expression
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))
-                  (op_ne)
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier)))))))
-            (or_keyword)
-            (and_expression
-              (not_expression
-                (comparison_expression
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))
-                  (op_gte)
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))))))))
-      (text)
-      (django_endif))))
+  (django_if_block
+    (django_if_open
+      (test_expression
+        (or_expression
+          (and_expression
+            (not_expression
+              (comparison_expression
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))
+                (op_eq)
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))))
+            (and_keyword)
+            (not_expression
+              (comparison_expression
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))
+                (op_ne)
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier)))))))
+          (or_keyword)
+          (and_expression
+            (not_expression
+              (comparison_expression
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))
+                (op_gte)
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))))))))
+    (text)
+    (django_endif)))
 
 ================================================================================
 Django regroup then unpack
@@ -1909,31 +1802,29 @@ Django regroup then unpack
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_regroup_tag
+  (django_regroup_tag
+    (filter_expression
+      (primary_expression
+        (lookup
+          (identifier))))
+    (lookup
+      (identifier))
+    (variable_name))
+  (django_for_block
+    (django_for_open
+      (loop_variables
+        (variable_name)
+        (variable_name))
       (filter_expression
         (primary_expression
           (lookup
-            (identifier))))
-      (lookup
-        (identifier))
-      (variable_name)))
-  (django_statement
-    (django_for_block
-      (django_for_open
-        (loop_variables
-          (variable_name)
-          (variable_name))
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier)))))
-      (django_interpolation
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier)))))
-      (django_endfor))))
+            (identifier)))))
+    (django_interpolation
+      (filter_expression
+        (primary_expression
+          (lookup
+            (identifier)))))
+    (django_endfor)))
 
 ================================================================================
 Django cycle with reset
@@ -1944,26 +1835,23 @@ Django cycle with reset
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_for_block
-      (django_for_open
-        (loop_variables
-          (variable_name))
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier)))))
-      (django_statement
-        (django_cycle_tag
-          (cycle_value
-            (string))
-          (cycle_value
-            (string))
-          (variable_name)))
-      (django_statement
-        (django_resetcycle_tag
-          (cycle_name)))
-      (django_endfor))))
+  (django_for_block
+    (django_for_open
+      (loop_variables
+        (variable_name))
+      (filter_expression
+        (primary_expression
+          (lookup
+            (identifier)))))
+    (django_cycle_tag
+      (cycle_value
+        (string))
+      (cycle_value
+        (string))
+      (variable_name))
+    (django_resetcycle_tag
+      (cycle_name))
+    (django_endfor)))
 
 ================================================================================
 Django filter arg dotted lookup
@@ -1995,29 +1883,26 @@ Django cycle nested ifchanged
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_for_block
-      (django_for_open
-        (loop_variables
-          (variable_name))
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier)))))
-      (django_statement
-        (django_ifchanged_block
-          (filter_expression
-            (primary_expression
-              (lookup
-                (identifier)
-                (identifier))))
-          (django_statement
-            (django_cycle_tag
-              (cycle_value
-                (string))
-              (cycle_value
-                (string))))))
-      (django_endfor))))
+  (django_for_block
+    (django_for_open
+      (loop_variables
+        (variable_name))
+      (filter_expression
+        (primary_expression
+          (lookup
+            (identifier)))))
+    (django_ifchanged_block
+      (filter_expression
+        (primary_expression
+          (lookup
+            (identifier)
+            (identifier))))
+      (django_cycle_tag
+        (cycle_value
+          (string))
+        (cycle_value
+          (string))))
+    (django_endfor)))
 
 ================================================================================
 Django nested block comments (unsupported)
@@ -2034,7 +1919,6 @@ inner
 ; Django does not support nested block comments. The first {% endcomment %}
 ; closes the outer comment block, and the second {% endcomment %} is parsed
 ; as a generic tag (unknown tag name).
-
 (document
   (django_block_comment
     (comment_content))
@@ -2054,8 +1938,7 @@ Django number with leading decimal
   (django_interpolation
     (filter_expression
       (primary_expression
-        (literal
-          (number))))))
+        (number)))))
 
 ================================================================================
 Django number scientific notation
@@ -2069,8 +1952,7 @@ Django number scientific notation
   (django_interpolation
     (filter_expression
       (primary_expression
-        (literal
-          (number))))))
+        (number)))))
 
 ================================================================================
 Django number scientific with decimal
@@ -2084,8 +1966,7 @@ Django number scientific with decimal
   (django_interpolation
     (filter_expression
       (primary_expression
-        (literal
-          (number))))))
+        (number)))))
 
 ================================================================================
 Django negative number
@@ -2099,8 +1980,7 @@ Django negative number
   (django_interpolation
     (filter_expression
       (primary_expression
-        (literal
-          (number))))))
+        (number)))))
 
 ================================================================================
 Django positive number with sign
@@ -2114,8 +1994,7 @@ Django positive number with sign
   (django_interpolation
     (filter_expression
       (primary_expression
-        (literal
-          (number))))))
+        (number)))))
 
 ================================================================================
 Django string escaped quote
@@ -2129,8 +2008,7 @@ Django string escaped quote
   (django_interpolation
     (filter_expression
       (primary_expression
-        (literal
-          (string))))))
+        (string)))))
 
 ================================================================================
 Django string escape sequence
@@ -2144,8 +2022,7 @@ Django string escape sequence
   (django_interpolation
     (filter_expression
       (primary_expression
-        (literal
-          (string))))))
+        (string)))))
 
 ================================================================================
 Django chained comparison operators
@@ -2156,50 +2033,49 @@ Django chained comparison operators
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_if_block
-      (django_if_open
-        (test_expression
-          (or_expression
-            (and_expression
-              (not_expression
-                (comparison_expression
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))
-                  (op_eq)
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))
-                  (op_ne)
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))
-                  (op_lt)
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))
-                  (op_lte)
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))
-                  (op_gt)
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))
-                  (op_gte)
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))))))))
-      (text)
-      (django_endif))))
+  (django_if_block
+    (django_if_open
+      (test_expression
+        (or_expression
+          (and_expression
+            (not_expression
+              (comparison_expression
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))
+                (op_eq)
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))
+                (op_ne)
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))
+                (op_lt)
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))
+                (op_lte)
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))
+                (op_gt)
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))
+                (op_gte)
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))))))))
+    (text)
+    (django_endif)))
 
 ================================================================================
 Sequential built-in simple tags
@@ -2212,12 +2088,9 @@ Sequential built-in simple tags
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_csrf_token_tag))
-  (django_statement
-    (django_debug_tag))
-  (django_statement
-    (django_csrf_token_tag)))
+  (django_csrf_token_tag)
+  (django_debug_tag)
+  (django_csrf_token_tag))
 
 ================================================================================
 Sequential generic tags
@@ -2229,14 +2102,12 @@ Sequential generic tags
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_generic_tag
-      (generic_tag_name)
-      (tag_argument
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier)))))))
-  (django_statement
-    (django_generic_tag
-      (generic_tag_name))))
+  (django_generic_tag
+    (generic_tag_name)
+    (tag_argument
+      (filter_expression
+        (primary_expression
+          (lookup
+            (identifier))))))
+  (django_generic_tag
+    (generic_tag_name)))

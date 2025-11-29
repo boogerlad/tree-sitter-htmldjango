@@ -64,6 +64,9 @@ module.exports = grammar({
 
   supertypes: $ => [
     $.comparison_operator,
+    $.element,
+    $.django_statement,
+    $.literal,
   ],
 
   rules: {

@@ -102,6 +102,120 @@ tree = parser.parse(b"""
 ### Generic Tags
 Unknown tags are parsed as `django_generic_tag` or `django_generic_block`, allowing the grammar to handle custom template tags from third-party libraries.
 
+## Querying
+
+The grammar contains several [supertypes](https://tree-sitter.github.io/tree-sitter/using-parsers#static-node-types),
+which group multiple node types under a single name.
+
+Supertype names do not appear as wrapper nodes in parse trees, but they can be used in queries in special ways:
+
+- As an alias, matching any of their subtypes
+- As a prefix for one of their subtypes using the `supertype/subtype` syntax
+
+### Example
+
+For the template `{% if a == b %}<div>hello</div>{% endif %}`, the parse tree is:
+
+```
+(document
+  (django_if_block
+    (django_if_open
+      (test_expression
+        (or_expression
+          (and_expression
+            (not_expression
+              (comparison_expression
+                (filter_expression
+                  (primary_expression
+                    (lookup (identifier))))
+                (op_eq)
+                (filter_expression
+                  (primary_expression
+                    (lookup (identifier))))))))))
+    (normal_element
+      (tag_name)
+      (text)
+      (end_tag (tag_name)))
+    (django_endif)))
+```
+
+The query `(element)` matches `normal_element` (and would match `void_element`, `script_element`, etc. if present).
+
+The query `(django_statement)` matches `django_if_block` (and would match `django_for_block`, `django_with_block`, etc.).
+
+The query `(comparison_operator)` matches `op_eq` (and would match `op_ne`, `op_gt`, `op_in`, etc.).
+
+### Supertypes
+
+- **`element`**
+
+  Any HTML element type. Subtypes include:
+  - `normal_element` - Standard elements like `<div>`, `<span>`, `<p>`
+  - `void_element` - Self-closing elements like `<br>`, `<img>`, `<input>`
+  - `script_element` - `<script>` elements with raw content
+  - `style_element` - `<style>` elements with raw content
+  - `rcdata_element` - `<title>`, `<textarea>` with RCDATA content
+  - `foreign_element` - SVG and MathML elements
+  - `plaintext_element` - Deprecated `<plaintext>` element
+  - `erroneous_end_tag` - Unmatched closing tags
+
+- **`django_statement`**
+
+  Any Django template tag or block. Subtypes include:
+  - Control flow: `django_if_block`, `django_for_block`
+  - Template inheritance: `django_block_block`, `django_extends_tag`, `django_include_tag`
+  - Variable scoping: `django_with_block`
+  - Output control: `django_autoescape_block`, `django_filter_block`, `django_spaceless_block`
+  - Comments: `django_block_comment`
+  - Utilities: `django_load_tag`, `django_url_tag`, `django_csrf_token_tag`, `django_cycle_tag`
+  - Generic: `django_generic_tag`, `django_generic_block` (for custom/unknown tags)
+  - And many more...
+
+- **`literal`**
+
+  Any literal value in Django expressions. Subtypes:
+  - `string` - String literals like `"hello"` or `'world'`
+  - `number` - Numeric literals like `42` or `3.14`
+  - `i18n_string` - Translated strings like `_("Hello")`
+
+- **`comparison_operator`**
+
+  Any comparison operator in Django expressions. Subtypes:
+  - `op_eq` - `==`
+  - `op_ne` - `!=`
+  - `op_lt` - `<`
+  - `op_lte` - `<=`
+  - `op_gt` - `>`
+  - `op_gte` - `>=`
+  - `op_in` - `in`
+  - `op_not_in` - `not in`
+  - `op_is` - `is`
+  - `op_is_not` - `is not`
+
+### Query Examples
+
+```scheme
+; Match any HTML element
+(element) @element
+
+; Match only div elements specifically
+(element/normal_element
+  (tag_name) @tag
+  (#eq? @tag "div")) @div
+
+; Match any Django control structure
+(django_statement) @statement
+
+; Match all comparison operators for highlighting
+(comparison_operator) @operator
+
+; Match all literals in Django expressions
+(literal) @literal
+
+; Match string literals specifically
+(literal/string) @string
+```
+
 ## References
 
 - [Django Template Language](https://docs.djangoproject.com/en/stable/ref/templates/language/)

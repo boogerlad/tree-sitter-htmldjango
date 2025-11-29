@@ -15,42 +15,39 @@ Element Split by Django Conditionals (ported from htmljinja2)
 --------------------------------------------------------------------------------
 
 (document
-  (element
-    (normal_element
-      (tag_name)
-      (end_tag
-        (tag_name))))
-  (django_statement
-    (django_if_block
-      (django_if_open
-        (test_expression
-          (or_expression
-            (and_expression
-              (not_expression
-                (comparison_expression
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))))))))
-      (unpaired_start_tag
-        (tag_name))
-      (django_endif)))
+  (normal_element
+    (tag_name)
+    (end_tag
+      (tag_name)))
+  (django_if_block
+    (django_if_open
+      (test_expression
+        (or_expression
+          (and_expression
+            (not_expression
+              (comparison_expression
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))))))))
+    (unpaired_start_tag
+      (tag_name))
+    (django_endif))
   (text)
-  (django_statement
-    (django_if_block
-      (django_if_open
-        (test_expression
-          (or_expression
-            (and_expression
-              (not_expression
-                (comparison_expression
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))))))))
-      (unpaired_end_tag
-        (tag_name))
-      (django_endif))))
+  (django_if_block
+    (django_if_open
+      (test_expression
+        (or_expression
+          (and_expression
+            (not_expression
+              (comparison_expression
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))))))))
+    (unpaired_end_tag
+      (tag_name))
+    (django_endif)))
 
 ================================================================================
 Real World Template (ported from htmljinja2)
@@ -86,29 +83,52 @@ Real World Template (ported from htmljinja2)
 
 (document
   (doctype)
-  (element
+  (normal_element
+    (tag_name)
+    (attribute
+      (attribute_name)
+      (quoted_attribute_value
+        (attribute_value)))
     (normal_element
       (tag_name)
-      (attribute
-        (attribute_name)
-        (quoted_attribute_value
-          (attribute_value)))
-      (element
-        (normal_element
-          (tag_name)
-          (element
-            (rcdata_element
-              (start_tag
-                (tag_name))
-              (rcdata_text)
-              (end_tag
-                (tag_name))))
-          (end_tag
-            (tag_name))))
-      (element
-        (normal_element
-          (tag_name)
-          (element
+      (rcdata_element
+        (start_tag
+          (tag_name))
+        (rcdata_text)
+        (end_tag
+          (tag_name)))
+      (end_tag
+        (tag_name)))
+    (normal_element
+      (tag_name)
+      (normal_element
+        (tag_name)
+        (attribute
+          (attribute_name)
+          (quoted_attribute_value
+            (django_interpolation
+              (filter_expression
+                (primary_expression
+                  (lookup
+                    (identifier)))))))
+        (attribute
+          (attribute_name)
+          (quoted_attribute_value
+            (django_interpolation
+              (filter_expression
+                (primary_expression
+                  (lookup
+                    (identifier)))))))
+        (django_for_block
+          (django_for_open
+            (loop_variables
+              (variable_name))
+            (filter_expression
+              (primary_expression
+                (lookup
+                  (identifier)))))
+          (normal_element
+            (tag_name)
             (normal_element
               (tag_name)
               (attribute
@@ -118,98 +138,64 @@ Real World Template (ported from htmljinja2)
                     (filter_expression
                       (primary_expression
                         (lookup
+                          (identifier)
                           (identifier)))))))
-              (attribute
-                (attribute_name)
-                (quoted_attribute_value
-                  (django_interpolation
-                    (filter_expression
-                      (primary_expression
-                        (lookup
-                          (identifier)))))))
-              (django_statement
-                (django_for_block
-                  (django_for_open
-                    (loop_variables
-                      (variable_name))
-                    (filter_expression
-                      (primary_expression
-                        (lookup
-                          (identifier)))))
-                  (element
-                    (normal_element
-                      (tag_name)
-                      (element
-                        (normal_element
-                          (tag_name)
-                          (attribute
-                            (attribute_name)
-                            (quoted_attribute_value
-                              (django_interpolation
-                                (filter_expression
-                                  (primary_expression
-                                    (lookup
-                                      (identifier)
-                                      (identifier)))))))
-                          (django_interpolation
-                            (filter_expression
-                              (primary_expression
-                                (lookup
-                                  (identifier)
-                                  (identifier)))))
-                          (end_tag
-                            (tag_name))))
-                      (end_tag
-                        (tag_name))))
-                  (django_endfor)))
-              (end_tag
-                (tag_name))))
-          (element
-            (normal_element
-              (tag_name)
               (django_interpolation
                 (filter_expression
                   (primary_expression
                     (lookup
+                      (identifier)
                       (identifier)))))
               (end_tag
-                (tag_name))))
-          (django_line_comment)
-          (django_statement
-            (django_if_block
-              (django_if_open
-                (test_expression
-                  (or_expression
-                    (and_expression
-                      (not_expression
-                        (comparison_expression
-                          (filter_expression
-                            (primary_expression
-                              (lookup
-                                (identifier))))))))))
-              (unpaired_start_tag
-                (tag_name))
-              (django_endif)))
-          (text)
-          (django_statement
-            (django_if_block
-              (django_if_open
-                (test_expression
-                  (or_expression
-                    (and_expression
-                      (not_expression
-                        (comparison_expression
-                          (filter_expression
-                            (primary_expression
-                              (lookup
-                                (identifier))))))))))
-              (unpaired_end_tag
-                (tag_name))
-              (django_endif)))
-          (end_tag
-            (tag_name))))
+                (tag_name)))
+            (end_tag
+              (tag_name)))
+          (django_endfor))
+        (end_tag
+          (tag_name)))
+      (normal_element
+        (tag_name)
+        (django_interpolation
+          (filter_expression
+            (primary_expression
+              (lookup
+                (identifier)))))
+        (end_tag
+          (tag_name)))
+      (django_line_comment)
+      (django_if_block
+        (django_if_open
+          (test_expression
+            (or_expression
+              (and_expression
+                (not_expression
+                  (comparison_expression
+                    (filter_expression
+                      (primary_expression
+                        (lookup
+                          (identifier))))))))))
+        (unpaired_start_tag
+          (tag_name))
+        (django_endif))
+      (text)
+      (django_if_block
+        (django_if_open
+          (test_expression
+            (or_expression
+              (and_expression
+                (not_expression
+                  (comparison_expression
+                    (filter_expression
+                      (primary_expression
+                        (lookup
+                          (identifier))))))))))
+        (unpaired_end_tag
+          (tag_name))
+        (django_endif))
       (end_tag
-        (tag_name)))))
+        (tag_name)))
+    (end_tag
+      (tag_name))))
 
 ================================================================================
 Django interpolation in HTML attributes
@@ -220,28 +206,27 @@ Django interpolation in HTML attributes
 --------------------------------------------------------------------------------
 
 (document
-  (element
-    (normal_element
-      (tag_name)
-      (attribute
-        (attribute_name)
-        (quoted_attribute_value
-          (django_interpolation
-            (filter_expression
-              (primary_expression
-                (lookup
-                  (identifier)))))))
-      (attribute
-        (attribute_name)
-        (quoted_attribute_value
-          (django_interpolation
-            (filter_expression
-              (primary_expression
-                (lookup
-                  (identifier)))))))
-      (text)
-      (end_tag
-        (tag_name)))))
+  (normal_element
+    (tag_name)
+    (attribute
+      (attribute_name)
+      (quoted_attribute_value
+        (django_interpolation
+          (filter_expression
+            (primary_expression
+              (lookup
+                (identifier)))))))
+    (attribute
+      (attribute_name)
+      (quoted_attribute_value
+        (django_interpolation
+          (filter_expression
+            (primary_expression
+              (lookup
+                (identifier)))))))
+    (text)
+    (end_tag
+      (tag_name))))
 
 ================================================================================
 Django interpolation mixed with text in attributes
@@ -252,23 +237,22 @@ Django interpolation mixed with text in attributes
 --------------------------------------------------------------------------------
 
 (document
-  (element
-    (normal_element
-      (tag_name)
-      (attribute
-        (attribute_name)
-        (quoted_attribute_value
-          (attribute_value)
-          (django_interpolation
-            (filter_expression
-              (primary_expression
-                (lookup
-                  (identifier)
-                  (identifier)))))
-          (attribute_value)))
-      (text)
-      (end_tag
-        (tag_name)))))
+  (normal_element
+    (tag_name)
+    (attribute
+      (attribute_name)
+      (quoted_attribute_value
+        (attribute_value)
+        (django_interpolation
+          (filter_expression
+            (primary_expression
+              (lookup
+                (identifier)
+                (identifier)))))
+        (attribute_value)))
+    (text)
+    (end_tag
+      (tag_name))))
 
 ================================================================================
 Django for loop around HTML elements
@@ -283,32 +267,29 @@ Django for loop around HTML elements
 --------------------------------------------------------------------------------
 
 (document
-  (element
-    (normal_element
-      (tag_name)
-      (django_statement
-        (django_for_block
-          (django_for_open
-            (loop_variables
-              (variable_name))
-            (filter_expression
-              (primary_expression
-                (lookup
-                  (identifier)))))
-          (element
-            (normal_element
-              (tag_name)
-              (django_interpolation
-                (filter_expression
-                  (primary_expression
-                    (lookup
-                      (identifier)
-                      (identifier)))))
-              (end_tag
-                (tag_name))))
-          (django_endfor)))
-      (end_tag
-        (tag_name)))))
+  (normal_element
+    (tag_name)
+    (django_for_block
+      (django_for_open
+        (loop_variables
+          (variable_name))
+        (filter_expression
+          (primary_expression
+            (lookup
+              (identifier)))))
+      (normal_element
+        (tag_name)
+        (django_interpolation
+          (filter_expression
+            (primary_expression
+              (lookup
+                (identifier)
+                (identifier)))))
+        (end_tag
+          (tag_name)))
+      (django_endfor))
+    (end_tag
+      (tag_name))))
 
 ================================================================================
 Django inside script tag
@@ -321,22 +302,21 @@ var config = {{ config_json|safe }};
 --------------------------------------------------------------------------------
 
 (document
-  (element
-    (script_element
-      (start_tag
-        (tag_name))
-      (raw_text
-        (raw_text)
-        (django_interpolation
-          (filter_expression
-            (primary_expression
-              (lookup
-                (identifier)))
-            (filter_call
-              (filter_name))))
-        (raw_text))
-      (end_tag
-        (tag_name)))))
+  (script_element
+    (start_tag
+      (tag_name))
+    (raw_text
+      (raw_text)
+      (django_interpolation
+        (filter_expression
+          (primary_expression
+            (lookup
+              (identifier)))
+          (filter_call
+            (filter_name))))
+      (raw_text))
+    (end_tag
+      (tag_name))))
 
 ================================================================================
 Django inside style tag
@@ -349,21 +329,20 @@ Django inside style tag
 --------------------------------------------------------------------------------
 
 (document
-  (element
-    (style_element
-      (start_tag
-        (tag_name))
-      (raw_text
-        (raw_text)
-        (django_interpolation
-          (filter_expression
-            (primary_expression
-              (lookup
-                (identifier)
-                (identifier)))))
-        (raw_text))
-      (end_tag
-        (tag_name)))))
+  (style_element
+    (start_tag
+      (tag_name))
+    (raw_text
+      (raw_text)
+      (django_interpolation
+        (filter_expression
+          (primary_expression
+            (lookup
+              (identifier)
+              (identifier)))))
+      (raw_text))
+    (end_tag
+      (tag_name))))
 
 ================================================================================
 Django if-else with different HTML structures
@@ -380,42 +359,38 @@ Django if-else with different HTML structures
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_if_block
-      (django_if_open
-        (test_expression
-          (or_expression
-            (and_expression
-              (not_expression
-                (comparison_expression
-                  (filter_expression
-                    (primary_expression
-                      (lookup
-                        (identifier))))))))))
-      (element
-        (normal_element
-          (tag_name)
-          (attribute
-            (attribute_name)
-            (quoted_attribute_value
-              (attribute_value)))
-          (element
-            (normal_element
-              (tag_name)
-              (text)
-              (end_tag
-                (tag_name))))
-          (end_tag
-            (tag_name))))
-      (django_else_branch
-        (django_else)
-        (element
-          (normal_element
-            (tag_name)
-            (text)
-            (end_tag
-              (tag_name)))))
-      (django_endif))))
+  (django_if_block
+    (django_if_open
+      (test_expression
+        (or_expression
+          (and_expression
+            (not_expression
+              (comparison_expression
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))))))))
+    (normal_element
+      (tag_name)
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value)))
+      (normal_element
+        (tag_name)
+        (text)
+        (end_tag
+          (tag_name)))
+      (end_tag
+        (tag_name)))
+    (django_else_branch
+      (django_else)
+      (normal_element
+        (tag_name)
+        (text)
+        (end_tag
+          (tag_name))))
+    (django_endif)))
 
 ================================================================================
 Nested Django blocks in HTML
@@ -432,44 +407,40 @@ Nested Django blocks in HTML
 --------------------------------------------------------------------------------
 
 (document
-  (element
-    (normal_element
-      (tag_name)
-      (django_statement
-        (django_if_block
-          (django_if_open
-            (test_expression
-              (or_expression
-                (and_expression
-                  (not_expression
-                    (comparison_expression
-                      (filter_expression
-                        (primary_expression
-                          (lookup
-                            (identifier))))))))))
-          (django_statement
-            (django_for_block
-              (django_for_open
-                (loop_variables
-                  (variable_name))
-                (filter_expression
-                  (primary_expression
-                    (lookup
-                      (identifier)))))
-              (element
-                (normal_element
-                  (tag_name)
-                  (django_interpolation
-                    (filter_expression
-                      (primary_expression
-                        (lookup
-                          (identifier)))))
-                  (end_tag
-                    (tag_name))))
-              (django_endfor)))
-          (django_endif)))
-      (end_tag
-        (tag_name)))))
+  (normal_element
+    (tag_name)
+    (django_if_block
+      (django_if_open
+        (test_expression
+          (or_expression
+            (and_expression
+              (not_expression
+                (comparison_expression
+                  (filter_expression
+                    (primary_expression
+                      (lookup
+                        (identifier))))))))))
+      (django_for_block
+        (django_for_open
+          (loop_variables
+            (variable_name))
+          (filter_expression
+            (primary_expression
+              (lookup
+                (identifier)))))
+        (normal_element
+          (tag_name)
+          (django_interpolation
+            (filter_expression
+              (primary_expression
+                (lookup
+                  (identifier)))))
+          (end_tag
+            (tag_name)))
+        (django_endfor))
+      (django_endif))
+    (end_tag
+      (tag_name))))
 
 ================================================================================
 Django extends with blocks in HTML
@@ -488,42 +459,36 @@ Django extends with blocks in HTML
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_extends_tag
-      (filter_expression
-        (primary_expression
-          (literal
-            (string))))))
-  (django_statement
-    (django_block_block
-      (django_block_open
-        (block_name))
-      (text)
-      (django_endblock)))
-  (django_statement
-    (django_block_block
-      (django_block_open
-        (block_name))
-      (element
-        (normal_element
-          (tag_name)
-          (attribute
-            (attribute_name)
-            (quoted_attribute_value
-              (attribute_value)))
-          (element
-            (normal_element
-              (tag_name)
-              (django_interpolation
-                (filter_expression
-                  (primary_expression
-                    (lookup
-                      (identifier)))))
-              (end_tag
-                (tag_name))))
-          (end_tag
-            (tag_name))))
-      (django_endblock))))
+  (django_extends_tag
+    (filter_expression
+      (primary_expression
+        (string))))
+  (django_block_block
+    (django_block_open
+      (block_name))
+    (text)
+    (django_endblock))
+  (django_block_block
+    (django_block_open
+      (block_name))
+    (normal_element
+      (tag_name)
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value)))
+      (normal_element
+        (tag_name)
+        (django_interpolation
+          (filter_expression
+            (primary_expression
+              (lookup
+                (identifier)))))
+        (end_tag
+          (tag_name)))
+      (end_tag
+        (tag_name)))
+    (django_endblock)))
 
 ================================================================================
 Django include inside HTML
@@ -536,17 +501,14 @@ Django include inside HTML
 --------------------------------------------------------------------------------
 
 (document
-  (element
-    (normal_element
-      (tag_name)
-      (django_statement
-        (django_include_tag
-          (filter_expression
-            (primary_expression
-              (literal
-                (string))))))
-      (end_tag
-        (tag_name)))))
+  (normal_element
+    (tag_name)
+    (django_include_tag
+      (filter_expression
+        (primary_expression
+          (string))))
+    (end_tag
+      (tag_name))))
 
 ================================================================================
 Django with block wrapping HTML
@@ -559,30 +521,28 @@ Django with block wrapping HTML
 --------------------------------------------------------------------------------
 
 (document
-  (django_statement
-    (django_with_block
-      (django_with_open
-        (with_assignments
-          (assignment
-            (variable_name)
-            (filter_expression
-              (primary_expression
-                (lookup
-                  (identifier)))
-              (filter_call
-                (filter_name))))))
-      (element
-        (normal_element
-          (tag_name)
-          (text)
-          (django_interpolation
-            (filter_expression
-              (primary_expression
-                (lookup
-                  (identifier)))))
-          (end_tag
-            (tag_name))))
-      (django_endwith))))
+  (django_with_block
+    (django_with_open
+      (with_assignments
+        (assignment
+          (variable_name)
+          (filter_expression
+            (primary_expression
+              (lookup
+                (identifier)))
+            (filter_call
+              (filter_name))))))
+    (normal_element
+      (tag_name)
+      (text)
+      (django_interpolation
+        (filter_expression
+          (primary_expression
+            (lookup
+              (identifier)))))
+      (end_tag
+        (tag_name)))
+    (django_endwith)))
 
 ================================================================================
 Django comment inside HTML
@@ -596,18 +556,16 @@ Django comment inside HTML
 --------------------------------------------------------------------------------
 
 (document
-  (element
+  (normal_element
+    (tag_name)
+    (django_line_comment)
     (normal_element
       (tag_name)
-      (django_line_comment)
-      (element
-        (normal_element
-          (tag_name)
-          (text)
-          (end_tag
-            (tag_name))))
+      (text)
       (end_tag
-        (tag_name)))))
+        (tag_name)))
+    (end_tag
+      (tag_name))))
 
 ================================================================================
 Django block comment inside HTML
@@ -623,13 +581,12 @@ Django block comment inside HTML
 --------------------------------------------------------------------------------
 
 (document
-  (element
-    (normal_element
-      (tag_name)
-      (django_block_comment
-        (comment_content))
-      (end_tag
-        (tag_name)))))
+  (normal_element
+    (tag_name)
+    (django_block_comment
+      (comment_content))
+    (end_tag
+      (tag_name))))
 
 ================================================================================
 HTML form with Django
@@ -644,8 +601,21 @@ HTML form with Django
 --------------------------------------------------------------------------------
 
 (document
-  (element
-    (normal_element
+  (normal_element
+    (tag_name)
+    (attribute
+      (attribute_name)
+      (quoted_attribute_value
+        (attribute_value)))
+    (attribute
+      (attribute_name)
+      (quoted_attribute_value
+        (django_url_tag
+          (filter_expression
+            (primary_expression
+              (string))))))
+    (django_csrf_token_tag)
+    (void_element
       (tag_name)
       (attribute
         (attribute_name)
@@ -654,45 +624,26 @@ HTML form with Django
       (attribute
         (attribute_name)
         (quoted_attribute_value
-          (django_statement
-            (django_url_tag
-              (filter_expression
-                (primary_expression
-                  (literal
-                    (string))))))))
-      (django_statement
-        (django_csrf_token_tag))
-      (element
-        (void_element
-          (tag_name)
-          (attribute
-            (attribute_name)
-            (quoted_attribute_value
-              (attribute_value)))
-          (attribute
-            (attribute_name)
-            (quoted_attribute_value
-              (attribute_value)))
-          (attribute
-            (attribute_name)
-            (quoted_attribute_value
-              (django_interpolation
-                (filter_expression
-                  (primary_expression
-                    (lookup
-                      (identifier)))))))))
-      (element
-        (normal_element
-          (tag_name)
-          (attribute
-            (attribute_name)
-            (quoted_attribute_value
-              (attribute_value)))
-          (text)
-          (end_tag
-            (tag_name))))
+          (attribute_value)))
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (django_interpolation
+            (filter_expression
+              (primary_expression
+                (lookup
+                  (identifier))))))))
+    (normal_element
+      (tag_name)
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value)))
+      (text)
       (end_tag
-        (tag_name)))))
+        (tag_name)))
+    (end_tag
+      (tag_name))))
 
 ================================================================================
 Complex filter in attribute
@@ -703,37 +654,34 @@ Complex filter in attribute
 --------------------------------------------------------------------------------
 
 (document
-  (element
-    (void_element
-      (tag_name)
-      (attribute
-        (attribute_name)
-        (quoted_attribute_value
-          (django_interpolation
-            (filter_expression
-              (primary_expression
-                (lookup
-                  (identifier)
-                  (identifier)))
-              (filter_call
-                (filter_name)
-                (filter_argument
-                  (literal
-                    (string))))))))
-      (attribute
-        (attribute_name)
-        (quoted_attribute_value
-          (django_interpolation
-            (filter_expression
-              (primary_expression
-                (lookup
-                  (identifier)
-                  (identifier)))
-              (filter_call
-                (filter_name)
-                (filter_argument
-                  (literal
-                    (string)))))))))))
+  (void_element
+    (tag_name)
+    (attribute
+      (attribute_name)
+      (quoted_attribute_value
+        (django_interpolation
+          (filter_expression
+            (primary_expression
+              (lookup
+                (identifier)
+                (identifier)))
+            (filter_call
+              (filter_name)
+              (filter_argument
+                (string)))))))
+    (attribute
+      (attribute_name)
+      (quoted_attribute_value
+        (django_interpolation
+          (filter_expression
+            (primary_expression
+              (lookup
+                (identifier)
+                (identifier)))
+            (filter_call
+              (filter_name)
+              (filter_argument
+                (string)))))))))
 
 ================================================================================
 Django static tag in HTML
@@ -745,41 +693,35 @@ Django static tag in HTML
 --------------------------------------------------------------------------------
 
 (document
-  (element
-    (void_element
+  (void_element
+    (tag_name)
+    (attribute
+      (attribute_name)
+      (quoted_attribute_value
+        (attribute_value)))
+    (attribute
+      (attribute_name)
+      (quoted_attribute_value
+        (django_generic_tag
+          (generic_tag_name)
+          (tag_argument
+            (filter_expression
+              (primary_expression
+                (string))))))))
+  (script_element
+    (start_tag
       (tag_name)
       (attribute
         (attribute_name)
         (quoted_attribute_value
-          (attribute_value)))
-      (attribute
-        (attribute_name)
-        (quoted_attribute_value
-          (django_statement
-            (django_generic_tag
-              (generic_tag_name)
-              (tag_argument
-                (filter_expression
-                  (primary_expression
-                    (literal
-                      (string)))))))))))
-  (element
-    (script_element
-      (start_tag
-        (tag_name)
-        (attribute
-          (attribute_name)
-          (quoted_attribute_value
-            (django_statement
-              (django_generic_tag
-                (generic_tag_name)
-                (tag_argument
-                  (filter_expression
-                    (primary_expression
-                      (literal
-                        (string))))))))))
-      (end_tag
-        (tag_name)))))
+          (django_generic_tag
+            (generic_tag_name)
+            (tag_argument
+              (filter_expression
+                (primary_expression
+                  (string))))))))
+    (end_tag
+      (tag_name))))
 
 ================================================================================
 SVG with Django
@@ -794,61 +736,58 @@ SVG with Django
 --------------------------------------------------------------------------------
 
 (document
-  (element
-    (foreign_element
-      (tag_name)
-      (attribute
-        (attribute_name)
-        (quoted_attribute_value
-          (attribute_value)
-          (django_interpolation
-            (filter_expression
-              (primary_expression
-                (lookup
-                  (identifier)))))
-          (attribute_value)
-          (django_interpolation
-            (filter_expression
-              (primary_expression
-                (lookup
-                  (identifier)))))))
-      (django_statement
-        (django_for_block
-          (django_for_open
-            (loop_variables
-              (variable_name))
-            (filter_expression
-              (primary_expression
-                (lookup
-                  (identifier)))))
-          (element
-            (foreign_element
-              (tag_name)
-              (attribute
-                (attribute_name)
-                (quoted_attribute_value
-                  (django_interpolation
-                    (filter_expression
-                      (primary_expression
-                        (lookup
-                          (identifier)
-                          (identifier)))))))
-              (attribute
-                (attribute_name)
-                (quoted_attribute_value
-                  (django_interpolation
-                    (filter_expression
-                      (primary_expression
-                        (lookup
-                          (identifier)
-                          (identifier)))))))
-              (attribute
-                (attribute_name)
-                (quoted_attribute_value
-                  (attribute_value)))))
-          (django_endfor)))
-      (end_tag
-        (tag_name)))))
+  (foreign_element
+    (tag_name)
+    (attribute
+      (attribute_name)
+      (quoted_attribute_value
+        (attribute_value)
+        (django_interpolation
+          (filter_expression
+            (primary_expression
+              (lookup
+                (identifier)))))
+        (attribute_value)
+        (django_interpolation
+          (filter_expression
+            (primary_expression
+              (lookup
+                (identifier)))))))
+    (django_for_block
+      (django_for_open
+        (loop_variables
+          (variable_name))
+        (filter_expression
+          (primary_expression
+            (lookup
+              (identifier)))))
+      (foreign_element
+        (tag_name)
+        (attribute
+          (attribute_name)
+          (quoted_attribute_value
+            (django_interpolation
+              (filter_expression
+                (primary_expression
+                  (lookup
+                    (identifier)
+                    (identifier)))))))
+        (attribute
+          (attribute_name)
+          (quoted_attribute_value
+            (django_interpolation
+              (filter_expression
+                (primary_expression
+                  (lookup
+                    (identifier)
+                    (identifier)))))))
+        (attribute
+          (attribute_name)
+          (quoted_attribute_value
+            (attribute_value))))
+      (django_endfor))
+    (end_tag
+      (tag_name))))
 
 ================================================================================
 Table with Django loop
@@ -878,101 +817,88 @@ Table with Django loop
 --------------------------------------------------------------------------------
 
 (document
-  (element
+  (normal_element
+    (tag_name)
     (normal_element
       (tag_name)
-      (element
+      (normal_element
+        (tag_name)
         (normal_element
           (tag_name)
-          (element
+          (text)
+          (end_tag
+            (tag_name)))
+        (normal_element
+          (tag_name)
+          (text)
+          (end_tag
+            (tag_name)))
+        (end_tag
+          (tag_name)))
+      (end_tag
+        (tag_name)))
+    (normal_element
+      (tag_name)
+      (django_for_block
+        (django_for_open
+          (loop_variables
+            (variable_name))
+          (filter_expression
+            (primary_expression
+              (lookup
+                (identifier)))))
+        (normal_element
+          (tag_name)
+          (attribute
+            (attribute_name)
+            (quoted_attribute_value
+              (django_cycle_tag
+                (cycle_value
+                  (string))
+                (cycle_value
+                  (string)))))
+          (normal_element
+            (tag_name)
+            (django_interpolation
+              (filter_expression
+                (primary_expression
+                  (lookup
+                    (identifier)
+                    (identifier)))))
+            (end_tag
+              (tag_name)))
+          (normal_element
+            (tag_name)
+            (django_interpolation
+              (filter_expression
+                (primary_expression
+                  (lookup
+                    (identifier)
+                    (identifier)))))
+            (end_tag
+              (tag_name)))
+          (end_tag
+            (tag_name)))
+        (django_empty_branch
+          (django_empty)
+          (normal_element
+            (tag_name)
             (normal_element
               (tag_name)
-              (element
-                (normal_element
-                  (tag_name)
-                  (text)
-                  (end_tag
-                    (tag_name))))
-              (element
-                (normal_element
-                  (tag_name)
-                  (text)
-                  (end_tag
-                    (tag_name))))
+              (attribute
+                (attribute_name)
+                (quoted_attribute_value
+                  (attribute_value)))
+              (text)
               (end_tag
-                (tag_name))))
-          (end_tag
-            (tag_name))))
-      (element
-        (normal_element
-          (tag_name)
-          (django_statement
-            (django_for_block
-              (django_for_open
-                (loop_variables
-                  (variable_name))
-                (filter_expression
-                  (primary_expression
-                    (lookup
-                      (identifier)))))
-              (element
-                (normal_element
-                  (tag_name)
-                  (attribute
-                    (attribute_name)
-                    (quoted_attribute_value
-                      (django_statement
-                        (django_cycle_tag
-                          (cycle_value
-                            (string))
-                          (cycle_value
-                            (string))))))
-                  (element
-                    (normal_element
-                      (tag_name)
-                      (django_interpolation
-                        (filter_expression
-                          (primary_expression
-                            (lookup
-                              (identifier)
-                              (identifier)))))
-                      (end_tag
-                        (tag_name))))
-                  (element
-                    (normal_element
-                      (tag_name)
-                      (django_interpolation
-                        (filter_expression
-                          (primary_expression
-                            (lookup
-                              (identifier)
-                              (identifier)))))
-                      (end_tag
-                        (tag_name))))
-                  (end_tag
-                    (tag_name))))
-              (django_empty_branch
-                (django_empty)
-                (element
-                  (normal_element
-                    (tag_name)
-                    (element
-                      (normal_element
-                        (tag_name)
-                        (attribute
-                          (attribute_name)
-                          (quoted_attribute_value
-                            (attribute_value)))
-                        (text)
-                        (end_tag
-                          (tag_name))))
-                    (end_tag
-                      (tag_name)))))
-              (django_endfor)))
-          (end_tag
-            (tag_name))))
+                (tag_name)))
+            (end_tag
+              (tag_name))))
+        (django_endfor))
       (end_tag
-        (tag_name)))))
+        (tag_name)))
+    (end_tag
+      (tag_name))))
 
 ================================================================================
 Single curly brace in text (not Django)
@@ -983,12 +909,11 @@ Single curly brace in text (not Django)
 --------------------------------------------------------------------------------
 
 (document
-  (element
-    (normal_element
-      (tag_name)
-      (text)
-      (end_tag
-        (tag_name)))))
+  (normal_element
+    (tag_name)
+    (text)
+    (end_tag
+      (tag_name))))
 
 ================================================================================
 Django verbatim with HTML
@@ -1003,13 +928,11 @@ Django verbatim with HTML
 --------------------------------------------------------------------------------
 
 (document
-  (element
-    (normal_element
-      (tag_name)
-      (django_statement
-        (django_verbatim_block))
-      (end_tag
-        (tag_name)))))
+  (normal_element
+    (tag_name)
+    (django_verbatim_block)
+    (end_tag
+      (tag_name))))
 
 ================================================================================
 Deeply nested Django in HTML
@@ -1032,66 +955,59 @@ Deeply nested Django in HTML
 --------------------------------------------------------------------------------
 
 (document
-  (element
-    (normal_element
-      (tag_name)
-      (django_statement
-        (django_if_block
-          (django_if_open
-            (test_expression
-              (or_expression
-                (and_expression
-                  (not_expression
-                    (comparison_expression
-                      (filter_expression
-                        (primary_expression
-                          (lookup
-                            (identifier))))))))))
-          (element
-            (normal_element
-              (tag_name)
-              (django_statement
-                (django_for_block
-                  (django_for_open
-                    (loop_variables
-                      (variable_name))
-                    (filter_expression
-                      (primary_expression
-                        (lookup
-                          (identifier)))))
-                  (element
-                    (normal_element
-                      (tag_name)
-                      (django_statement
-                        (django_if_block
-                          (django_if_open
-                            (test_expression
-                              (or_expression
-                                (and_expression
-                                  (not_expression
-                                    (comparison_expression
-                                      (filter_expression
-                                        (primary_expression
-                                          (lookup
-                                            (identifier)
-                                            (identifier))))))))))
-                          (element
-                            (normal_element
-                              (tag_name)
-                              (django_interpolation
-                                (filter_expression
-                                  (primary_expression
-                                    (lookup
-                                      (identifier)
-                                      (identifier)))))
-                              (end_tag
-                                (tag_name))))
-                          (django_endif)))
-                      (end_tag
-                        (tag_name))))
-                  (django_endfor)))
-              (end_tag
-                (tag_name))))
-          (django_endif)))
-      (end_tag
-        (tag_name)))))
+  (normal_element
+    (tag_name)
+    (django_if_block
+      (django_if_open
+        (test_expression
+          (or_expression
+            (and_expression
+              (not_expression
+                (comparison_expression
+                  (filter_expression
+                    (primary_expression
+                      (lookup
+                        (identifier))))))))))
+      (normal_element
+        (tag_name)
+        (django_for_block
+          (django_for_open
+            (loop_variables
+              (variable_name))
+            (filter_expression
+              (primary_expression
+                (lookup
+                  (identifier)))))
+          (normal_element
+            (tag_name)
+            (django_if_block
+              (django_if_open
+                (test_expression
+                  (or_expression
+                    (and_expression
+                      (not_expression
+                        (comparison_expression
+                          (filter_expression
+                            (primary_expression
+                              (lookup
+                                (identifier)
+                                (identifier))))))))))
+              (normal_element
+                (tag_name)
+                (django_interpolation
+                  (filter_expression
+                    (primary_expression
+                      (lookup
+                        (identifier)
+                        (identifier)))))
+                (end_tag
+                  (tag_name)))
+              (django_endif))
+            (end_tag
+              (tag_name)))
+          (django_endfor))
+        (end_tag
+          (tag_name)))
+      (django_endif))
+    (end_tag
+      (tag_name))))

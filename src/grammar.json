@@ -5816,7 +5816,10 @@
   ],
   "inline": [],
   "supertypes": [
-    "comparison_operator"
+    "comparison_operator",
+    "element",
+    "django_statement",
+    "literal"
   ],
   "reserved": {}
 }
