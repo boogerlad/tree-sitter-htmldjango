@@ -122,14 +122,14 @@ module.exports = grammar({
 
     void_element: $ => seq(
       '<',
-      alias($._void_start_tag_name, $.tag_name),
+      field('name', alias($._void_start_tag_name, $.tag_name)),
       repeat($._attribute_node),
       choice('>', '/>'),
     ),
 
     normal_element: $ => seq(
       '<',
-      alias($._html_start_tag_name, $.tag_name),
+      field('name', alias($._html_start_tag_name, $.tag_name)),
       repeat($._attribute_node),
       choice('>', '/>'),
       repeat($._node),
@@ -139,7 +139,7 @@ module.exports = grammar({
     // For unbalanced HTML tags inside Django conditionals
     _start_tag_only: $ => seq(
       '<',
-      alias($._html_start_tag_name, $.tag_name),
+      field('name', alias($._html_start_tag_name, $.tag_name)),
       repeat($._attribute_node),
       choice('>', '/>'),
     ),
@@ -190,7 +190,7 @@ module.exports = grammar({
 
     foreign_element: $ => seq(
       '<',
-      alias($._foreign_start_tag_name, $.tag_name),
+      field('name', alias($._foreign_start_tag_name, $.tag_name)),
       repeat($._attribute_node),
       choice(
         seq('>', repeat($._node), choice($.end_tag, $._implicit_end_tag)),
@@ -204,7 +204,7 @@ module.exports = grammar({
 
     start_tag: $ => seq(
       '<',
-      alias(
+      field('name', alias(
         choice(
           $._html_start_tag_name,
           $._void_start_tag_name,
@@ -216,55 +216,55 @@ module.exports = grammar({
           $._plaintext_start_tag_name,
         ),
         $.tag_name,
-      ),
+      )),
       repeat($._attribute_node),
       choice('>', '/>'),
     ),
 
     script_start_tag: $ => seq(
       '<',
-      alias($._script_start_tag_name, $.tag_name),
+      field('name', alias($._script_start_tag_name, $.tag_name)),
       repeat($._attribute_node),
       choice('>', '/>'),
     ),
 
     style_start_tag: $ => seq(
       '<',
-      alias($._style_start_tag_name, $.tag_name),
+      field('name', alias($._style_start_tag_name, $.tag_name)),
       repeat($._attribute_node),
       choice('>', '/>'),
     ),
 
     title_start_tag: $ => seq(
       '<',
-      alias($._title_start_tag_name, $.tag_name),
+      field('name', alias($._title_start_tag_name, $.tag_name)),
       repeat($._attribute_node),
       choice('>', '/>'),
     ),
 
     textarea_start_tag: $ => seq(
       '<',
-      alias($._textarea_start_tag_name, $.tag_name),
+      field('name', alias($._textarea_start_tag_name, $.tag_name)),
       repeat($._attribute_node),
       choice('>', '/>'),
     ),
 
     plaintext_start_tag: $ => seq(
       '<',
-      alias($._plaintext_start_tag_name, $.tag_name),
+      field('name', alias($._plaintext_start_tag_name, $.tag_name)),
       repeat($._attribute_node),
       choice('>', '/>'),
     ),
 
     end_tag: $ => seq(
       '</',
-      alias($._end_tag_name, $.tag_name),
+      field('name', alias($._end_tag_name, $.tag_name)),
       '>',
     ),
 
     erroneous_end_tag: $ => seq(
       '</',
-      $.erroneous_end_tag_name,
+      field('name', $.erroneous_end_tag_name),
       '>',
     ),
 
