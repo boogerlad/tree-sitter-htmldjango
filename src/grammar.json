@@ -912,6 +912,26 @@
         },
         {
           "type": "SYMBOL",
+          "name": "django_with_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_block_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_extends_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_include_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_load_tag"
+        },
+        {
+          "type": "SYMBOL",
           "name": "django_url_tag"
         },
         {
@@ -920,7 +940,19 @@
         },
         {
           "type": "SYMBOL",
-          "name": "django_include_tag"
+          "name": "django_autoescape_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_filter_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_spaceless_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_verbatim_block"
         },
         {
           "type": "SYMBOL",
@@ -928,7 +960,59 @@
         },
         {
           "type": "SYMBOL",
+          "name": "django_firstof_tag"
+        },
+        {
+          "type": "SYMBOL",
           "name": "django_now_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_regroup_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_ifchanged_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_widthratio_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_templatetag_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_debug_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_lorem_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_resetcycle_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_querystring_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_partialdef_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_partial_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_generic_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "django_generic_tag"
         }
       ]
     },
@@ -1826,22 +1910,12 @@
           "name": "django_interpolation"
         },
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "django_attribute_if_block"
-          },
-          "named": true,
-          "value": "django_if_block"
+          "type": "SYMBOL",
+          "name": "django_attribute_if_block"
         },
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "django_attribute_for_block"
-          },
-          "named": true,
-          "value": "django_for_block"
+          "type": "SYMBOL",
+          "name": "django_attribute_for_block"
         },
         {
           "type": "SYMBOL",
@@ -6165,10 +6239,6 @@
     ],
     [
       "django_attribute_empty_branch"
-    ],
-    [
-      "attribute",
-      "attribute_fragment"
     ],
     [
       "with_legacy"

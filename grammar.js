@@ -52,8 +52,6 @@ module.exports = grammar({
     [$.django_attribute_elif_branch],
     [$.django_attribute_else_branch],
     [$.django_attribute_empty_branch],
-    // attribute_fragment can look like an attribute
-    [$.attribute, $.attribute_fragment],
     // With legacy syntax: could continue with 'and' or end
     [$.with_legacy],
     // With assignments: ambiguity in repeat with optional whitespace
@@ -281,22 +279,44 @@ module.exports = grammar({
     _attribute_node: $ => choice(
       $.attribute,
       $.django_interpolation,
-      $._django_attribute_statement,  // Only attribute-context blocks here
+      $._django_attribute_statement,  // All Django statements for attribute context
       $.django_line_comment,
     ),
 
-    // Django statements in attribute context - uses attribute_fragment instead of text
-    // For if/for blocks, use attribute-specific versions
-    // For other Django statements (url, csrf_token, etc.), allow the regular versions
+    // Django statements in attribute context
+    // For if/for blocks: use attribute-specific versions with attribute_fragment content
+    // For other statements: use regular versions (they work in any context)
     _django_attribute_statement: $ => choice(
+      // Attribute-context versions (with attribute_fragment for body content)
       $.django_attribute_if_block,
       $.django_attribute_for_block,
-      // Other Django statements that don't have block content can be used as-is
+      // All other Django statements work the same in any context
+      $.django_with_block,
+      $.django_block_block,
+      $.django_extends_tag,
+      $.django_include_tag,
+      $.django_load_tag,
       $.django_url_tag,
       $.django_csrf_token_tag,
-      $.django_include_tag,
+      $.django_autoescape_block,
+      $.django_filter_block,
+      $.django_spaceless_block,
+      $.django_verbatim_block,
       $.django_cycle_tag,
+      $.django_firstof_tag,
       $.django_now_tag,
+      $.django_regroup_tag,
+      $.django_ifchanged_block,
+      $.django_widthratio_tag,
+      $.django_templatetag_tag,
+      $.django_debug_tag,
+      $.django_lorem_tag,
+      $.django_resetcycle_tag,
+      $.django_querystring_tag,
+      $.django_partialdef_block,
+      $.django_partial_tag,
+      $.django_generic_block,
+      $.django_generic_tag,
     ),
 
     attribute: $ => seq(
@@ -509,8 +529,8 @@ module.exports = grammar({
 
     _attribute_body_content: $ => choice(
       $.django_interpolation,  // Allow {{ var }} in attribute context
-      alias($.django_attribute_if_block, $.django_if_block),  // Nested if blocks
-      alias($.django_attribute_for_block, $.django_for_block),  // Nested for blocks
+      $.django_attribute_if_block,   // Nested if blocks (same type for consistency)
+      $.django_attribute_for_block,  // Nested for blocks (same type for consistency)
       $.attribute_fragment,  // Attribute-like text (e.g., "disabled")
     ),
 

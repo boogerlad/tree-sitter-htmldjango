@@ -388,11 +388,11 @@
             "named": true
           },
           {
-            "type": "django_for_block",
+            "type": "django_attribute_for_block",
             "named": true
           },
           {
-            "type": "django_if_block",
+            "type": "django_attribute_if_block",
             "named": true
           },
           {
@@ -426,11 +426,11 @@
             "named": true
           },
           {
-            "type": "django_for_block",
+            "type": "django_attribute_for_block",
             "named": true
           },
           {
-            "type": "django_if_block",
+            "type": "django_attribute_if_block",
             "named": true
           },
           {
@@ -464,11 +464,11 @@
             "named": true
           },
           {
-            "type": "django_for_block",
+            "type": "django_attribute_for_block",
             "named": true
           },
           {
-            "type": "django_if_block",
+            "type": "django_attribute_if_block",
             "named": true
           },
           {
@@ -502,11 +502,11 @@
             "named": true
           },
           {
-            "type": "django_for_block",
+            "type": "django_attribute_for_block",
             "named": true
           },
           {
-            "type": "django_if_block",
+            "type": "django_attribute_if_block",
             "named": true
           },
           {
@@ -548,11 +548,11 @@
             "named": true
           },
           {
-            "type": "django_for_block",
+            "type": "django_attribute_for_block",
             "named": true
           },
           {
-            "type": "django_if_block",
+            "type": "django_attribute_if_block",
             "named": true
           },
           {
@@ -1065,38 +1065,11 @@
   {
     "type": "django_for_block",
     "named": true,
-    "fields": {
-      "body": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "attribute_fragment",
-            "named": true
-          },
-          {
-            "type": "django_for_block",
-            "named": true
-          },
-          {
-            "type": "django_if_block",
-            "named": true
-          },
-          {
-            "type": "django_interpolation",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
       "required": true,
       "types": [
-        {
-          "type": "django_attribute_empty_branch",
-          "named": true
-        },
         {
           "type": "django_block_comment",
           "named": true
@@ -1277,42 +1250,11 @@
   {
     "type": "django_if_block",
     "named": true,
-    "fields": {
-      "body": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "attribute_fragment",
-            "named": true
-          },
-          {
-            "type": "django_for_block",
-            "named": true
-          },
-          {
-            "type": "django_if_block",
-            "named": true
-          },
-          {
-            "type": "django_interpolation",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
       "required": true,
       "types": [
-        {
-          "type": "django_attribute_elif_branch",
-          "named": true
-        },
-        {
-          "type": "django_attribute_else_branch",
-          "named": true
-        },
         {
           "type": "django_block_comment",
           "named": true
@@ -2483,11 +2425,47 @@
           "named": true
         },
         {
+          "type": "django_autoescape_block",
+          "named": true
+        },
+        {
+          "type": "django_block_block",
+          "named": true
+        },
+        {
           "type": "django_csrf_token_tag",
           "named": true
         },
         {
           "type": "django_cycle_tag",
+          "named": true
+        },
+        {
+          "type": "django_debug_tag",
+          "named": true
+        },
+        {
+          "type": "django_extends_tag",
+          "named": true
+        },
+        {
+          "type": "django_filter_block",
+          "named": true
+        },
+        {
+          "type": "django_firstof_tag",
+          "named": true
+        },
+        {
+          "type": "django_generic_block",
+          "named": true
+        },
+        {
+          "type": "django_generic_tag",
+          "named": true
+        },
+        {
+          "type": "django_ifchanged_block",
           "named": true
         },
         {
@@ -2503,11 +2481,59 @@
           "named": true
         },
         {
+          "type": "django_load_tag",
+          "named": true
+        },
+        {
+          "type": "django_lorem_tag",
+          "named": true
+        },
+        {
           "type": "django_now_tag",
           "named": true
         },
         {
+          "type": "django_partial_tag",
+          "named": true
+        },
+        {
+          "type": "django_partialdef_block",
+          "named": true
+        },
+        {
+          "type": "django_querystring_tag",
+          "named": true
+        },
+        {
+          "type": "django_regroup_tag",
+          "named": true
+        },
+        {
+          "type": "django_resetcycle_tag",
+          "named": true
+        },
+        {
+          "type": "django_spaceless_block",
+          "named": true
+        },
+        {
+          "type": "django_templatetag_tag",
+          "named": true
+        },
+        {
           "type": "django_url_tag",
+          "named": true
+        },
+        {
+          "type": "django_verbatim_block",
+          "named": true
+        },
+        {
+          "type": "django_widthratio_tag",
+          "named": true
+        },
+        {
+          "type": "django_with_block",
           "named": true
         }
       ]
@@ -2642,11 +2668,47 @@
           "named": true
         },
         {
+          "type": "django_autoescape_block",
+          "named": true
+        },
+        {
+          "type": "django_block_block",
+          "named": true
+        },
+        {
           "type": "django_csrf_token_tag",
           "named": true
         },
         {
           "type": "django_cycle_tag",
+          "named": true
+        },
+        {
+          "type": "django_debug_tag",
+          "named": true
+        },
+        {
+          "type": "django_extends_tag",
+          "named": true
+        },
+        {
+          "type": "django_filter_block",
+          "named": true
+        },
+        {
+          "type": "django_firstof_tag",
+          "named": true
+        },
+        {
+          "type": "django_generic_block",
+          "named": true
+        },
+        {
+          "type": "django_generic_tag",
+          "named": true
+        },
+        {
+          "type": "django_ifchanged_block",
           "named": true
         },
         {
@@ -2662,11 +2724,59 @@
           "named": true
         },
         {
+          "type": "django_load_tag",
+          "named": true
+        },
+        {
+          "type": "django_lorem_tag",
+          "named": true
+        },
+        {
           "type": "django_now_tag",
           "named": true
         },
         {
+          "type": "django_partial_tag",
+          "named": true
+        },
+        {
+          "type": "django_partialdef_block",
+          "named": true
+        },
+        {
+          "type": "django_querystring_tag",
+          "named": true
+        },
+        {
+          "type": "django_regroup_tag",
+          "named": true
+        },
+        {
+          "type": "django_resetcycle_tag",
+          "named": true
+        },
+        {
+          "type": "django_spaceless_block",
+          "named": true
+        },
+        {
+          "type": "django_templatetag_tag",
+          "named": true
+        },
+        {
           "type": "django_url_tag",
+          "named": true
+        },
+        {
+          "type": "django_verbatim_block",
+          "named": true
+        },
+        {
+          "type": "django_widthratio_tag",
+          "named": true
+        },
+        {
+          "type": "django_with_block",
           "named": true
         }
       ]
@@ -2704,11 +2814,47 @@
           "named": true
         },
         {
+          "type": "django_autoescape_block",
+          "named": true
+        },
+        {
+          "type": "django_block_block",
+          "named": true
+        },
+        {
           "type": "django_csrf_token_tag",
           "named": true
         },
         {
           "type": "django_cycle_tag",
+          "named": true
+        },
+        {
+          "type": "django_debug_tag",
+          "named": true
+        },
+        {
+          "type": "django_extends_tag",
+          "named": true
+        },
+        {
+          "type": "django_filter_block",
+          "named": true
+        },
+        {
+          "type": "django_firstof_tag",
+          "named": true
+        },
+        {
+          "type": "django_generic_block",
+          "named": true
+        },
+        {
+          "type": "django_generic_tag",
+          "named": true
+        },
+        {
+          "type": "django_ifchanged_block",
           "named": true
         },
         {
@@ -2724,11 +2870,59 @@
           "named": true
         },
         {
+          "type": "django_load_tag",
+          "named": true
+        },
+        {
+          "type": "django_lorem_tag",
+          "named": true
+        },
+        {
           "type": "django_now_tag",
           "named": true
         },
         {
+          "type": "django_partial_tag",
+          "named": true
+        },
+        {
+          "type": "django_partialdef_block",
+          "named": true
+        },
+        {
+          "type": "django_querystring_tag",
+          "named": true
+        },
+        {
+          "type": "django_regroup_tag",
+          "named": true
+        },
+        {
+          "type": "django_resetcycle_tag",
+          "named": true
+        },
+        {
+          "type": "django_spaceless_block",
+          "named": true
+        },
+        {
+          "type": "django_templatetag_tag",
+          "named": true
+        },
+        {
           "type": "django_url_tag",
+          "named": true
+        },
+        {
+          "type": "django_verbatim_block",
+          "named": true
+        },
+        {
+          "type": "django_widthratio_tag",
+          "named": true
+        },
+        {
+          "type": "django_with_block",
           "named": true
         }
       ]
