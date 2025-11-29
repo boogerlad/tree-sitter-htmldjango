@@ -684,8 +684,7 @@ STRESS TEST: Implicit end tag with Django
       (text)))
   (ERROR
     (tag_name)
-    (op_gt)
-    (UNEXPECTED '\0')))
+    (op_gt)))
 
 ================================================================================
 STRESS TEST: Nested same-type elements with ancestor close

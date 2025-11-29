@@ -1071,7 +1071,7 @@ module.exports = grammar({
       repeat(seq(alias($._filter_pipe, '|'), $.filter_call)),
     ),
 
-    _filter_pipe: _ => token(prec(1, /[ \t\r\n]*\|/)),
+    _filter_pipe: _ => token(prec(1, /[ \t]*\|/)),
 
     primary_expression: $ => choice(
       $.literal,
@@ -1158,8 +1158,8 @@ module.exports = grammar({
     ),
 
     // Individual comparison operators as named nodes
-    op_not_in: _ => token(prec(10, seq('not', /[ \t\r\n]+/, 'in'))),
-    op_is_not: _ => token(prec(10, seq('is', /[ \t\r\n]+/, 'not'))),
+    op_not_in: _ => token(prec(10, seq('not', /[ \t]+/, 'in'))),
+    op_is_not: _ => token(prec(10, seq('is', /[ \t]+/, 'not'))),
     op_in: _ => token(prec(10, 'in')),
     op_is: _ => token(prec(10, 'is')),
     op_eq: _ => token(prec(10, '==')),
@@ -1214,6 +1214,6 @@ module.exports = grammar({
     // Django: Whitespace handling
     // ==========================================================================
 
-    _django_inner_ws: _ => /[ \t\r\n]+/,
+    _django_inner_ws: _ => /[ \t]+/,
   },
 });

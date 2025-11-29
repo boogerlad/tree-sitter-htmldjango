@@ -4807,7 +4807,7 @@
         "value": 1,
         "content": {
           "type": "PATTERN",
-          "value": "[ \\t\\r\\n]*\\|"
+          "value": "[ \\t]*\\|"
         }
       }
     },
@@ -5163,7 +5163,7 @@
             },
             {
               "type": "PATTERN",
-              "value": "[ \\t\\r\\n]+"
+              "value": "[ \\t]+"
             },
             {
               "type": "STRING",
@@ -5187,7 +5187,7 @@
             },
             {
               "type": "PATTERN",
-              "value": "[ \\t\\r\\n]+"
+              "value": "[ \\t]+"
             },
             {
               "type": "STRING",
@@ -5677,7 +5677,7 @@
     },
     "_django_inner_ws": {
       "type": "PATTERN",
-      "value": "[ \\t\\r\\n]+"
+      "value": "[ \\t]+"
     }
   },
   "extras": [

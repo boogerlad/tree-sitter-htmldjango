@@ -1386,8 +1386,7 @@ Django with assignment spaces invalid (ERROR)
         (lookup
           (identifier))))
     (numeric_index)
-    (end_tag_name)
-    (UNEXPECTED '\0')))
+    (end_tag_name)))
 
 ================================================================================
 Django url named args spacing invalid (ERROR)
@@ -1656,8 +1655,7 @@ Django verbatim mismatched suffix (suffix enforced)
   (text)
   (ERROR
     (identifier)
-    (identifier)
-    (UNEXPECTED '\0')))
+    (identifier)))
 
 ================================================================================
 Django if comparison after and
@@ -1923,8 +1921,7 @@ inner
   (django_block_comment
     (comment_content))
   (ERROR
-    (identifier)
-    (UNEXPECTED '\0')))
+    (identifier)))
 
 ================================================================================
 Django number with leading decimal
