@@ -931,7 +931,8 @@ Django verbatim with HTML
 (document
   (normal_element
     (tag_name)
-    (django_verbatim_block)
+    (django_verbatim_block
+      (verbatim_content))
     (end_tag
       (tag_name))))
 

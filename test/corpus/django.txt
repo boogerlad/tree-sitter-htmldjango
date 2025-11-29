@@ -358,7 +358,8 @@ Django verbatim block
 --------------------------------------------------------------------------------
 
 (document
-  (django_verbatim_block))
+  (django_verbatim_block
+    (verbatim_content)))
 
 ================================================================================
 Django autoescape block
@@ -605,7 +606,8 @@ Django verbatim with multi-word suffix
 --------------------------------------------------------------------------------
 
 (document
-  (django_verbatim_block))
+  (django_verbatim_block
+    (verbatim_content)))
 
 ================================================================================
 Django i18n string in interpolation

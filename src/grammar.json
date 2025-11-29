@@ -3669,8 +3669,25 @@
           "type": "CHOICE",
           "members": [
             {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_verbatim_content"
+              },
+              "named": true,
+              "value": "verbatim_content"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
               "type": "SYMBOL",
-              "name": "_verbatim_block_content"
+              "name": "_verbatim_end"
             },
             {
               "type": "BLANK"
@@ -6339,7 +6356,11 @@
     },
     {
       "type": "SYMBOL",
-      "name": "_verbatim_block_content"
+      "name": "_verbatim_content"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_verbatim_end"
     },
     {
       "type": "SYMBOL",

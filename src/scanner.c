@@ -23,7 +23,8 @@ enum TokenType {
     // Django externals
     DJANGO_COMMENT_CONTENT,
     VERBATIM_START,
-    VERBATIM_BLOCK_CONTENT,
+    VERBATIM_CONTENT,
+    VERBATIM_END,
     VALIDATE_GENERIC_BLOCK,
     VALIDATE_GENERIC_SIMPLE,
     FILTER_COLON,
@@ -118,10 +119,12 @@ static bool scan_verbatim_start(Scanner *scanner, TSLexer *lexer) {
 }
 
 // Scan verbatim content until {% endverbatim<suffix> %}
-// This scanner consumes everything INCLUDING the {% endverbatim<suffix> %} tag
-// because the suffix is dynamic and matched at runtime by the scanner.
+// Returns just the content, NOT including the {% endverbatim<suffix> %} tag.
+// The closing tag is matched by scan_verbatim_end.
 // Strict Django DTL - no whitespace trim markers supported
 static bool scan_verbatim_content(Scanner *scanner, TSLexer *lexer) {
+    bool has_content = false;
+
     for (;;) {
         if (lexer->lookahead == 0) return false;
 
@@ -152,20 +155,70 @@ static bool scan_verbatim_content(Scanner *scanner, TSLexer *lexer) {
                         if (lexer->lookahead == '%') {
                             advance(lexer);
                             if (lexer->lookahead == '}') {
-                                advance(lexer);
-                                lexer->mark_end(lexer);
-                                lexer->result_symbol = VERBATIM_BLOCK_CONTENT;
-                                clear_verbatim_suffix(scanner);
+                                // Found matching {% endverbatim<suffix> %}
+                                // DON'T consume it - mark_end is already set before '{'
+                                // For empty content, return zero-length token (mark_end is at start)
+                                lexer->result_symbol = VERBATIM_CONTENT;
                                 return true;
                             }
                         }
                     }
                 }
+                // Not a match - continue, the '{%...' we looked at is content
+                has_content = true;
+            } else {
+                // Just '{' not '{%' - it's content
+                has_content = true;
             }
+        } else {
+            has_content = true;
+            advance(lexer);
         }
+    }
+}
 
+// Scan the {% endverbatim<suffix> %} closing tag
+// Called after scan_verbatim_content has matched the content
+static bool scan_verbatim_end(Scanner *scanner, TSLexer *lexer) {
+    lexer->mark_end(lexer);
+
+    if (lexer->lookahead != '{') return false;
+    advance(lexer);
+    if (lexer->lookahead != '%') return false;
+    advance(lexer);
+
+    // Skip whitespace
+    while (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
         advance(lexer);
     }
+
+    // Match "endverbatim"
+    const char *kw = "endverbatim";
+    for (const char *p = kw; *p; p++) {
+        if (lexer->lookahead != *p) return false;
+        advance(lexer);
+    }
+
+    // Match suffix (stored from verbatim_start)
+    for (uint32_t i = 0; i < scanner->verbatim_length; i++) {
+        if (lexer->lookahead != scanner->verbatim_suffix[i]) return false;
+        advance(lexer);
+    }
+
+    // Skip whitespace before %}
+    while (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+        advance(lexer);
+    }
+
+    if (lexer->lookahead != '%') return false;
+    advance(lexer);
+    if (lexer->lookahead != '}') return false;
+    advance(lexer);
+
+    lexer->mark_end(lexer);
+    lexer->result_symbol = VERBATIM_END;
+    clear_verbatim_suffix(scanner);
+    return true;
 }
 
 // List of built-in Django tag names that have their own grammar rules
@@ -981,9 +1034,14 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid_symbols) {
         return scan_verbatim_start(scanner, lexer);
     }
 
-    // Handle verbatim block content
-    if (valid_symbols[VERBATIM_BLOCK_CONTENT]) {
+    // Handle verbatim content (text before {% endverbatim %})
+    if (valid_symbols[VERBATIM_CONTENT]) {
         return scan_verbatim_content(scanner, lexer);
+    }
+
+    // Handle verbatim end tag ({% endverbatim<suffix> %})
+    if (valid_symbols[VERBATIM_END]) {
+        return scan_verbatim_end(scanner, lexer);
     }
 
     // Handle generic tag validation (zero-width lookahead tokens)

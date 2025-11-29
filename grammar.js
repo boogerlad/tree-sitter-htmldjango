@@ -37,7 +37,8 @@ module.exports = grammar({
     // Django externals
     $._django_comment_content,
     $._verbatim_start,
-    $._verbatim_block_content,
+    $._verbatim_content,
+    $._verbatim_end,
     $._validate_generic_block,
     $._validate_generic_simple,
     $._filter_colon,
@@ -871,12 +872,15 @@ module.exports = grammar({
     // Verbatim block using external scanner for exact suffix matching.
     // The external scanner captures the suffix after "verbatim" and ensures
     // {% endverbatim<suffix> %} matches exactly.
+    // Content is exposed as verbatim_content node for tooling visibility.
+    // Both content and end are optional to handle mismatched suffix errors gracefully.
     django_verbatim_block: $ => seq(
       $._django_tag_open,
       optional($._django_inner_ws),
       'verbatim',
       $._verbatim_start,  // External: captures suffix, consumes up to and including %}
-      optional($._verbatim_block_content),  // External: scans until matching endverbatim
+      optional(alias($._verbatim_content, $.verbatim_content)),  // External: content text
+      optional($._verbatim_end),  // External: matches {% endverbatim<suffix> %}
     ),
 
     // ==========================================================================
