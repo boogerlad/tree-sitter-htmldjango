@@ -140,7 +140,7 @@ Django for loop
     (django_for_block
       (django_for_open
         (loop_variables
-          (identifier))
+          (variable_name))
         (filter_expression
           (primary_expression
             (lookup
@@ -165,7 +165,7 @@ Django for loop with empty
     (django_for_block
       (django_for_open
         (loop_variables
-          (identifier))
+          (variable_name))
         (filter_expression
           (primary_expression
             (lookup
@@ -194,7 +194,7 @@ Django with block
       (django_with_open
         (with_assignments
           (assignment
-            (identifier)
+            (variable_name)
             (filter_expression
               (primary_expression
                 (lookup
@@ -220,13 +220,13 @@ Django with multiple assignments
       (django_with_open
         (with_assignments
           (assignment
-            (identifier)
+            (variable_name)
             (filter_expression
               (primary_expression
                 (lookup
                   (identifier)))))
           (assignment
-            (identifier)
+            (variable_name)
             (filter_expression
               (primary_expression
                 (lookup
@@ -298,7 +298,7 @@ Django block tag
   (django_statement
     (django_block_block
       (django_block_open
-        (identifier))
+        (block_name))
       (text)
       (django_endblock))))
 
@@ -347,7 +347,7 @@ Django url tag
           (literal
             (string))))
       (named_argument
-        (identifier)
+        (argument_name)
         (filter_expression
           (primary_expression
             (lookup
@@ -440,8 +440,7 @@ Django generic tag
 (document
   (django_statement
     (django_generic_tag
-      (generic_tag_name
-        (identifier))
+      (generic_tag_name)
       (tag_argument
         (filter_expression
           (primary_expression
@@ -459,8 +458,7 @@ Django generic block
 (document
   (django_statement
     (django_generic_block
-      (generic_tag_name
-        (identifier))
+      (generic_tag_name)
       (tag_argument
         (filter_expression
           (primary_expression
@@ -541,7 +539,7 @@ Django resetcycle tag with name
 (document
   (django_statement
     (django_resetcycle_tag
-      (identifier))))
+      (cycle_name))))
 
 ================================================================================
 Django querystring tag with named args
@@ -555,13 +553,13 @@ Django querystring tag with named args
   (django_statement
     (django_querystring_tag
       (named_argument
-        (identifier)
+        (argument_name)
         (filter_expression
           (primary_expression
             (literal
               (number)))))
       (named_argument
-        (identifier)
+        (argument_name)
         (filter_expression
           (primary_expression
             (lookup
@@ -584,7 +582,7 @@ Django querystring tag with positional and named
             (identifier)
             (identifier))))
       (named_argument
-        (identifier)
+        (argument_name)
         (filter_expression
           (primary_expression
             (lookup
@@ -601,7 +599,7 @@ Django partialdef block
 (document
   (django_statement
     (django_partialdef_block
-      (identifier)
+      (partial_name)
       (text))))
 
 ================================================================================
@@ -615,9 +613,9 @@ Django partialdef block with inline and end name
 (document
   (django_statement
     (django_partialdef_block
-      (identifier)
+      (partial_name)
       (text)
-      (identifier))))
+      (partial_name))))
 
 ================================================================================
 Django partial tag
@@ -630,7 +628,7 @@ Django partial tag
 (document
   (django_statement
     (django_partial_tag
-      (identifier))))
+      (partial_name))))
 
 ================================================================================
 Django verbatim with multi-word suffix
@@ -746,13 +744,13 @@ Django with legacy aliases
             (primary_expression
               (lookup
                 (identifier))))
-          (identifier)
+          (variable_name)
           (filter_expression
             (primary_expression
               (lookup
                 (identifier)
                 (identifier))))
-          (identifier)))
+          (variable_name)))
       (text)
       (django_endwith))))
 
@@ -769,8 +767,8 @@ Django for with tuple unpacking
     (django_for_block
       (django_for_open
         (loop_variables
-          (identifier)
-          (identifier))
+          (variable_name)
+          (variable_name))
         (filter_expression
           (primary_expression
             (lookup
@@ -795,7 +793,7 @@ Django for with reversed
     (django_for_block
       (django_for_open
         (loop_variables
-          (identifier))
+          (variable_name))
         (filter_expression
           (primary_expression
             (lookup
@@ -822,7 +820,7 @@ Django cycle with as and silent
         (string))
       (cycle_value
         (string))
-      (identifier))))
+      (variable_name))))
 
 ================================================================================
 Django cycle named reference
@@ -835,7 +833,7 @@ Django cycle named reference
 (document
   (django_statement
     (django_cycle_tag
-      (identifier))))
+      (cycle_name))))
 
 ================================================================================
 Django load from library
@@ -1002,7 +1000,7 @@ Django include with context
           (literal
             (string))))
       (assignment
-        (identifier)
+        (variable_name)
         (filter_expression
           (primary_expression
             (literal
@@ -1024,13 +1022,13 @@ Django include with multiple assignments
           (literal
             (string))))
       (assignment
-        (identifier)
+        (variable_name)
         (filter_expression
           (primary_expression
             (literal
               (string)))))
       (assignment
-        (identifier)
+        (variable_name)
         (filter_expression
           (primary_expression
             (literal
@@ -1306,7 +1304,7 @@ Django firstof with as
         (primary_expression
           (literal
             (string))))
-      (identifier))))
+      (variable_name))))
 
 ================================================================================
 Django ifchanged with else
@@ -1343,7 +1341,7 @@ Django regroup tag
             (identifier))))
       (lookup
         (identifier))
-      (identifier))))
+      (variable_name))))
 
 ================================================================================
 Django widthratio with as
@@ -1368,7 +1366,7 @@ Django widthratio with as
         (primary_expression
           (literal
             (number))))
-      (identifier))))
+      (variable_name))))
 
 ================================================================================
 Django now tag with as
@@ -1382,7 +1380,7 @@ Django now tag with as
   (django_statement
     (django_now_tag
       (string)
-      (identifier))))
+      (variable_name))))
 
 ================================================================================
 Django templatetag braces
@@ -1409,15 +1407,14 @@ Django generic tag with as
 (document
   (django_statement
     (django_generic_tag
-      (generic_tag_name
-        (identifier))
+      (generic_tag_name)
       (tag_argument
         (as_alias
           (filter_expression
             (primary_expression
               (literal
                 (string))))
-          (identifier))))))
+          (variable_name))))))
 
 ================================================================================
 Django debug tag
@@ -1448,7 +1445,7 @@ Django with underscore alias
             (primary_expression
               (lookup
                 (identifier))))
-          (identifier)))
+          (variable_name)))
       (text)
       (django_endwith))))
 
@@ -1565,8 +1562,7 @@ Django generic block with as_alias
 (document
   (django_statement
     (django_generic_block
-      (generic_tag_name
-        (identifier))
+      (generic_tag_name)
       (tag_argument
         (filter_expression
           (primary_expression
@@ -1584,7 +1580,7 @@ Django generic block with as_alias
               (lookup
                 (identifier)
                 (identifier))))
-          (identifier)))
+          (variable_name)))
       (text)
       (end_tag_name))))
 
@@ -1604,19 +1600,19 @@ Django url with named args and as
           (literal
             (string))))
       (named_argument
-        (identifier)
+        (argument_name)
         (filter_expression
           (primary_expression
             (lookup
               (identifier)
               (identifier)))))
       (named_argument
-        (identifier)
+        (argument_name)
         (filter_expression
           (primary_expression
             (literal
               (number)))))
-      (identifier))))
+      (variable_name))))
 
 ================================================================================
 Django for reversed tuple unpack with empty
@@ -1631,8 +1627,8 @@ Django for reversed tuple unpack with empty
     (django_for_block
       (django_for_open
         (loop_variables
-          (identifier)
-          (identifier))
+          (variable_name)
+          (variable_name))
         (filter_expression
           (primary_expression
             (lookup
@@ -1668,7 +1664,7 @@ Django include only with order
           (literal
             (string))))
       (assignment
-        (identifier)
+        (variable_name)
         (filter_expression
           (primary_expression
             (literal
@@ -1717,7 +1713,7 @@ Django cycle with i18n values
           (primary_expression
             (literal
               (i18n_string)))))
-      (identifier))))
+      (variable_name))))
 
 ================================================================================
 Django generic tag with as_alias (trans)
@@ -1730,15 +1726,14 @@ Django generic tag with as_alias (trans)
 (document
   (django_statement
     (django_generic_tag
-      (generic_tag_name
-        (identifier))
+      (generic_tag_name)
       (tag_argument
         (as_alias
           (filter_expression
             (primary_expression
               (literal
                 (string))))
-          (identifier))))))
+          (variable_name))))))
 
 ================================================================================
 Django verbatim mismatched suffix (suffix enforced)
@@ -1914,13 +1909,13 @@ Django regroup then unpack
             (identifier))))
       (lookup
         (identifier))
-      (identifier)))
+      (variable_name)))
   (django_statement
     (django_for_block
       (django_for_open
         (loop_variables
-          (identifier)
-          (identifier))
+          (variable_name)
+          (variable_name))
         (filter_expression
           (primary_expression
             (lookup
@@ -1945,7 +1940,7 @@ Django cycle with reset
     (django_for_block
       (django_for_open
         (loop_variables
-          (identifier))
+          (variable_name))
         (filter_expression
           (primary_expression
             (lookup
@@ -1956,10 +1951,10 @@ Django cycle with reset
             (string))
           (cycle_value
             (string))
-          (identifier)))
+          (variable_name)))
       (django_statement
         (django_resetcycle_tag
-          (identifier)))
+          (cycle_name)))
       (django_endfor))))
 
 ================================================================================
@@ -1996,7 +1991,7 @@ Django cycle nested ifchanged
     (django_for_block
       (django_for_open
         (loop_variables
-          (identifier))
+          (variable_name))
         (filter_expression
           (primary_expression
             (lookup
@@ -2228,8 +2223,7 @@ Sequential generic tags
 (document
   (django_statement
     (django_generic_tag
-      (generic_tag_name
-        (identifier))
+      (generic_tag_name)
       (tag_argument
         (filter_expression
           (primary_expression
@@ -2237,5 +2231,4 @@ Sequential generic tags
               (identifier)))))))
   (django_statement
     (django_generic_tag
-      (generic_tag_name
-        (identifier)))))
+      (generic_tag_name))))

@@ -131,7 +131,7 @@ Real World Template (ported from htmljinja2)
                 (django_for_block
                   (django_for_open
                     (loop_variables
-                      (identifier))
+                      (variable_name))
                     (filter_expression
                       (primary_expression
                         (lookup
@@ -290,7 +290,7 @@ Django for loop around HTML elements
         (django_for_block
           (django_for_open
             (loop_variables
-              (identifier))
+              (variable_name))
             (filter_expression
               (primary_expression
                 (lookup
@@ -451,7 +451,7 @@ Nested Django blocks in HTML
             (django_for_block
               (django_for_open
                 (loop_variables
-                  (identifier))
+                  (variable_name))
                 (filter_expression
                   (primary_expression
                     (lookup
@@ -497,13 +497,13 @@ Django extends with blocks in HTML
   (django_statement
     (django_block_block
       (django_block_open
-        (identifier))
+        (block_name))
       (text)
       (django_endblock)))
   (django_statement
     (django_block_block
       (django_block_open
-        (identifier))
+        (block_name))
       (element
         (normal_element
           (tag_name)
@@ -564,7 +564,7 @@ Django with block wrapping HTML
       (django_with_open
         (with_assignments
           (assignment
-            (identifier)
+            (variable_name)
             (filter_expression
               (primary_expression
                 (lookup
@@ -757,8 +757,7 @@ Django static tag in HTML
         (quoted_attribute_value
           (django_statement
             (django_generic_tag
-              (generic_tag_name
-                (identifier))
+              (generic_tag_name)
               (tag_argument
                 (filter_expression
                   (primary_expression
@@ -773,8 +772,7 @@ Django static tag in HTML
           (quoted_attribute_value
             (django_statement
               (django_generic_tag
-                (generic_tag_name
-                  (identifier))
+                (generic_tag_name)
                 (tag_argument
                   (filter_expression
                     (primary_expression
@@ -818,7 +816,7 @@ SVG with Django
         (django_for_block
           (django_for_open
             (loop_variables
-              (identifier))
+              (variable_name))
             (filter_expression
               (primary_expression
                 (lookup
@@ -912,7 +910,7 @@ Table with Django loop
             (django_for_block
               (django_for_open
                 (loop_variables
-                  (identifier))
+                  (variable_name))
                 (filter_expression
                   (primary_expression
                     (lookup
@@ -1056,7 +1054,7 @@ Deeply nested Django in HTML
                 (django_for_block
                   (django_for_open
                     (loop_variables
-                      (identifier))
+                      (variable_name))
                     (filter_expression
                       (primary_expression
                         (lookup

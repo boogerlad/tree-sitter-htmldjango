@@ -174,15 +174,10 @@
 ; =============================================================================
 
 ; Block names
-(django_block_open
-  (identifier) @variable.parameter)
-
-(django_endblock
-  (identifier) @variable.parameter)
+(block_name) @variable.parameter
 
 ; Loop variables
-(loop_variables
-  (identifier) @variable.parameter)
+(variable_name) @variable.parameter
 
 ; Generic identifiers (variables)
 (lookup
@@ -191,40 +186,14 @@
 (lookup
   (numeric_index) @number)
 
-; Assignment targets
-(assignment
-  (identifier) @variable.parameter)
-
 ; Named arguments
-(named_argument
-  (identifier) @variable.parameter)
+(argument_name) @variable.parameter
 
-; With legacy alias
-(with_legacy
-  (identifier) @variable.parameter)
+; Cycle names
+(cycle_name) @variable.parameter
 
-; As alias target
-(as_alias
-  (identifier) @variable.parameter)
-
-; Cycle name
-(django_cycle_tag
-  (identifier) @variable.parameter)
-
-; Resetcycle name
-(django_resetcycle_tag
-  (identifier) @variable.parameter)
-
-; Partialdef/partial names
-(django_partialdef_block
-  (identifier) @variable.parameter)
-
-(django_partial_tag
-  (identifier) @variable.parameter)
-
-; Regroup target
-(django_regroup_tag
-  (identifier) @variable.parameter)
+; Partial names
+(partial_name) @variable.parameter
 
 ; =============================================================================
 ; Django Filters
@@ -247,8 +216,7 @@
 ; Django Generic Tag Names
 ; =============================================================================
 
-(generic_tag_name
-  (identifier) @function.macro)
+(generic_tag_name) @function.macro
 
 (end_tag_name) @function.macro
 

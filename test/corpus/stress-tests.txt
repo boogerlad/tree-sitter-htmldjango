@@ -181,7 +181,7 @@ STRESS TEST: Script with inline Django JSON
           (django_for_block
             (django_for_open
               (loop_variables
-                (identifier))
+                (variable_name))
               (filter_expression
                 (primary_expression
                   (lookup
@@ -707,7 +707,7 @@ STRESS TEST: Implicit end tag with Django
             (django_for_block
               (django_for_open
                 (loop_variables
-                  (identifier))
+                  (variable_name))
                 (filter_expression
                   (primary_expression
                     (lookup
@@ -889,7 +889,7 @@ STRESS TEST: Nested Django for loops in HTML table
         (django_for_block
           (django_for_open
             (loop_variables
-              (identifier))
+              (variable_name))
             (filter_expression
               (primary_expression
                 (lookup
@@ -901,7 +901,7 @@ STRESS TEST: Nested Django for loops in HTML table
                 (django_for_block
                   (django_for_open
                     (loop_variables
-                      (identifier))
+                      (variable_name))
                     (filter_expression
                       (primary_expression
                         (lookup
@@ -939,7 +939,7 @@ STRESS TEST: Select element with Django loop and conditionals
         (django_for_block
           (django_for_open
             (loop_variables
-              (identifier))
+              (variable_name))
             (filter_expression
               (primary_expression
                 (lookup
