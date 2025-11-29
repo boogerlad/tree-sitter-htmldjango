@@ -2462,31 +2462,10 @@
                       "value": "with"
                     },
                     {
-                      "type": "SYMBOL",
-                      "name": "_django_inner_ws"
-                    },
-                    {
                       "type": "REPEAT1",
                       "content": {
-                        "type": "SEQ",
-                        "members": [
-                          {
-                            "type": "SYMBOL",
-                            "name": "assignment"
-                          },
-                          {
-                            "type": "CHOICE",
-                            "members": [
-                              {
-                                "type": "SYMBOL",
-                                "name": "_django_inner_ws"
-                              },
-                              {
-                                "type": "BLANK"
-                              }
-                            ]
-                          }
-                        ]
+                        "type": "SYMBOL",
+                        "name": "_spaced_assignment"
                       }
                     },
                     {
@@ -2540,31 +2519,10 @@
                       "value": "with"
                     },
                     {
-                      "type": "SYMBOL",
-                      "name": "_django_inner_ws"
-                    },
-                    {
                       "type": "REPEAT1",
                       "content": {
-                        "type": "SEQ",
-                        "members": [
-                          {
-                            "type": "SYMBOL",
-                            "name": "assignment"
-                          },
-                          {
-                            "type": "CHOICE",
-                            "members": [
-                              {
-                                "type": "SYMBOL",
-                                "name": "_django_inner_ws"
-                              },
-                              {
-                                "type": "BLANK"
-                              }
-                            ]
-                          }
-                        ]
+                        "type": "SYMBOL",
+                        "name": "_spaced_assignment"
                       }
                     }
                   ]

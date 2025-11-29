@@ -896,6 +896,34 @@ Django include with context
               (string))))))))
 
 ================================================================================
+Django include with multiple assignments
+================================================================================
+
+{% include "partial.html" with foo="bar" baz="qux" %}
+
+--------------------------------------------------------------------------------
+
+(document
+  (django_statement
+    (django_include_tag
+      (filter_expression
+        (primary_expression
+          (literal
+            (string))))
+      (assignment
+        (identifier)
+        (filter_expression
+          (primary_expression
+            (literal
+              (string)))))
+      (assignment
+        (identifier)
+        (filter_expression
+          (primary_expression
+            (literal
+              (string))))))))
+
+================================================================================
 Django if with comparison operators
 ================================================================================
 

@@ -626,8 +626,7 @@ module.exports = grammar({
         seq(
           $._django_inner_ws,
           'with',
-          $._django_inner_ws,
-          repeat1(seq($.assignment, optional($._django_inner_ws))),
+          repeat1($._spaced_assignment),
           optional(seq(optional($._django_inner_ws), 'only')),
         ),
         // only with ... (alternative order)
@@ -636,8 +635,7 @@ module.exports = grammar({
           'only',
           $._django_inner_ws,
           'with',
-          $._django_inner_ws,
-          repeat1(seq($.assignment, optional($._django_inner_ws))),
+          repeat1($._spaced_assignment),
         ),
         // only (standalone)
         seq($._django_inner_ws, 'only'),
