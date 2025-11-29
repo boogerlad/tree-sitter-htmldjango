@@ -610,13 +610,19 @@ STRESS TEST: Empty Django tag in attribute
 
 --------------------------------------------------------------------------------
 
+; Django rejects empty variable tags with "Empty variable tag on line N"
+; The grammar now produces MISSING identifier to indicate required content
 (document
   (normal_element
     (tag_name)
     (attribute
       (attribute_name)
       (quoted_attribute_value
-        (django_interpolation)))
+        (django_interpolation
+          (filter_expression
+            (primary_expression
+              (lookup
+                (MISSING identifier)))))))
     (text)
     (end_tag
       (tag_name))))

@@ -1112,16 +1112,8 @@
           ]
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "filter_expression"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "filter_expression"
         },
         {
           "type": "CHOICE",
@@ -1152,7 +1144,7 @@
           },
           {
             "type": "PATTERN",
-            "value": "[^#]*#*([^#}][^#]*#*)*"
+            "value": "[^#\\r\\n]*#*([^#}\\r\\n][^#\\r\\n]*#*)*"
           },
           {
             "type": "STRING",

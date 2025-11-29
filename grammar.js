@@ -349,10 +349,11 @@ module.exports = grammar({
     // Django: Interpolation ({{ expression }})
     // ==========================================================================
 
+    // filter_expression is required - Django rejects empty {{ }} with "Empty variable tag"
     django_interpolation: $ => seq(
       '{{',
       optional($._django_inner_ws),
-      optional($.filter_expression),
+      $.filter_expression,
       optional($._django_inner_ws),
       '}}',
     ),
@@ -361,9 +362,10 @@ module.exports = grammar({
     // Django: Comments
     // ==========================================================================
 
+    // Line comments cannot span newlines (Django's regex doesn't use DOTALL)
     django_line_comment: _ => token(seq(
       '{#',
-      /[^#]*#*([^#}][^#]*#*)*/,
+      /[^#\r\n]*#*([^#}\r\n][^#\r\n]*#*)*/,
       '#}',
     )),
 

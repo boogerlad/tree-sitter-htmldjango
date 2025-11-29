@@ -1423,15 +1423,17 @@ Django filter colon space after invalid (ERROR)
 ; Django does not allow whitespace after the colon in filter arguments
 (document
   (django_interpolation
+    (ERROR
+      (filter_expression
+        (primary_expression
+          (lookup
+            (identifier)))
+        (filter_call
+          (filter_name)))
+      (UNEXPECTED ':'))
     (filter_expression
       (primary_expression
-        (lookup
-          (identifier)))
-      (filter_call
-        (filter_name)))
-    (ERROR
-      (UNEXPECTED ':')
-      (identifier))))
+        (string)))))
 
 ================================================================================
 Django filter colon space before invalid (ERROR)
@@ -2108,3 +2110,153 @@ Sequential generic tags
             (identifier))))))
   (django_generic_tag
     (generic_tag_name)))
+
+================================================================================
+Django variable with keyword name
+================================================================================
+
+{{ in }}
+
+--------------------------------------------------------------------------------
+
+; Django allows variables named 'in', 'and', 'or', 'not', 'is', 'as', etc.
+(document
+  (django_interpolation
+    (filter_expression
+      (primary_expression
+        (lookup
+          (identifier))))))
+
+================================================================================
+Django filter with negative number arg
+================================================================================
+
+{{ x|add:-1 }}
+
+--------------------------------------------------------------------------------
+
+(document
+  (django_interpolation
+    (filter_expression
+      (primary_expression
+        (lookup
+          (identifier)))
+      (filter_call
+        (filter_name)
+        (filter_argument
+          (number))))))
+
+================================================================================
+Django filter with None as arg
+================================================================================
+
+{{ x|default:None }}
+
+--------------------------------------------------------------------------------
+
+; None, True, False are variable lookups in Django, not keywords
+(document
+  (django_interpolation
+    (filter_expression
+      (primary_expression
+        (lookup
+          (identifier)))
+      (filter_call
+        (filter_name)
+        (filter_argument
+          (lookup
+            (identifier)))))))
+
+================================================================================
+Django chained negation
+================================================================================
+
+{% if not not x %}yes{% endif %}
+
+--------------------------------------------------------------------------------
+
+(document
+  (django_if_block
+    (django_if_open
+      (test_expression
+        (or_expression
+          (and_expression
+            (not_expression
+              (not_expression
+                (not_expression
+                  (comparison_expression
+                    (filter_expression
+                      (primary_expression
+                        (lookup
+                          (identifier))))))))))))
+    (text)
+    (django_endif)))
+
+================================================================================
+Django minimal line comment
+================================================================================
+
+{##}
+
+--------------------------------------------------------------------------------
+
+(document
+  (django_line_comment))
+
+================================================================================
+Django line comment with newline NOT a comment
+================================================================================
+
+{#
+#}
+
+--------------------------------------------------------------------------------
+
+; Django's regex doesn't match newlines - {#\n#} is plain text, not a comment
+(document
+  (text))
+
+================================================================================
+Django empty interpolation (ERROR)
+================================================================================
+
+{{}}
+
+--------------------------------------------------------------------------------
+
+; Django rejects empty {{ }} with "Empty variable tag"
+(document
+  (django_interpolation
+    (filter_expression
+      (primary_expression
+        (lookup
+          (MISSING identifier))))))
+
+================================================================================
+Django block tag with newline INCONSISTENCY
+================================================================================
+
+{%
+if True %}yes{% endif %}
+
+--------------------------------------------------------------------------------
+
+; KNOWN INCONSISTENCY: Django rejects newlines inside tag delimiters (regex doesn't
+; use DOTALL), but this grammar allows them due to /\s+/ in extras. The ideal parse
+; would be (text) for "{%\n" followed by the rest as text/error. Fixing this would
+; require removing newlines from extras which is invasive. Documenting as-is:
+(document
+  (django_if_block
+    (django_if_open
+      (test_expression
+        (or_expression
+          (and_expression
+            (not_expression
+              (comparison_expression
+                (filter_expression
+                  (primary_expression
+                    (lookup
+                      (identifier))))))))))
+    (text)
+    (django_endif)))
+
