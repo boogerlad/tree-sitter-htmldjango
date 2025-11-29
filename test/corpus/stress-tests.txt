@@ -1059,7 +1059,6 @@ EDGE CASE: Brace followed by space at end of attribute
 
 ================================================================================
 EDGE CASE: Incomplete Django interpolation at end of attribute
-:error
 ================================================================================
 <div data="test{{"></div>
 
@@ -1073,7 +1072,6 @@ EDGE CASE: Incomplete Django interpolation at end of attribute
 
 ================================================================================
 EDGE CASE: Incomplete Django tag at end of attribute
-:error
 ================================================================================
 <div data="test{%"></div>
 
