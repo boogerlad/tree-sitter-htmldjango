@@ -1807,7 +1807,12 @@
                   "name": "_django_inner_ws"
                 },
                 {
-                  "type": "STRING",
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "STRING",
+                    "value": "reversed"
+                  },
+                  "named": true,
                   "value": "reversed"
                 }
               ]
@@ -2517,7 +2522,12 @@
                               ]
                             },
                             {
-                              "type": "STRING",
+                              "type": "ALIAS",
+                              "content": {
+                                "type": "STRING",
+                                "value": "only"
+                              },
+                              "named": true,
                               "value": "only"
                             }
                           ]
@@ -2537,7 +2547,12 @@
                       "name": "_django_inner_ws"
                     },
                     {
-                      "type": "STRING",
+                      "type": "ALIAS",
+                      "content": {
+                        "type": "STRING",
+                        "value": "only"
+                      },
+                      "named": true,
                       "value": "only"
                     },
                     {
@@ -2565,7 +2580,12 @@
                       "name": "_django_inner_ws"
                     },
                     {
-                      "type": "STRING",
+                      "type": "ALIAS",
+                      "content": {
+                        "type": "STRING",
+                        "value": "only"
+                      },
+                      "named": true,
                       "value": "only"
                     }
                   ]
@@ -3329,7 +3349,12 @@
                                   "name": "_django_inner_ws"
                                 },
                                 {
-                                  "type": "STRING",
+                                  "type": "ALIAS",
+                                  "content": {
+                                    "type": "STRING",
+                                    "value": "silent"
+                                  },
+                                  "named": true,
                                   "value": "silent"
                                 }
                               ]
@@ -4121,7 +4146,12 @@
                   "name": "_django_inner_ws"
                 },
                 {
-                  "type": "STRING",
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "STRING",
+                    "value": "random"
+                  },
+                  "named": true,
                   "value": "random"
                 }
               ]
@@ -4329,7 +4359,12 @@
                   "name": "_django_inner_ws"
                 },
                 {
-                  "type": "STRING",
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "STRING",
+                    "value": "inline"
+                  },
+                  "named": true,
                   "value": "inline"
                 }
               ]

@@ -59,7 +59,15 @@
 
 [
   "in"
-  "reversed"
+] @keyword
+
+; Named optional keyword nodes
+[
+  (reversed)
+  (only)
+  (silent)
+  (random)
+  (inline)
 ] @keyword
 
 ; =============================================================================
@@ -116,14 +124,10 @@
 [
   "as"
   "from"
-  "only"
-  "silent"
   "by"
   "on"
   "off"
   "and"
-  "random"
-  "inline"
 ] @keyword
 
 ; =============================================================================

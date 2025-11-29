@@ -283,6 +283,10 @@
           "named": true
         },
         {
+          "type": "silent",
+          "named": true
+        },
+        {
           "type": "variable_name",
           "named": true
         }
@@ -653,6 +657,10 @@
         {
           "type": "loop_variables",
           "named": true
+        },
+        {
+          "type": "reversed",
+          "named": true
         }
       ]
     }
@@ -876,6 +884,10 @@
         {
           "type": "filter_expression",
           "named": true
+        },
+        {
+          "type": "only",
+          "named": true
         }
       ]
     }
@@ -924,6 +936,10 @@
         },
         {
           "type": "method",
+          "named": true
+        },
+        {
+          "type": "random",
           "named": true
         }
       ]
@@ -993,6 +1009,10 @@
         },
         {
           "type": "element",
+          "named": true
+        },
+        {
+          "type": "inline",
           "named": true
         },
         {
@@ -2240,12 +2260,12 @@
   },
   {
     "type": "comment",
-    "named": true,
+    "named": false,
     "extra": true
   },
   {
     "type": "comment",
-    "named": false,
+    "named": true,
     "extra": true
   },
   {
@@ -2398,7 +2418,7 @@
   },
   {
     "type": "inline",
-    "named": false
+    "named": true
   },
   {
     "type": "is",
@@ -2446,7 +2466,7 @@
   },
   {
     "type": "only",
-    "named": false
+    "named": true
   },
   {
     "type": "openblock",
@@ -2490,7 +2510,7 @@
   },
   {
     "type": "random",
-    "named": false
+    "named": true
   },
   {
     "type": "rcdata_text",
@@ -2506,11 +2526,11 @@
   },
   {
     "type": "reversed",
-    "named": false
+    "named": true
   },
   {
     "type": "silent",
-    "named": false
+    "named": true
   },
   {
     "type": "spaceless",

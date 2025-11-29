@@ -515,7 +515,8 @@ Django lorem tag with variable and random
       (filter_expression
         (primary_expression
           (lookup
-            (identifier)))))))
+            (identifier))))
+      (random))))
 
 ================================================================================
 Django resetcycle tag
@@ -615,6 +616,7 @@ Django partialdef block with inline and end name
   (django_statement
     (django_partialdef_block
       (partial_name)
+      (inline)
       (text)
       (partial_name))))
 
@@ -798,7 +800,8 @@ Django for with reversed
         (filter_expression
           (primary_expression
             (lookup
-              (identifier)))))
+              (identifier))))
+        (reversed))
       (django_interpolation
         (filter_expression
           (primary_expression
@@ -821,7 +824,8 @@ Django cycle with as and silent
         (string))
       (cycle_value
         (string))
-      (variable_name))))
+      (variable_name)
+      (silent))))
 
 ================================================================================
 Django cycle named reference
@@ -1005,7 +1009,8 @@ Django include with context
         (filter_expression
           (primary_expression
             (literal
-              (string))))))))
+              (string)))))
+      (only))))
 
 ================================================================================
 Django include with multiple assignments
@@ -1633,7 +1638,8 @@ Django for reversed tuple unpack with empty
         (filter_expression
           (primary_expression
             (lookup
-              (identifier)))))
+              (identifier))))
+        (reversed))
       (django_interpolation
         (filter_expression
           (primary_expression
@@ -1664,6 +1670,7 @@ Django include only with order
         (primary_expression
           (literal
             (string))))
+      (only)
       (assignment
         (variable_name)
         (filter_expression
