@@ -331,12 +331,14 @@ module.exports = grammar({
       )),
     ),
 
-    attribute_name: _ => /[^<>"'/=\s\{%]+/,
+    attribute_name: _ => /[^<>"'/=\s\{]+/,  // % is valid in attr names per HTML spec
 
     attribute_value: $ => prec.left(repeat1(choice(
       $.entity,
-      /[^<>"'=\s\{%]+/,
+      /[^<>"'=\s\{`&]+/,                   // % allowed, ` excluded per HTML spec, & for entities
+      token(prec(-1, /\{[^{%#]/)),         // Lone { not starting Django
       $.django_interpolation,
+      $.django_statement,                   // Django tags in unquoted values
     ))),
 
     quoted_attribute_value: $ => choice(
@@ -532,14 +534,40 @@ module.exports = grammar({
       $.django_interpolation,  // Allow {{ var }} in attribute context
       $.django_attribute_if_block,   // Nested if blocks (same type for consistency)
       $.django_attribute_for_block,  // Nested for blocks (same type for consistency)
-      $.attribute_fragment,  // Attribute-like text (e.g., "disabled")
+      $.attribute_fragment,  // Attribute starting with static name
+      '-',                   // Hyphen connector for data-{{ x }} patterns
+      $.attribute_value_after_name,  // ="value" after dynamic attribute name
     ),
 
-    // Attribute fragment: matches attribute-like tokens
-    // Each word/token in attribute context gets its own fragment
-    attribute_fragment: $ => prec.right(choice(
-      seq(/[a-zA-Z_][a-zA-Z0-9_-]*/, optional(seq('=', choice(/"[^"]*"/, /'[^']*'/, /[^\s<>"'\{%]+/)))),
+    // Attribute starting with static name, with Django-aware value parsing
+    attribute_fragment: $ => prec.right(seq(
+      alias(/[a-zA-Z_][a-zA-Z0-9_-]*/, $.attribute_name),
+      optional(seq(
+        '=',
+        choice(
+          $.quoted_attribute_value,  // Reuse existing Django-aware rule
+          $._unquoted_attr_value,    // Unquoted with Django support
+        ),
+      )),
     )),
+
+    // Value portion after a dynamic attribute name: {{ name }}="value"
+    attribute_value_after_name: $ => prec.right(seq(
+      '=',
+      choice(
+        $.quoted_attribute_value,
+        $._unquoted_attr_value,
+      ),
+    )),
+
+    // Unquoted attribute value with Django support
+    _unquoted_attr_value: $ => prec.left(repeat1(choice(
+      $.entity,
+      /[^\s<>"'&\{`]+/,                    // Plain text (% allowed, & excluded for entities)
+      token(prec(-1, /\{[^{%#]/)),         // Lone { not starting Django
+      $.django_interpolation,
+      $.django_statement,
+    ))),
 
     django_attribute_elif_branch: $ => seq(
       $.django_elif,

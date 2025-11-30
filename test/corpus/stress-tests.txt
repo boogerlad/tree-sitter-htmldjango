@@ -125,7 +125,8 @@ STRESS TEST: Conditional attribute with Django
                     (primary_expression
                       (lookup
                         (identifier))))))))))
-      (attribute_fragment)
+      (attribute_fragment
+        (attribute_name))
       (django_endif))
     (attribute
       (attribute_name)
@@ -800,7 +801,8 @@ STRESS TEST: Django conditional producing boolean attribute
                     (primary_expression
                       (lookup
                         (identifier))))))))))
-      (attribute_fragment)
+      (attribute_fragment
+        (attribute_name))
       (django_endif))))
 
 ================================================================================
@@ -914,7 +916,8 @@ STRESS TEST: Select element with Django loop and conditionals
                           (lookup
                             (identifier)
                             (identifier))))))))))
-          (attribute_fragment)
+          (attribute_fragment
+            (attribute_name))
           (django_endif))
         (django_interpolation
           (filter_expression
@@ -1118,5 +1121,193 @@ EDGE CASE: Percent sign inside curly braces (not Django)
       (attribute_name)
       (quoted_attribute_value
         (attribute_value)))
+    (end_tag
+      (tag_name))))
+
+================================================================================
+EDGE CASE: Unquoted attribute value with percent
+================================================================================
+<div width=100%></div>
+
+--------------------------------------------------------------------------------
+
+(document
+  (normal_element
+    (tag_name)
+    (attribute
+      (attribute_name)
+      (attribute_value))
+    (end_tag
+      (tag_name))))
+
+================================================================================
+EDGE CASE: Dynamic attribute name with static value
+================================================================================
+<div {% if x %}{{ name }}="value"{% endif %}></div>
+
+--------------------------------------------------------------------------------
+
+(document
+  (normal_element
+    (tag_name)
+    (django_attribute_if_block
+      (django_if_open
+        (test_expression
+          (or_expression
+            (and_expression
+              (not_expression
+                (comparison_expression
+                  (filter_expression
+                    (primary_expression
+                      (lookup
+                        (identifier))))))))))
+      (django_interpolation
+        (filter_expression
+          (primary_expression
+            (lookup
+              (identifier)))))
+      (attribute_value_after_name
+        (quoted_attribute_value
+          (attribute_value)))
+      (django_endif))
+    (end_tag
+      (tag_name))))
+
+================================================================================
+EDGE CASE: Partial dynamic attribute name (data-*)
+================================================================================
+<div {% if x %}data-{{ suffix }}="value"{% endif %}></div>
+
+--------------------------------------------------------------------------------
+
+(document
+  (normal_element
+    (tag_name)
+    (django_attribute_if_block
+      (django_if_open
+        (test_expression
+          (or_expression
+            (and_expression
+              (not_expression
+                (comparison_expression
+                  (filter_expression
+                    (primary_expression
+                      (lookup
+                        (identifier))))))))))
+      (attribute_fragment
+        (attribute_name))
+      (django_interpolation
+        (filter_expression
+          (primary_expression
+            (lookup
+              (identifier)))))
+      (attribute_value_after_name
+        (quoted_attribute_value
+          (attribute_value)))
+      (django_endif))
+    (end_tag
+      (tag_name))))
+
+================================================================================
+EDGE CASE: Unquoted dynamic value with trailing text
+================================================================================
+<div {% if x %}width={{ pct }}%{% endif %}></div>
+
+--------------------------------------------------------------------------------
+
+(document
+  (normal_element
+    (tag_name)
+    (django_attribute_if_block
+      (django_if_open
+        (test_expression
+          (or_expression
+            (and_expression
+              (not_expression
+                (comparison_expression
+                  (filter_expression
+                    (primary_expression
+                      (lookup
+                        (identifier))))))))))
+      (attribute_fragment
+        (attribute_name)
+        (django_interpolation
+          (filter_expression
+            (primary_expression
+              (lookup
+                (identifier))))))
+      (django_endif))
+    (end_tag
+      (tag_name))))
+
+================================================================================
+EDGE CASE: Unquoted dynamic name and value
+================================================================================
+<div {% if x %}{{ name }}={{ value }}{% endif %}></div>
+
+--------------------------------------------------------------------------------
+
+(document
+  (normal_element
+    (tag_name)
+    (django_attribute_if_block
+      (django_if_open
+        (test_expression
+          (or_expression
+            (and_expression
+              (not_expression
+                (comparison_expression
+                  (filter_expression
+                    (primary_expression
+                      (lookup
+                        (identifier))))))))))
+      (django_interpolation
+        (filter_expression
+          (primary_expression
+            (lookup
+              (identifier)))))
+      (attribute_value_after_name
+        (django_interpolation
+          (filter_expression
+            (primary_expression
+              (lookup
+                (identifier))))))
+      (django_endif))
+    (end_tag
+      (tag_name))))
+
+================================================================================
+EDGE CASE: For loop generating multiple attributes
+================================================================================
+<div {% for a in attrs %}{{ a.name }}="{{ a.value }}" {% endfor %}></div>
+
+--------------------------------------------------------------------------------
+
+(document
+  (normal_element
+    (tag_name)
+    (django_attribute_for_block
+      (django_for_open
+        (loop_variables
+          (variable_name))
+        (filter_expression
+          (primary_expression
+            (lookup
+              (identifier)))))
+      (django_interpolation
+        (filter_expression
+          (primary_expression
+            (lookup
+              (identifier)
+              (identifier)))))
+      (attribute_value_after_name
+        (quoted_attribute_value
+          (django_interpolation
+            (filter_expression
+              (primary_expression
+                (lookup
+                  (identifier)
+                  (identifier)))))))
+      (django_endfor))
     (end_tag
       (tag_name))))

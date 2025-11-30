@@ -316,7 +316,33 @@
   {
     "type": "attribute_fragment",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_name",
+          "named": true
+        },
+        {
+          "type": "django_interpolation",
+          "named": true
+        },
+        {
+          "type": "django_statement",
+          "named": true
+        },
+        {
+          "type": "entity",
+          "named": true
+        },
+        {
+          "type": "quoted_attribute_value",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "attribute_value",
@@ -331,7 +357,38 @@
           "named": true
         },
         {
+          "type": "django_statement",
+          "named": true
+        },
+        {
           "type": "entity",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "attribute_value_after_name",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "django_interpolation",
+          "named": true
+        },
+        {
+          "type": "django_statement",
+          "named": true
+        },
+        {
+          "type": "entity",
+          "named": true
+        },
+        {
+          "type": "quoted_attribute_value",
           "named": true
         }
       ]
@@ -384,7 +441,15 @@
         "required": false,
         "types": [
           {
+            "type": "-",
+            "named": false
+          },
+          {
             "type": "attribute_fragment",
+            "named": true
+          },
+          {
+            "type": "attribute_value_after_name",
             "named": true
           },
           {
@@ -422,7 +487,15 @@
         "required": false,
         "types": [
           {
+            "type": "-",
+            "named": false
+          },
+          {
             "type": "attribute_fragment",
+            "named": true
+          },
+          {
+            "type": "attribute_value_after_name",
             "named": true
           },
           {
@@ -460,7 +533,15 @@
         "required": false,
         "types": [
           {
+            "type": "-",
+            "named": false
+          },
+          {
             "type": "attribute_fragment",
+            "named": true
+          },
+          {
+            "type": "attribute_value_after_name",
             "named": true
           },
           {
@@ -498,7 +579,15 @@
         "required": false,
         "types": [
           {
+            "type": "-",
+            "named": false
+          },
+          {
             "type": "attribute_fragment",
+            "named": true
+          },
+          {
+            "type": "attribute_value_after_name",
             "named": true
           },
           {
@@ -544,7 +633,15 @@
         "required": false,
         "types": [
           {
+            "type": "-",
+            "named": false
+          },
+          {
             "type": "attribute_fragment",
+            "named": true
+          },
+          {
+            "type": "attribute_value_after_name",
             "named": true
           },
           {
@@ -2986,6 +3083,10 @@
   },
   {
     "type": ",",
+    "named": false
+  },
+  {
+    "type": "-",
     "named": false
   },
   {
