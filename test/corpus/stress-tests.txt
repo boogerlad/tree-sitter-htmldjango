@@ -10,7 +10,8 @@ STRESS TEST: Django tag as entire attribute value
   (normal_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (django_url_tag
           (filter_expression
@@ -32,7 +33,8 @@ STRESS TEST: Multiple Django expressions in one attribute
   (normal_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (django_interpolation
           (filter_expression
@@ -72,10 +74,12 @@ STRESS TEST: Django as unquoted attribute value
   (void_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (attribute_value))
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (attribute_value
         (django_interpolation
           (filter_expression
@@ -94,11 +98,13 @@ STRESS TEST: Django as attribute name
 (document
   (normal_element
     (tag_name)
-    (django_interpolation
-      (filter_expression
-        (primary_expression
-          (lookup
-            (identifier)))))
+    (attribute
+      (attribute_name
+        (django_interpolation
+          (filter_expression
+            (primary_expression
+              (lookup
+                (identifier)))))))
     (text)
     (end_tag
       (tag_name))))
@@ -125,11 +131,13 @@ STRESS TEST: Conditional attribute with Django
                     (primary_expression
                       (lookup
                         (identifier))))))))))
-      (attribute_fragment
-        (attribute_name))
+      (attribute
+        (attribute_name
+          (name_segment)))
       (django_endif))
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (attribute_value)))
     (text)
@@ -154,7 +162,8 @@ STRESS TEST: Script with inline Django JSON
     (start_tag
       (tag_name)
       (attribute
-        (attribute_name)
+        (attribute_name
+          (name_segment))
         (quoted_attribute_value
           (attribute_value))))
     (raw_text
@@ -558,7 +567,8 @@ STRESS TEST: Long filter chain in attribute
   (normal_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (django_interpolation
           (filter_expression
@@ -617,7 +627,8 @@ STRESS TEST: Empty Django tag in attribute
   (normal_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (django_interpolation
           (filter_expression
@@ -773,7 +784,8 @@ STRESS TEST: Django line comment inside HTML tag
     (tag_name)
     (django_line_comment)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (attribute_value)))
     (end_tag
@@ -801,8 +813,9 @@ STRESS TEST: Django conditional producing boolean attribute
                     (primary_expression
                       (lookup
                         (identifier))))))))))
-      (attribute_fragment
-        (attribute_name))
+      (attribute
+        (attribute_name
+          (name_segment)))
       (django_endif))))
 
 ================================================================================
@@ -817,7 +830,8 @@ STRESS TEST: JSON-like content with Django in attribute
   (normal_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (attribute_value)
         (django_interpolation
@@ -896,7 +910,8 @@ STRESS TEST: Select element with Django loop and conditionals
       (normal_element
         (tag_name)
         (attribute
-          (attribute_name)
+          (attribute_name
+            (name_segment))
           (quoted_attribute_value
             (django_interpolation
               (filter_expression
@@ -916,8 +931,9 @@ STRESS TEST: Select element with Django loop and conditionals
                           (lookup
                             (identifier)
                             (identifier))))))))))
-          (attribute_fragment
-            (attribute_name))
+          (attribute
+            (attribute_name
+              (name_segment)))
           (django_endif))
         (django_interpolation
           (filter_expression
@@ -942,7 +958,8 @@ EDGE CASE: Lone brace at end of double-quoted attribute
   (normal_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (attribute_value)
         (attribute_value)))
@@ -960,7 +977,8 @@ EDGE CASE: Lone brace at end of single-quoted attribute
   (normal_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (attribute_value)
         (attribute_value)))
@@ -978,7 +996,8 @@ EDGE CASE: Lone brace as entire attribute value
   (normal_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (attribute_value)))
     (end_tag
@@ -995,7 +1014,8 @@ EDGE CASE: Brace followed by space at end of attribute
   (normal_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (attribute_value)
         (attribute_value)))
@@ -1012,7 +1032,8 @@ EDGE CASE: Incomplete Django interpolation at end of attribute
 (document
   (ERROR
     (tag_name)
-    (attribute_name)
+    (attribute_name
+      (name_segment))
     (attribute_value)))
 
 ================================================================================
@@ -1026,7 +1047,8 @@ EDGE CASE: Incomplete Django tag at end of attribute
   (normal_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (attribute_value)
         (ERROR)))
@@ -1044,7 +1066,8 @@ EDGE CASE: Percent sign in double-quoted attribute value
   (normal_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (attribute_value)))
     (end_tag
@@ -1061,7 +1084,8 @@ EDGE CASE: Percent sign in single-quoted attribute value
   (normal_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (attribute_value)))
     (end_tag
@@ -1078,7 +1102,8 @@ EDGE CASE: Multiple percent signs in attribute value
   (normal_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (attribute_value)))
     (end_tag
@@ -1095,7 +1120,8 @@ EDGE CASE: Django variable followed by percent sign
   (normal_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (attribute_value)
         (django_interpolation
@@ -1118,7 +1144,8 @@ EDGE CASE: Percent sign inside curly braces (not Django)
   (normal_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (attribute_value)))
     (end_tag
@@ -1135,7 +1162,8 @@ EDGE CASE: Unquoted attribute value with percent
   (normal_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (attribute_value))
     (end_tag
       (tag_name))))
@@ -1161,12 +1189,13 @@ EDGE CASE: Dynamic attribute name with static value
                     (primary_expression
                       (lookup
                         (identifier))))))))))
-      (django_interpolation
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier)))))
-      (attribute_value_after_name
+      (attribute
+        (attribute_name
+          (django_interpolation
+            (filter_expression
+              (primary_expression
+                (lookup
+                  (identifier))))))
         (quoted_attribute_value
           (attribute_value)))
       (django_endif))
@@ -1194,14 +1223,14 @@ EDGE CASE: Partial dynamic attribute name (data-*)
                     (primary_expression
                       (lookup
                         (identifier))))))))))
-      (attribute_fragment
-        (attribute_name))
-      (django_interpolation
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier)))))
-      (attribute_value_after_name
+      (attribute
+        (attribute_name
+          (name_segment)
+          (django_interpolation
+            (filter_expression
+              (primary_expression
+                (lookup
+                  (identifier))))))
         (quoted_attribute_value
           (attribute_value)))
       (django_endif))
@@ -1214,6 +1243,10 @@ EDGE CASE: Unquoted dynamic value with trailing text
 <div {% if x %}width={{ pct }}%{% endif %}></div>
 
 --------------------------------------------------------------------------------
+
+; Note: Without quotes, `width={{ pct }}%` is ambiguous - the % could be part
+; of the value OR a separate boolean attribute. For unambiguous behavior, use
+; quotes: `width="{{ pct }}%"`. The grammar parses % as a separate attribute.
 
 (document
   (normal_element
@@ -1229,13 +1262,18 @@ EDGE CASE: Unquoted dynamic value with trailing text
                     (primary_expression
                       (lookup
                         (identifier))))))))))
-      (attribute_fragment
-        (attribute_name)
-        (django_interpolation
-          (filter_expression
-            (primary_expression
-              (lookup
-                (identifier))))))
+      (attribute
+        (attribute_name
+          (name_segment))
+        (attribute_value
+          (django_interpolation
+            (filter_expression
+              (primary_expression
+                (lookup
+                  (identifier)))))))
+      (attribute
+        (attribute_name
+          (name_segment)))
       (django_endif))
     (end_tag
       (tag_name))))
@@ -1261,17 +1299,19 @@ EDGE CASE: Unquoted dynamic name and value
                     (primary_expression
                       (lookup
                         (identifier))))))))))
-      (django_interpolation
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier)))))
-      (attribute_value_after_name
-        (django_interpolation
-          (filter_expression
-            (primary_expression
-              (lookup
-                (identifier))))))
+      (attribute
+        (attribute_name
+          (django_interpolation
+            (filter_expression
+              (primary_expression
+                (lookup
+                  (identifier))))))
+        (attribute_value
+          (django_interpolation
+            (filter_expression
+              (primary_expression
+                (lookup
+                  (identifier)))))))
       (django_endif))
     (end_tag
       (tag_name))))
@@ -1294,13 +1334,14 @@ EDGE CASE: For loop generating multiple attributes
           (primary_expression
             (lookup
               (identifier)))))
-      (django_interpolation
-        (filter_expression
-          (primary_expression
-            (lookup
-              (identifier)
-              (identifier)))))
-      (attribute_value_after_name
+      (attribute
+        (attribute_name
+          (django_interpolation
+            (filter_expression
+              (primary_expression
+                (lookup
+                  (identifier)
+                  (identifier))))))
         (quoted_attribute_value
           (django_interpolation
             (filter_expression

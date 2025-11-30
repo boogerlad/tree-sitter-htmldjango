@@ -21,14 +21,17 @@ Void tag with attributes and stray end
   (void_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (attribute_value))
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (attribute_value)))
     (attribute
-      (attribute_name)))
+      (attribute_name
+        (name_segment))))
   (erroneous_end_tag
     (erroneous_end_tag_name)))
 
@@ -42,14 +45,17 @@ Tags with attributes
   (normal_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (attribute_value))
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (attribute_value)))
     (attribute
-      (attribute_name))
+      (attribute_name
+        (name_segment)))
     (end_tag
       (tag_name))))
 
@@ -116,7 +122,8 @@ Void tags
     (void_element
       (tag_name)
       (attribute
-        (attribute_name)
+        (attribute_name
+          (name_segment))
         (quoted_attribute_value
           (attribute_value))))
     (void_element
@@ -124,10 +131,12 @@ Void tags
     (void_element
       (tag_name)
       (attribute
-        (attribute_name)
+        (attribute_name
+          (name_segment))
         (attribute_value))
       (attribute
-        (attribute_name)
+        (attribute_name
+          (name_segment))
         (attribute_value)))
     (end_tag
       (tag_name))))
@@ -142,7 +151,8 @@ Void tags at EOF
   (void_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (attribute_value)))))
 
@@ -174,7 +184,8 @@ Custom tags
     (normal_element
       (tag_name)
       (attribute
-        (attribute_name))
+        (attribute_name
+          (name_segment)))
       (text)
       (end_tag
         (tag_name)))
@@ -411,13 +422,15 @@ COLGROUP elements without end tags
       (void_element
         (tag_name)
         (attribute
-          (attribute_name)
+          (attribute_name
+            (name_segment))
           (quoted_attribute_value
             (attribute_value))))
       (void_element
         (tag_name)
         (attribute
-          (attribute_name)
+          (attribute_name
+            (name_segment))
           (quoted_attribute_value
             (attribute_value)))))
     (normal_element
@@ -697,7 +710,8 @@ OPTGROUP and OPTION implicit closes
     (normal_element
       (tag_name)
       (attribute
-        (attribute_name)
+        (attribute_name
+          (name_segment))
         (quoted_attribute_value
           (attribute_value)))
       (normal_element
@@ -709,7 +723,8 @@ OPTGROUP and OPTION implicit closes
     (normal_element
       (tag_name)
       (attribute
-        (attribute_name)
+        (attribute_name
+          (name_segment))
         (quoted_attribute_value
           (attribute_value)))
       (normal_element
@@ -789,7 +804,8 @@ MathML foreign content
   (foreign_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (attribute_value)))
     (foreign_element

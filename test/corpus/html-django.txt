@@ -87,7 +87,8 @@ Real World Template (ported from htmljinja2)
   (normal_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (attribute_value)))
     (normal_element
@@ -105,7 +106,8 @@ Real World Template (ported from htmljinja2)
       (normal_element
         (tag_name)
         (attribute
-          (attribute_name)
+          (attribute_name
+            (name_segment))
           (quoted_attribute_value
             (django_interpolation
               (filter_expression
@@ -113,7 +115,8 @@ Real World Template (ported from htmljinja2)
                   (lookup
                     (identifier)))))))
         (attribute
-          (attribute_name)
+          (attribute_name
+            (name_segment))
           (quoted_attribute_value
             (django_interpolation
               (filter_expression
@@ -133,7 +136,8 @@ Real World Template (ported from htmljinja2)
             (normal_element
               (tag_name)
               (attribute
-                (attribute_name)
+                (attribute_name
+                  (name_segment))
                 (quoted_attribute_value
                   (django_interpolation
                     (filter_expression
@@ -210,7 +214,8 @@ Django interpolation in HTML attributes
   (normal_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (django_interpolation
           (filter_expression
@@ -218,7 +223,8 @@ Django interpolation in HTML attributes
               (lookup
                 (identifier)))))))
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (django_interpolation
           (filter_expression
@@ -241,7 +247,8 @@ Django interpolation mixed with text in attributes
   (normal_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (attribute_value)
         (django_interpolation
@@ -374,7 +381,8 @@ Django if-else with different HTML structures
     (normal_element
       (tag_name)
       (attribute
-        (attribute_name)
+        (attribute_name
+          (name_segment))
         (quoted_attribute_value
           (attribute_value)))
       (normal_element
@@ -475,7 +483,8 @@ Django extends with blocks in HTML
     (normal_element
       (tag_name)
       (attribute
-        (attribute_name)
+        (attribute_name
+          (name_segment))
         (quoted_attribute_value
           (attribute_value)))
       (normal_element
@@ -605,11 +614,13 @@ HTML form with Django
   (normal_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (attribute_value)))
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (django_url_tag
           (filter_expression
@@ -619,15 +630,18 @@ HTML form with Django
     (void_element
       (tag_name)
       (attribute
-        (attribute_name)
+        (attribute_name
+          (name_segment))
         (quoted_attribute_value
           (attribute_value)))
       (attribute
-        (attribute_name)
+        (attribute_name
+          (name_segment))
         (quoted_attribute_value
           (attribute_value)))
       (attribute
-        (attribute_name)
+        (attribute_name
+          (name_segment))
         (quoted_attribute_value
           (django_interpolation
             (filter_expression
@@ -637,7 +651,8 @@ HTML form with Django
     (normal_element
       (tag_name)
       (attribute
-        (attribute_name)
+        (attribute_name
+          (name_segment))
         (quoted_attribute_value
           (attribute_value)))
       (text)
@@ -658,7 +673,8 @@ Complex filter in attribute
   (void_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (django_interpolation
           (filter_expression
@@ -671,7 +687,8 @@ Complex filter in attribute
               (filter_argument
                 (string)))))))
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (django_interpolation
           (filter_expression
@@ -697,11 +714,13 @@ Django static tag in HTML
   (void_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (attribute_value)))
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (django_generic_tag
           (generic_tag_name)
@@ -713,7 +732,8 @@ Django static tag in HTML
     (start_tag
       (tag_name)
       (attribute
-        (attribute_name)
+        (attribute_name
+          (name_segment))
         (quoted_attribute_value
           (django_generic_tag
             (generic_tag_name)
@@ -740,7 +760,8 @@ SVG with Django
   (foreign_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (attribute_value)
         (django_interpolation
@@ -765,7 +786,8 @@ SVG with Django
       (foreign_element
         (tag_name)
         (attribute
-          (attribute_name)
+          (attribute_name
+            (name_segment))
           (quoted_attribute_value
             (django_interpolation
               (filter_expression
@@ -774,7 +796,8 @@ SVG with Django
                     (identifier)
                     (identifier)))))))
         (attribute
-          (attribute_name)
+          (attribute_name
+            (name_segment))
           (quoted_attribute_value
             (django_interpolation
               (filter_expression
@@ -783,7 +806,8 @@ SVG with Django
                     (identifier)
                     (identifier)))))))
         (attribute
-          (attribute_name)
+          (attribute_name
+            (name_segment))
           (quoted_attribute_value
             (attribute_value))))
       (django_endfor))
@@ -851,7 +875,8 @@ Table with Django loop
         (normal_element
           (tag_name)
           (attribute
-            (attribute_name)
+            (attribute_name
+              (name_segment))
             (quoted_attribute_value
               (django_cycle_tag
                 (cycle_value
@@ -887,7 +912,8 @@ Table with Django loop
             (normal_element
               (tag_name)
               (attribute
-                (attribute_name)
+                (attribute_name
+                  (name_segment))
                 (quoted_attribute_value
                   (attribute_value)))
               (text)
@@ -1077,7 +1103,8 @@ Multiple Django tags in single attribute
   (normal_element
     (tag_name)
     (attribute
-      (attribute_name)
+      (attribute_name
+        (name_segment))
       (quoted_attribute_value
         (django_interpolation
           (filter_expression

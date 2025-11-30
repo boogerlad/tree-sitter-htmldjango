@@ -278,9 +278,8 @@ module.exports = grammar({
     // ==========================================================================
 
     _attribute_node: $ => choice(
-      $.attribute,
-      $.django_interpolation,
-      $._django_attribute_statement,  // All Django statements for attribute context
+      $.attribute,                      // Unified - now handles {{ x }} via _attr_name
+      $._django_attribute_statement,    // {% if %}, {% for %}, etc.
       $.django_line_comment,
     ),
 
@@ -320,26 +319,28 @@ module.exports = grammar({
       $.django_generic_tag,
     ),
 
+    // Unified attribute rule for ALL contexts (main HTML and Django blocks)
     attribute: $ => seq(
-      $.attribute_name,
+      field('name', alias($._attr_name, $.attribute_name)),
       optional(seq(
         '=',
-        choice(
-          $.attribute_value,
-          $.quoted_attribute_value,
-        ),
+        field('value', $._attr_value),
       )),
     ),
 
-    attribute_name: _ => /[^<>"'/=\s\{]+/,  // % is valid in attr names per HTML spec
-
-    attribute_value: $ => prec.left(repeat1(choice(
-      $.entity,
-      /[^<>"'=\s\{`&]+/,                   // % allowed, ` excluded per HTML spec, & for entities
-      token(prec(-1, /\{[^{%#]/)),         // Lone { not starting Django
-      $.django_interpolation,
-      $.django_statement,                   // Django tags in unquoted values
+    // Unified attribute name: static text and/or interpolations
+    // Per HTML spec, attribute names can contain any chars except: controls, space, ", ', >, /, =, noncharacters
+    // We also exclude { to allow Django interpolation
+    _attr_name: $ => prec.right(repeat1(choice(
+      alias(/[^<>"'/=\s\{]+/, $.name_segment),  // Static part (HTML-spec compliant minus {)
+      $.django_interpolation,                   // Dynamic part
     ))),
+
+    // Unified attribute value: quoted or unquoted, both Django-aware
+    _attr_value: $ => choice(
+      $.quoted_attribute_value,
+      alias($._unquoted_attr_value, $.attribute_value),  // Expose as named node
+    ),
 
     quoted_attribute_value: $ => choice(
       seq(
@@ -531,39 +532,15 @@ module.exports = grammar({
     )),
 
     _attribute_body_content: $ => choice(
-      $.django_interpolation,  // Allow {{ var }} in attribute context
-      $.django_attribute_if_block,   // Nested if blocks (same type for consistency)
-      $.django_attribute_for_block,  // Nested for blocks (same type for consistency)
-      $.attribute_fragment,  // Attribute starting with static name
-      '-',                   // Hyphen connector for data-{{ x }} patterns
-      $.attribute_value_after_name,  // ="value" after dynamic attribute name
+      $.attribute,                     // UNIFIED - same as main context!
+      $.django_attribute_if_block,     // Nested if blocks
+      $.django_attribute_for_block,    // Nested for blocks
     ),
-
-    // Attribute starting with static name, with Django-aware value parsing
-    attribute_fragment: $ => prec.right(seq(
-      alias(/[a-zA-Z_][a-zA-Z0-9_-]*/, $.attribute_name),
-      optional(seq(
-        '=',
-        choice(
-          $.quoted_attribute_value,  // Reuse existing Django-aware rule
-          $._unquoted_attr_value,    // Unquoted with Django support
-        ),
-      )),
-    )),
-
-    // Value portion after a dynamic attribute name: {{ name }}="value"
-    attribute_value_after_name: $ => prec.right(seq(
-      '=',
-      choice(
-        $.quoted_attribute_value,
-        $._unquoted_attr_value,
-      ),
-    )),
 
     // Unquoted attribute value with Django support
     _unquoted_attr_value: $ => prec.left(repeat1(choice(
       $.entity,
-      /[^\s<>"'&\{`]+/,                    // Plain text (% allowed, & excluded for entities)
+      /[^\s<>"'=&\{`]+/,                   // Plain text (% allowed, = excluded, & for entities)
       token(prec(-1, /\{[^{%#]/)),         // Lone { not starting Django
       $.django_interpolation,
       $.django_statement,

@@ -293,28 +293,35 @@
   {
     "type": "attribute",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "attribute_name",
-          "named": true
-        },
-        {
-          "type": "attribute_value",
-          "named": true
-        },
-        {
-          "type": "quoted_attribute_value",
-          "named": true
-        }
-      ]
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "attribute_name",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "attribute_value",
+            "named": true
+          },
+          {
+            "type": "quoted_attribute_value",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
-    "type": "attribute_fragment",
+    "type": "attribute_name",
     "named": true,
     "fields": {},
     "children": {
@@ -322,23 +329,11 @@
       "required": true,
       "types": [
         {
-          "type": "attribute_name",
-          "named": true
-        },
-        {
           "type": "django_interpolation",
           "named": true
         },
         {
-          "type": "django_statement",
-          "named": true
-        },
-        {
-          "type": "entity",
-          "named": true
-        },
-        {
-          "type": "quoted_attribute_value",
+          "type": "name_segment",
           "named": true
         }
       ]
@@ -362,33 +357,6 @@
         },
         {
           "type": "entity",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "attribute_value_after_name",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "django_interpolation",
-          "named": true
-        },
-        {
-          "type": "django_statement",
-          "named": true
-        },
-        {
-          "type": "entity",
-          "named": true
-        },
-        {
-          "type": "quoted_attribute_value",
           "named": true
         }
       ]
@@ -441,15 +409,7 @@
         "required": false,
         "types": [
           {
-            "type": "-",
-            "named": false
-          },
-          {
-            "type": "attribute_fragment",
-            "named": true
-          },
-          {
-            "type": "attribute_value_after_name",
+            "type": "attribute",
             "named": true
           },
           {
@@ -458,10 +418,6 @@
           },
           {
             "type": "django_attribute_if_block",
-            "named": true
-          },
-          {
-            "type": "django_interpolation",
             "named": true
           }
         ]
@@ -487,15 +443,7 @@
         "required": false,
         "types": [
           {
-            "type": "-",
-            "named": false
-          },
-          {
-            "type": "attribute_fragment",
-            "named": true
-          },
-          {
-            "type": "attribute_value_after_name",
+            "type": "attribute",
             "named": true
           },
           {
@@ -504,10 +452,6 @@
           },
           {
             "type": "django_attribute_if_block",
-            "named": true
-          },
-          {
-            "type": "django_interpolation",
             "named": true
           }
         ]
@@ -533,15 +477,7 @@
         "required": false,
         "types": [
           {
-            "type": "-",
-            "named": false
-          },
-          {
-            "type": "attribute_fragment",
-            "named": true
-          },
-          {
-            "type": "attribute_value_after_name",
+            "type": "attribute",
             "named": true
           },
           {
@@ -550,10 +486,6 @@
           },
           {
             "type": "django_attribute_if_block",
-            "named": true
-          },
-          {
-            "type": "django_interpolation",
             "named": true
           }
         ]
@@ -579,15 +511,7 @@
         "required": false,
         "types": [
           {
-            "type": "-",
-            "named": false
-          },
-          {
-            "type": "attribute_fragment",
-            "named": true
-          },
-          {
-            "type": "attribute_value_after_name",
+            "type": "attribute",
             "named": true
           },
           {
@@ -596,10 +520,6 @@
           },
           {
             "type": "django_attribute_if_block",
-            "named": true
-          },
-          {
-            "type": "django_interpolation",
             "named": true
           }
         ]
@@ -633,15 +553,7 @@
         "required": false,
         "types": [
           {
-            "type": "-",
-            "named": false
-          },
-          {
-            "type": "attribute_fragment",
-            "named": true
-          },
-          {
-            "type": "attribute_value_after_name",
+            "type": "attribute",
             "named": true
           },
           {
@@ -650,10 +562,6 @@
           },
           {
             "type": "django_attribute_if_block",
-            "named": true
-          },
-          {
-            "type": "django_interpolation",
             "named": true
           }
         ]
@@ -2580,10 +2488,6 @@
           "named": true
         },
         {
-          "type": "django_interpolation",
-          "named": true
-        },
-        {
           "type": "django_line_comment",
           "named": true
         },
@@ -2823,10 +2727,6 @@
           "named": true
         },
         {
-          "type": "django_interpolation",
-          "named": true
-        },
-        {
           "type": "django_line_comment",
           "named": true
         },
@@ -2969,10 +2869,6 @@
           "named": true
         },
         {
-          "type": "django_interpolation",
-          "named": true
-        },
-        {
           "type": "django_line_comment",
           "named": true
         },
@@ -3086,10 +2982,6 @@
     "named": false
   },
   {
-    "type": "-",
-    "named": false
-  },
-  {
     "type": ".",
     "named": false
   },
@@ -3136,10 +3028,6 @@
   {
     "type": "as",
     "named": false
-  },
-  {
-    "type": "attribute_name",
-    "named": true
   },
   {
     "type": "autoescape",
@@ -3337,6 +3225,10 @@
   },
   {
     "type": "method",
+    "named": true
+  },
+  {
+    "type": "name_segment",
     "named": true
   },
   {
